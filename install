@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # Installs the dotfiles via symlinks
+# Should work with Python 3
+# Also very hackish, and bruteforced.
 
 import subprocess
 import sys

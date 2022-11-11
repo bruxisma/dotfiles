@@ -5,10 +5,45 @@
 
 # Set the $HOME variable to make powershell recognize ~/ as $HOME
 
-# set-variable -name HOME -value (resolve-path '$env:HOME') -force
-#(get-psprovider FileSystem).Home = $HOME
-$SCRIPTS = '$HOME\scripts'
-$env:EDITOR = 'gvim.exe'
+
+<#
+.SYNOPSIS
+  Gets the path of gvim via the windows registry.
+  It assumes the path is found at 
+  hklm:\software\classes\applications\gvim.exe\shell\edit\command
+.EXAMPLE
+  []:~\$ get-vimpath
+  []:~\$ "C:\My\vim\installation\"
+#>
+function get-vimpath() {
+  $key = "hklm:\software\classes\applications\gvim.exe\shell\edit\command"
+  $command = (get-itemproperty $key).'(default)'
+  return "`"" + $command.Replace("`"", "").Split("%")[0].TrimEnd() + "`""
+}
+
+<#
+.SYNOPSIS
+  Gets the (default) Python location, and sets its folder AND \Scripts
+  to be on the system PATH.
+  NOTE: Assumes that the Python.File\shell\open\command value doesn't have
+  anything weird it in (i.e., splitting the string by a \ will make it
+  place all non-important portions of the path at the end
+#>
+function set-python() {
+  $key = "python.file\shell\open\command"
+  $temp = new-object system.collections.generic.list[string]
+  $root = [Microsoft.Win32.RegistryHive]::ClassesRoot
+  $reg_key = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey($root, "")
+  $value = $reg_key.OpenSubKey($key).GetValue("")
+  $temp.AddRange($value.Split("\"))
+  $temp.RemoveAt($temp.Count - 1)
+  # This replaces the first quote with a semi-colon which we need
+  # for adding to the PATH
+  $exe_path = [String]::Join("\", $temp).Replace("`"", ";")
+  $scr_path = $exe_path + "\Scripts"
+  $env:PATH = $env:PATH + $exe_path + $scr_path
+}
+
 <#
 .SYNOPSIS
   Invokes a particular visual studio batch file, while keeping all of the
@@ -33,6 +68,8 @@ function set-msvc([int]$version=10, [string]$type='x86') {
   }
 }
 
+# This obviously modifies the prompt (I would like to change the tab completion
+# to use forward slashes but oh well :/)
 function prompt {
   write-host ('[' + [environment]::UserName + '@' +
               [environment]::MachineName.ToLower() + ']:' +
@@ -51,6 +88,12 @@ function run-gc() { [void]([System.GC]::Collect()) }
 # as it will just overwrite it :)
 set-location $HOME
 set-msvc 10 x86
+
+set-python
+
+# both git and mercurial will use the $EDITOR value in powershell, so
+# we get the actual path and set it.
+$env:EDITOR = get-vimpath
 
 # Blue is nice, but it messes with some of my programs :/
 $window = (get-host).UI.RawUI
