@@ -52,16 +52,16 @@ Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
 
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'plasticboy/vim-markdown'
+Plug 'rust-lang/rust.vim'
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
 Plug 'othree/yajs.vim', { 'for': 'js' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'zigford/vim-powershell', { 'for': 'powershell' }
 Plug 'lepture/vim-jinja', { 'for': 'jinja' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+"Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'tpope/vim-liquid'
 Plug 'pboettch/vim-cmake-syntax'
@@ -80,7 +80,7 @@ endfunction
 cnoreabbrev <expr> grc <SID>command("grc", "edit<space>$MYGVIMRC")
 cnoreabbrev <expr> rc <SID>command("rc", "edit<space>$MYVIMRC")
 
-cnoreabbrev <expr> restore <SID>command("restore", "GitGutterUnstageHunk")
+cnoreabbrev <expr> unstage <SID>command("restore", "GitGutterUndoHunk")
 cnoreabbrev <expr> stage <SID>command("stage", "GitGutterStageHunk")
 
 cnoreabbrev <expr> refresh <SID>command("refresh", "filetype<space>detect")
@@ -201,9 +201,9 @@ autocmd QuickFixCmdPost    l* nested lwindow
 colorscheme gruvbox
 
 function! s:syntax()
-  let highlight = synIDattr(synID(line('.'), col('.'), 1), 'name')
-  let group = synIDattr(synID(line('.'),col('.'), 0), 'name')
-  let link = synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+  let highlight = synID(line('.'), col('.'), 1)->synIDattr('name')
+  let group = synID(line('.'), col('.'), 0)->synIDattr('name')
+  let link = synID(line('.'), col('.'), 1)->synIDtrans()->synIDattr("name")
   return printf("hi<%s> trans<%s> lo<%s>", highlight, group, link)
 endfunction
 
