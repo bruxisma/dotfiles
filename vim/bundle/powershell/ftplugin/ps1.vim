@@ -19,6 +19,7 @@ setlocal formatoptions=tcqro
 " Change the browse dialog on Win32 to show mainly PowerShell-related files
 if has("gui_win32")
 	let b:browsefilter = "PowerShell Files (*.ps1)\t*.ps1\n" .
+    \ "PowerShell Modules (*.psm1)\t*.psm1\n" .
 		\ "All Files (*.*)\t*.*\n"
 endif
 
