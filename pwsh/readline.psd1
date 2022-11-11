@@ -3,6 +3,7 @@
   EditMode = "Windows"
   BellStyle = "None"
   PredictionSource = "HistoryAndPlugin"
+  PredictionViewStyle = "InlineView"
   PromptText = "$ "
   Colors = @{
     ContinuationPrompt = "White"
