@@ -7,29 +7,39 @@ promptinit
 
 PROMPT="[%n@%m]:%~$ "
 EDITOR="vim"
-SYSTEM_PATH="${PATH}" # We 'backup' the PATH before we mess with it.
 
-# Useful functions
-find-text() {
-  grep -inHR "$1" ./
-}
-
-# Used primarily for Mac OS X to switch between System python (2.7) and
-# Python 3.2 (NOTE: does not change the python executable for a given run.
-set-python() {
-  # Update this for each 'current version' as seen fit
-  local python_path="/Library/Frameworks/Python.framework/Versions/3.2/bin"
-  local python_exe="`which python`"
-  if [[ "${SYSTEM_PATH}" == "${PATH}" ]]; then
-    PATH="${python_path}:${SYSTEM_PATH}"
-  else
-    PATH="${SYSTEM_PATH}"
+set-ls-alias() {
+  if [[ "`uname`" == "Linux" ]]; then
+    alias ls='ls --color'
+  elif [[ "`uname`" == "Darwin" ]]; then
+    alias ls='ls -G'
   fi
 }
 
-# alias section -- Contains platform specific code
-if [[ "`uname`" == "Linux" ]]; then
-  alias ls='ls --color'
-elif [[ "`uname`" == "Darwin" ]]; then
-  alias ls='ls -G'
-fi
+unset-ls-alias() {
+  unalias ls
+}
+
+# set/unset python aliases lets me work in python3 without worrying about
+# screwing up my system path or anything like that.
+set-python-alias() {
+  local python_path="/Library/Frameworks/Python.framework/Versions/3.2/bin"
+
+  alias sphinx-build="${python_path}/sphinx-build"
+  alias nosetests="${python_path}/nosetests"
+  alias python="${python_path}/python3"
+  alias tox="${python_path}/tox"
+  alias pip="${python_path}/pip"
+}
+
+unset-python-alias() {
+  unalias sphinx-build
+  unalias nosetests
+  unalias python
+  unalias tox
+  unalias pip
+}
+
+set-python-alias
+set-ls-alias
+
