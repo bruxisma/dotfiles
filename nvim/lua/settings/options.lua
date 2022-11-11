@@ -61,8 +61,10 @@ if os.getenv("SSH_TTY") or os.getenv("SSH_CLIENT") then
       vim.fn.getregtype(''),
     }
   end
-  local function copy(lines, _) ocs52.copy(table.concat(lines, '\n')) end
-  option.clipboard = {
+  local function copy(lines, _)
+    osc52.copy(table.concat(lines, '\n'))
+  end
+  global.clipboard = {
     name = 'osc52',
     copy = {['+'] = copy, ['*'] = copy},
     paste = {['+'] = paste, ['*'] = paste},
