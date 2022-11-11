@@ -52,6 +52,18 @@ else
     let clang_snippets=1
 endif
 
+" Conque settings
+" Allows me to run a shell, without leaving insert mode within the given
+" buffer
+let ConqueTerm_CWInsert=1
+let ConqueTerm_InsertOnEnter=1
+let ConqueTerm_CloseOnEnd=1
+if has('win32')
+  nnoremap <leader>c :ConqueTermSplit Powershell.exe<CR>
+else
+  nnoremap <leader>c :ConqueTermSplit zsh<CR>
+endif
+
 " First Person Shooter Movement keys
 "nnoremap w k
 "nnoremap s j
