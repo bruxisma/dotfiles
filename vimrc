@@ -54,26 +54,30 @@ endif
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
 
-" Ultisnips
+" ultisnips
 let g:UltiSnipsUsePythonVersion = 3
 
-" Fixes *some* C++ support :)
-let c_no_curly_error = 1
-let mapleader = ","
+let c_no_curly_error = 1 " Fixes *some* C++ support (from 7.3)
+
+let mapleader = "," " Using comma for leader is pretty useful, I think
 if !has('mac') || !has('win32')
   let g:hybrid_use_Xresources=1
 endif
 
 vnoremap <leader>z zf
-vnoremap / /\v
 
-" simplify saving
-nnoremap <leader>w :update<CR>
-nnoremap <leader>z za
+" Use perl/python style regex for searches
+vnoremap / /\v
 nnoremap / /\v
 
 " Open a new vertical or horizontal split respectively split and switch to it.
 nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>hs <C-w>s<C-w>j
 
+" solarized
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
 colorscheme solarized

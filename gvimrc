@@ -1,12 +1,12 @@
 " increase the size of course
-set lines=54 columns=210
+set lines=54 columns=180
+set colorcolumn=80
 
-set colorcolumn=80 " this works in vim-qt :)
-set guioptions-=T
-set guioptions=aegm
+set guioptions-=T " Remove all those icons I never use
+set guioptions=aegm " But keep the stuff I do!
 
 if has('mac')
-  set gfn=Source\ Code\ Pro:h12
+  set guifont=Consolas\ Bold:h12
 elseif has('win32') || has('win64')
   set guifont=Consolas:h12:b:cANSI
 else
