@@ -38,9 +38,6 @@ nnoremap <leader>vs <C-w>v<C-w>l
 " Open a new horizontal split and switch to it.
 nnoremap <leader>hs <C-w>s<C-w>j
 
-" Use for tolding a tag
-nnoremap <leader>ft Vatzf
-
 " First Person Shooter Movement keys
 "nnoremap w k
 "nnoremap s j
@@ -50,6 +47,7 @@ nnoremap <leader>ft Vatzf
 " NERDTree
 nnoremap <leader>m :NERDTreeToggle<CR>
 
+" Customg color scheme
 colorscheme kadesh
 
 " pathogen mappings
