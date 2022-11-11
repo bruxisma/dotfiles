@@ -32,6 +32,8 @@ Set-Alias which Get-Command
 Set-Alias edit Edit-File
 Set-Alias info Get-Help
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
 function Prompt {
   $GREEN = "`e[1;32m"
   $CYAN = "`e[1;36m"

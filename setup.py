@@ -31,6 +31,9 @@ head = 'Documents' if windows else '.config'
 shell_target = join(head, 'powershell')
 shell = 'pwsh'
 
+head = os.environ['APPDATA'] if windows else '.config'
+gh_target = join(head, 'GitHub CLI' if windows else 'gh')
+
 #-----------------------------------------------------------------------------
 # Functions
 #-----------------------------------------------------------------------------
@@ -71,10 +74,11 @@ def symsetup ():
     symlink('vimrc', '.vimrc')
     symlink('vim', '.vim')
 
-    symlink('gh', join('.config', 'gh'))
     symlink('git', join('.config', 'git'))
     symlink('lsd', join(roaming, 'lsd'))
+
     symlink(shell, shell_target)
+    symlink('gh', gh_target)
 
 
 # TODO: Move this file to powershell (without custom settings)

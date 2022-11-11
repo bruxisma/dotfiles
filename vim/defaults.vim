@@ -32,6 +32,12 @@ if !$XDG_CACHE_HOME | let $XDG_CACHE_HOME = expand('$HOME/.cache') | endif
 if !$XDG_STATE_HOME | let $XDG_STATE_HOME = expand('$HOME/.local/state') | endif
 if !$XDG_DATA_HOME | let $XDG_DATA_HOME = expand('$HOME/.local/share') | endif
 
+if !$GOPATH | let $GOPATH = expand(has('unix') ? '$XDG_CACHE_HOME/go' : '$LOCALAPPDATA/Go') | endif
+if !$GNUPGHOME | let $GNUPGHOME = expand('$XDG_STATE_HOME/gnupg') | endif
+
+if has('unix') | let $GOPATH = expand('$XDG_CACHE_HOME/go') | endif
+if !has('unix') | let $GOPATH = expand('$LOCALAPPDATA/Go') | endif
+
 set viminfofile=$XDG_STATE_HOME/vim/viminfo
 
 set backupdir=$XDG_STATE_HOME/vim/backup
