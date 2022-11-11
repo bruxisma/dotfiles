@@ -8,14 +8,14 @@ endif
 if has('vim_starting')
   set rtp+=$HOME/.vim/bundle/neobundle.vim/
 endif
-
+let g:neobundle#types#git#default_protocol = 'git'
 call neobundle#rc(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'Shougo/vimproc', {
+NeoBundle 'Shougo/vimproc.vim', {
   \ 'build' : {
-  \ 'windows' : 'mingw32-make -f make_mingw32.mak',
+  \ 'windows' : 'mingw32-make -f make_msvc32.mak',
   \ 'mac' : 'make -f make_mac.mak',
   \ 'unix' : 'make -f make_unix.mak'
   \ }
@@ -36,7 +36,14 @@ NeoBundle 'altercation/vim-colors-solarized'
 "NeoBundle 'gregsexton/gitv'
 "NeoBundle 'bling/vim-airline'
 
-NeoBundle 'sahchandler/cxx-syntax.vim'
+" library support bundles
+NeoBundle 'beyondmarc/opengl.vim' " OpenGL
+
+" language support bundles
+NeoBundle 'sahchandler/cxx-syntax.vim'  " C11 and C++11+
+NeoBundle 'kongo2002/fsharp-vim'        " F#
+NeoBundle 'PProvost/vim-ps1'            " Windows Powershell
+NeoBundle 'beyondmarc/glsl.vim'         " GLSL
 
 filetype plugin indent on
 syntax on
