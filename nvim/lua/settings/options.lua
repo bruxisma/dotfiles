@@ -52,7 +52,7 @@ if fn.executable("pwsh") then
   -- TODO: Fill this out correctly for pwsh $SHELL usage
 end
 
-if os.getenv("WT_SESSION") then
+if os.getenv("SSH_TTY") or os.getenv("SSH_CLIENT") then
   local osc52 = require('osc52')
   osc52.setup {}
   local function paste()
