@@ -9,7 +9,7 @@ local set = vim.opt
 set.mouse = "a"
 set.guifont = "Delugia:h10"
 
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd.colorscheme("gruvbox")
 
 global.is_kornshell = 0
 global.is_posix = 1
@@ -23,7 +23,7 @@ function! s:command(name, ...)
   return getcmdtype() == ':' && getcmdline() =~# '^' .. a:name
         \ ? join(a:000, ' ')
         \ : a:name
-endfunction 
+endfunction
 
 cnoreabbrev <expr> grc <SID>command("grc", "edit<Space>$MYGVIMRC")
 cnoreabbrev <expr> rc <SID>command("rc", "edit<Space>$MYVIMRC")
@@ -36,7 +36,7 @@ cnoreabbrev <expr> refresh <SID>command("refresh", "filetype<Space>detect")
 cnoreabbrev <expr> reload <SID>command("reload", "source<Space>$MYVIMRC")
 cnoreabbrev <expr> chmod <SID>command("chmod", "Chmod")
 
-cnoreabbrev <expr> find <SID>command("find", "Files<Space>$HOME/Desktop")
+"cnoreabbrev <expr> find <SID>command("find", "Files<Space>$HOME/Desktop")
 cnoreabbrev <expr> rm <SID>command("rm", "Delete")
 cnoreabbrev <expr> ls <SID>command("ls", "Telescope<Space>buffers")
 
