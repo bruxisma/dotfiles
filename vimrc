@@ -26,9 +26,6 @@ vnoremap / /\v
 
 vnoremap <leader>z :fold
 
-" Auto plugins
-call flux#set('kadesh', 'vaygr')
-
 let mapleader = ","
 
 " Let's make the old leader useful ;)
