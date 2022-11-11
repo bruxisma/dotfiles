@@ -46,7 +46,7 @@ blocks:
         properties:
           display_host: false
           template: >-
-            {{if .SSHSession }}{{end}}
+            {{if .SSHSession }} {{end}}
             {{lower .UserName}}{{lower .HostName}} 
       - type: path
         style: diamond
