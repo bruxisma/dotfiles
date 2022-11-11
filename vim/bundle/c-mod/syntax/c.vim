@@ -290,6 +290,9 @@ syntax keyword std_function towlower
 syntax keyword std_function towupper
 syntax keyword std_function towctrans
 
+" custom stuff
+syntax keyword ext_type export
+
 " link word here
 hi def link ext_conditional Conditional
 hi def link ext_constant Constant
