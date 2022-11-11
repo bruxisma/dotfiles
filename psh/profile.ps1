@@ -7,7 +7,6 @@ $env:EDITOR = get-vimpath
 
 set-location $HOME
 set-python
-set-golang # Who *doesn't* love golang support? :P
 set-msvc
 set-vars # Sets global constant values.
 

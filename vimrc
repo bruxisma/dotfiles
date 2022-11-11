@@ -1,4 +1,3 @@
-set rtp+=$GOROOT/misc/vim " If only it were pathogen compliant :v
 call pathogen#infect()
 filetype plugin indent on
 syntax on
