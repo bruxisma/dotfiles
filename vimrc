@@ -74,6 +74,7 @@ Plug 'tpope/vim-liquid'
 Plug 'pboettch/vim-cmake-syntax'
 Plug 'pest-parser/pest.vim', { 'for': 'pest' }
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
+Plug 'NoahTheDuke/vim-just'
 Plug 'slurps-mad-rips/gitmoji.vim'
 "Plug '~/Desktop/ixm/vim-cmake' ", { 'for': 'cmake' }
 "Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
@@ -191,9 +192,14 @@ let g:neosnippet#disable_runtime_snippets = { '_' : 1 }       " neosnippet
 
 let g:cpp_class_scope_highlight = 1
 let g:cpp_concepts_highlight = 1
-let g:load_doxygen_syntax=1
+let g:load_doxygen_syntax = 1
 let g:rust_recommended_style = 0
 let g:go_fmt_command = "gofmt"
+
+" sh.vim
+let g:is_kornshell = 0
+let g:is_posix = 1
+let g:sh_fold_enabled = 3 " heredoc + function folding
 
 let g:gitgutter_map_keys = 0
 if executable('rg') | let g:gitgutter_grep = 'rg --color never' | endif
