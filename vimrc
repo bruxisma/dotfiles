@@ -23,11 +23,6 @@ endif
 vnoremap <leader>z zf
 nnoremap <leader>z za
 
-" colorcolumn is broken in linux right now :/
-if has('mac') || has('win32')
-  set colorcolumn=80
-endif
-
 set backspace=indent,eol,start
 
 au BufRead,BufNewFile *.md set filetype=markdown
