@@ -46,6 +46,15 @@ function set-python([float]$version=3.2) {
 
 <#
 .SYNOPSIS
+  If GOROOT is detected in $env, then set GOPATH to $HOME/Projects/golang
+#>
+function set-golang() {
+  if (!$env:GOROOT) { return }
+  $env:GOPATH = join-path $HOME "Projects" | join-path -childpath "golang"
+}
+
+<#
+.SYNOPSIS
   Invokes a particular visual studio batch file, and setting the system PATH
   changes to stay for the current session.
 .PARAMETER $version
