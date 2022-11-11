@@ -32,18 +32,19 @@
 [diff]
   colormoved = default
 [alias]
-  aliases = "!git config --global --get-regexp '^alias[.]' | rg -e '^alias[.](\\w+) ' -r '$1 \t=> $2'" 
+  aliases = !git config --global --get-regexp '^alias[.]' | rg -e '^alias[.](\\w+) ' -r '$1 \t=> $2' | column -t -s '\t'
+  amend = commit --amend
+  bash = "!bash"
   branches = branch -a
   commits = log --graph --decorate --pretty=oneline --abbrev-commit
-  remotes = remote -v
-  tags = tag
-  squash = commit --squash 
   fixup = commit --fixup
-  amend = commit --amend
-  undo = reset --soft HEAD~1
-  bash = "!bash"
-  stat = status
+  purge = !git branch -vv | rg --trim '(\\S+).*: gone].*' -r '$1' | xargs -r git branch -D
+  remotes = remote -v
+  squash = commit --squash 
   st = status
+  stat = status
+  tags = tag
+  undo = reset --soft HEAD~1
 [delta]
   syntax-theme = OneHalfDark
   line-numbers = true
