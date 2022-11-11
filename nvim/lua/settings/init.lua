@@ -67,11 +67,14 @@ treesitter.setup {
 }
 
 -- nvim-lspconfig
-require("lspconfig").rust_analyzer.setup { on_attach = on_attach }
 require("lspconfig").clangd.setup { on_attach = on_attach }
 require("lspconfig").gopls.setup { on_attach = on_attach }
 -- rust-tools.nvim
-require("rust-tools").setup {}
+require("rust-tools").setup {
+  server = {
+    on_attach = on_attach,
+  },
+}
 -- ray-x/go.nvim
 require("nvim-dap-virtual-text").setup {}
 require("go").setup { lsp_gofumpt = true }
