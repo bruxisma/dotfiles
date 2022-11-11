@@ -7,7 +7,7 @@ if fn.empty(fn.glob(packer)) > 0 then
     "--depth",
     "1",
     "https://github.com/wbthomason/packer.nvim",
-    install,
+    packer,
   }
 end
 
