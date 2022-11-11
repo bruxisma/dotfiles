@@ -17,6 +17,9 @@ set ttyfast
 set visualbell
 set ruler
 
+nnoremap / /\v
+vnoremap / /\v
+
 " Auto plugins
 autocmd VimEnter * MiniBufExplorer
 autocmd VimEnter * NERDTree
@@ -26,6 +29,9 @@ call flux#set('kadesh', 'vaygr')
 " consider setting to capslock?
 let mapleader = ","
 
+" insert mode
+inoremap <C-s> <ESC>
+nnoremap <C-s> i
 " j and k will act like they should now
 nnoremap j gj
 nnoremap k gk
