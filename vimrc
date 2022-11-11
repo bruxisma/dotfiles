@@ -13,6 +13,14 @@ call neobundle#rc(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \ 'windows' : 'mingw32-make -f make_mingw32.mak',
+  \ 'mac' : 'make -f make_mac.mak',
+  \ 'unix' : 'make -f make_unix.mak'
+  \ }
+\ }
+
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 "NeoBundle 'Shougo/neocomplcache.vim'
