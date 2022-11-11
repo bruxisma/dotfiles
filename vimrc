@@ -5,9 +5,9 @@ filetype plugin indent on
 syntax on
 set nocompatible
 set number
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 set autoindent
 set hidden
@@ -16,6 +16,10 @@ set autochdir
 set ttyfast
 set visualbell
 set ruler
+
+" Code folding!
+vnoremap <leader>z zf
+nnoremap <leader>z za
 
 " colorcolumn is broken in linux right now :/
 if has('mac') || has('win32')
@@ -29,7 +33,6 @@ au BufRead,BufNewFile *.md set filetype=markdown
 nnoremap / /\v
 vnoremap / /\v
 
-vnoremap <leader>z :fold
 
 let mapleader = ","
 
@@ -52,6 +55,19 @@ else
     let clang_snippets=1
 endif
 
+" Conque settings
+" Allows me to run a shell, without leaving insert mode within the given
+" buffer
+let ConqueTerm_CWInsert=1
+let ConqueTerm_InsertOnEnter=1
+let ConqueTerm_CloseOnEnd=1
+let ConqueTerm_EscKey='<C-s>'
+if has('win32')
+  nnoremap <leader>c :ConqueTermSplit Powershell.exe<CR>
+else
+  nnoremap <leader>c :ConqueTermSplit zsh<CR>
+endif
+
 " First Person Shooter Movement keys
 "nnoremap w k
 "nnoremap s j
@@ -61,8 +77,9 @@ endif
 " NERDTree
 nnoremap <leader>m :NERDTreeToggle<CR>
 
-" Customg color scheme
-colorscheme kadesh
+" Custom color scheme
+"colorscheme kadesh
+colorscheme xoria256
 
 " pathogen mappings
 nnoremap <leader>help :call pathogen#helptags()<CR>

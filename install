@@ -5,7 +5,7 @@ import os
 import sys
 import subprocess
 
-file_list = ['vimrc', 'gvimrc', 'vim', 'gitignore']
+file_list = ['zshrc', 'vimrc', 'gvimrc', 'vim', 'gitignore']
 
 if __name__ == '__main__':
     # Windows support is sooo hackish :X
