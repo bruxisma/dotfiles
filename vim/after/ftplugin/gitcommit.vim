@@ -202,4 +202,20 @@ iabbrev :dizzy: 💫
 iabbrev :wastebasket: 🗑
 iabbrev :deprecate: 🗑
 
+iabbrev :passport_control: 🛂
+iabbrev :permissions: 🛂
+iabbrev :permission: 🛂
+iabbrev :roles: 🛂
+iabbrev :role: 🛂
+iabbrev :auth: 🛂
+
+iabbrev :adhesive_bandage: 🩹
+iabbrev :patch: 🩹
+
+iabbrev :monocle_face: 🧐
+iabbrev :data: 🧐
+
+iabbrev :coffin: ⚰
+iabbrev :dead: ⚰
+
 setlocal tabstop=2

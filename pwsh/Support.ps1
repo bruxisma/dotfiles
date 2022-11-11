@@ -11,6 +11,7 @@ function Import-Completions {
     [Parameter(Position=1, ValueFromRemainingArguments)]
     [String[]]$Arguments)
 
+  if (-not (Get-Command ${Command} -ErrorAction SilentlyContinue)) { return }
   if (Test-Path -LiteralPath $(Get-Command ${Command}).Source) {
     & ${Command} ${Arguments} | Out-String | Invoke-Expression
   }
