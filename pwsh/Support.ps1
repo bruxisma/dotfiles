@@ -2,6 +2,20 @@ filter script:root { $_.Replace((Resolve-Path $_).Drive.Root, '/') }
 filter script:home { $_.Replace($HOME, '~') }
 filter script:sep { $_.Replace('\', '/') }
 
+function Import-Completions {
+  [CmdletBinding()]
+  param(
+    [Parameter(Position=0, Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [String]$Command,
+    [Parameter(Position=1, ValueFromRemainingArguments)]
+    [String[]]$Arguments)
+
+  if (Test-Path -LiteralPath $(Get-Command ${Command}).Source) {
+    & ${Command} ${Arguments} | Out-String | Invoke-Expression
+  }
+}
+
 function Get-PromptPath {
   Get-Location | Convert-Path | script:home | script:root | script:sep
 }

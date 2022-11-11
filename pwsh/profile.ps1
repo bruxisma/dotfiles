@@ -8,9 +8,9 @@ $ScriptsPath = Join-Path $PSScriptRoot Scripts
 Import-Module (Join-Path $PSScriptRoot Support.ps1) -Force -Scope Local
 Import-Module (Join-Path $PSScriptRoot Machine.ps1) -Force -Global
 
-Import-Module (Join-Path $ScriptsPath rustup.ps1) -Force -Global -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ScriptsPath github.ps1) -Force -Global -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ScriptsPath ssh.ps1) -Force -Global -ErrorAction SilentlyContinue
+Import-Completions gh completion --shell powershell
+Import-Completions just --completions powershell
+Import-Completions rustup completions powershell
 
 $readline = Import-PowerShellDataFile (Join-Path $PSScriptRoot readline.psd1)
 Set-PSReadlineOption @readline
