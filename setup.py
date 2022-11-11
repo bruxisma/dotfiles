@@ -34,17 +34,13 @@ class ExecuteAction(Action):
 
 #-----------------------------------------------------------------------------
 # Globals
-# TODO: Remove this section once a switch to xonsh is completed (and then
-# do a simple check of the correct path for the singular 'launch a xonsh shell'
-# symlink)
 #-----------------------------------------------------------------------------
 windows = platform == 'win32'
 posix = not windows
 
 head = 'Documents' if windows else '.config'
-tail = 'WindowsPowershell' if windows else 'fish'
-shell_target = join(head, tail)
-shell = 'psh' if windows else 'fish'
+shell_target = join(head, 'powershell')
+shell = 'psh'
 
 #-----------------------------------------------------------------------------
 # Functions
@@ -108,9 +104,6 @@ def symlink (src, dst):
 #-----------------------------------------------------------------------------
 # Setup
 #-----------------------------------------------------------------------------
-def toolsetup ():
-    pass
-
 def aliassetup ():
     '''creates git aliases'''
     # This is a very large git alias, so we break it up for readability
@@ -191,7 +184,6 @@ if __name__ == '__main__':
     argument = partial(parser.add_argument, action='store_true')
 
     argument('--alias', help='gitconfig aliases only')
-    argument('--tool', help='utilities only')
     argument('--git', help='gitconfig only')
     argument('--sym', help='symlink only')
 
@@ -200,12 +192,10 @@ if __name__ == '__main__':
     if not any(args.values()): args = dict.fromkeys(args, True)
 
     alias = args['alias']
-    tool = args['tool']
     git = args['git']
     sym = args['sym']
 
     if alias: aliassetup()
-    if tool: toolsetup()
     if git: gitsetup()
     if sym: symsetup()
 

@@ -74,9 +74,11 @@ Plug 'dracula/vim'
 Plug 'sjl/gundo.vim'
 
 " language support bundles
+Plug 'wavded/vim-stylus'                " stylus
 Plug 'jparise/vim-graphql'              " GraphQL
 Plug 'octol/vim-cpp-enhanced-highlight' " C++
 Plug 'pboettch/vim-cmake-syntax'        " CMake
+Plug 'leafgarland/typescript-vim'       " TypeScript
 Plug 'HerringtonDarkholme/yats.vim'     " TypeScript
 Plug 'othree/yajs.vim'                  " JavaScript
 Plug 'rust-lang/rust.vim'               " Rust
@@ -85,6 +87,7 @@ Plug 'dag/vim-fish'                     " Fish Shell
 Plug 'sophacles/vim-bundle-mako'        " Mako Templates
 Plug 'stephpy/vim-yaml'                 " YAML (fix)
 Plug 'cespare/vim-toml'                 " Toml
+Plug 'igankevich/mesonic'               " Meson
 
 call plug#end()
 " }}}
@@ -172,6 +175,7 @@ let g:vimfiler_force_overwrite_statusline = 0                 " vimfiler
 let g:vimfiler_as_default_explorer = 1                        " vimfiler
 let g:unite_force_overwrite_statusline = 0                    " unite
 let g:cpp_class_scope_highlight = 1                           " cxx
+let g:cpp_concepts_highlight = 1                              " cxx
 let g:rust_recommended_style = 0                              " rust
 let g:opencl_overwrite_lisp = 1                               " opencl
 let g:solarized_hitrail=s:gui                                 " solarized
@@ -246,6 +250,7 @@ nnoremap <F4> :cclose<cr>
 
 " match chevrons in C++ files
 autocmd FileType cpp set mps+=<:>
+
 
 " quickfix window on :make
 autocmd QuickFixCmdPost [^l]* nested cwindow
