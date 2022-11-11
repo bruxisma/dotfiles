@@ -41,17 +41,16 @@ Plug 'sjl/gundo.vim'
 Plug 'airblade/vim-gitgutter'
 
 " language support bundles
-Plug 'octol/vim-cpp-enhanced-highlight' " C++11/14
-Plug 'leafgarland/typescript-vim'       " typescript
+Plug 'octol/vim-cpp-enhanced-highlight' " C++
 Plug 'pboettch/vim-cmake-syntax'        " CMake
-Plug 'pangloss/vim-javascript'          " JS
-Plug 'kongo2002/fsharp-vim'             " F#
-Plug 'rust-lang/rust.vim'               " rust
+Plug 'HerringtonDarkholme/yats.vim'     " TypeScript
+Plug 'othree/yajs.vim'                  " JavaScript
+Plug 'rust-lang/rust.vim'               " Rust
 Plug 'PProvost/vim-ps1'                 " Windows Powershell
-Plug 'dag/vim-fish'                     " fish shell
-Plug 'sophacles/vim-bundle-mako'        " mako
+Plug 'dag/vim-fish'                     " Fish Shell
+Plug 'sophacles/vim-bundle-mako'        " Mako Templates
 Plug 'stephpy/vim-yaml'                 " YAML (fix)
-Plug 'cespare/vim-toml'                 " toml
+Plug 'cespare/vim-toml'                 " Toml
 
 call plug#end()
 
@@ -60,6 +59,7 @@ if s:multibyte | set fileencodings=ucs-bom,utf-8,latin1 | endif
 if s:multibyte | setglobal fileencoding=utf-8 | endif
 if s:multibyte | set encoding=utf-8 | endif
 if &shell =~# 'fish$' | set shell=sh | endif
+set fileformats=unix,dos
 set backspace=indent,eol,start
 set background=dark
 set foldlevelstart=10
@@ -182,6 +182,15 @@ nnoremap <leader><space> :nohlsearch<cr>
 " toggle gundo
 nnoremap <leader>u :GundoToggle<cr>
 
+" This is useful for those languages where I do things
+nnoremap <F5> :silent make<cr>
+nnoremap <F4> :cclose<cr>
+
 " match chevrons in C++ files
 autocmd FileType cpp set mps+=<:>
+
+" quickfix window on :make
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
 colorscheme solarized

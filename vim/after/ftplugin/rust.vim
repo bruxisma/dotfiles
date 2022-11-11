@@ -28,7 +28,3 @@ nnoremap <buffer> <F8> :CargoTool test<CR>
 if s:gui
   nnoremap <buffer> <C-S-B> :CargoTool build<CR>
 endif
-
-" Probably against my better judgement to make this global, but WHATEVS
-nnoremap <F4> :cclose<CR>
-

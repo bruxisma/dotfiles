@@ -21,3 +21,6 @@ elseif s:windows
 else
   set guifont=Ubuntu\ Mono\ 16
 endif
+
+" Because of habit D:
+nnoremap <C-S-B> :silent make<CR>
