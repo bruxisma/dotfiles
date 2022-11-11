@@ -16,11 +16,6 @@ set gfn=Consolas:h12
 
 set guioptions-=T
 
-"set statusline=%{fugitive#statusline()}
-if has('mac') || has('win32')                                                                                 
-    set colorcolumn=110
-endif    
-
 if has('mac')
     set gfn=Consolas:h12
 elseif has('win32')
