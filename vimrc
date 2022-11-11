@@ -50,5 +50,7 @@ nnoremap <leader>ft Vatzf
 " NERDTree
 nnoremap <leader>m :NERDTreeToggle<CR>
 
+colorscheme kadesh
+
 " pathogen mappings
 nnoremap <leader>help :call pathogen#helptags()<CR>
