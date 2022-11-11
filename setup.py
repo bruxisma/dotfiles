@@ -87,7 +87,7 @@ def mkdir (path):
     except OSError as e: exit(str(e))
 
 def symlink (src, dst):
-    '''Given a *src* and a *dst*, creates a symlink fro *src* to *dst*.
+    '''Given a *src* and a *dst*, creates a symlink from *src* to *dst*.
     If the given *dst* already exists it will attempt to remove the old symlink
     and create a new one.
 
@@ -96,8 +96,8 @@ def symlink (src, dst):
     link = expand(join('~', dst))
     item = join(getcwd(), src)
     print('{} -> {}'.format(item, link))
-    if path.islink(item):
-        try: unlink(item)
+    if path.islink(link):
+        try: unlink(link)
         except OSError as e:
             exit('Could not remove old symlink {}: {}'.format(link, e))
     linker = partial(symbolic_link, item, link)
