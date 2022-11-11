@@ -47,13 +47,12 @@ NeoBundle 'gregsexton/gitv'
 NeoBundle 'beyondmarc/opengl.vim' " OpenGL
 
 " language support bundles
-NeoBundle 'sahchandler/cxx-syntax.vim'  " C11 and C++11+
+NeoBundle 'slurps-mad-rips/cxx-syntax.vim'  " C11 and C++11+
 NeoBundle 'kongo2002/fsharp-vim'        " F#
 NeoBundle 'PProvost/vim-ps1'            " Windows Powershell
 NeoBundle 'tikhomirov/vim-glsl'         " GLSL
 NeoBundle 'fatih/vim-go'                " golang
 NeoBundle 'leafgarland/typescript-vim'  " typescript
-NeoBundle 'arsenerei/vim-ragel'         " ragel
 
 filetype plugin indent on
 syntax on
