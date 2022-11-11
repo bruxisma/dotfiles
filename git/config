@@ -45,6 +45,8 @@
   st = status
 [delta]
   syntax-theme = OneHalfDark
+  line-numbers = true
+  side-by-side = true
 [include]
   path = machine
 [filter "lfs"]
