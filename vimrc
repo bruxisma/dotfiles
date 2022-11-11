@@ -19,7 +19,7 @@ set ruler
 
 " colorcolumn is broken in linux right now :/
 if has('mac') || has('win32')
-    set colorcolumn=110
+    set colorcolumn=80
 endif
 
 set backspace=indent,eol,start

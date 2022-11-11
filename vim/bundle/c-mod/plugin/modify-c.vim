@@ -8,7 +8,9 @@ function! EditCSourceFile()
     set shiftwidth=2
     set softtabstop=2
     set syntax=cpp.doxygen
-    set colorcolumn=80
+    if has('mac') || has('win32')
+        set colorcolumn=80
+    endif
 
 endfunction
 
