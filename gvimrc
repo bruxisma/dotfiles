@@ -21,5 +21,5 @@ if has('mac')
 elseif has('win32')
   set gfn=Consolas:h10:cANSI
 else
-  set gfn=Terminus\ 10
+  set gfn=Consolas\ 12
 endif
