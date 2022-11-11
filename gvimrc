@@ -10,14 +10,8 @@ if s:osx
   set macligatures
   set guifont=Fira\ Code\ Retina:h16
 elseif s:windows
-  silent set guifont=Fira_Code_Medium:h16
-  silent! set renderoptions=type:directx,
-      \gamma:1.0, " monitor depedent
-      \contrast:0.5,
-      \level:0.5, " cleartype
-      \geom:1,    " RGB
-      \renmode:5, " natural symmetric
-      \taamode:1  " cleartype
+  silent set guifont=Fira_Code_Retina:h12
+  silent! set rop=type:directx,gamma:1.0,contrast:0.5,level:0.5,geom:1,renmode:5,taamode:1
 else
   set guifont=Ubuntu\ Mono\ 16
 endif

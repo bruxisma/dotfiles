@@ -1,7 +1,6 @@
 # Personal configuration profile
 
 import-module development
-import-module posix
 
 $env:EDITOR = get-vimpath
 
