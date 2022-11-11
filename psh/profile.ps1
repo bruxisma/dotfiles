@@ -12,6 +12,7 @@ set-vars # Sets global constant values.
 
 set-alias less more
 set-alias python3 python
+set-alias open explorer
 
 # "boilerplate"
 $window = (get-host).UI.RawUI
