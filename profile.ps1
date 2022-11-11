@@ -23,25 +23,17 @@ function get-vimpath() {
 
 <#
 .SYNOPSIS
-  Gets the (default) Python location, and sets its folder AND \Scripts
-  to be on the system PATH.
-  NOTE: Assumes that the Python.File\shell\open\command value doesn't have
-  anything weird it in (i.e., splitting the string by a \ will make it
-  place all non-important portions of the path at the end
+  Gets the Python location, and sets its folder AND \Scripts
+  to be on the system PATH. Default value is Python 3.2
 #>
-function set-python() {
-  $key = "python.file\shell\open\command"
-  $temp = new-object system.collections.generic.list[string]
-  $root = [Microsoft.Win32.RegistryHive]::ClassesRoot
-  $reg_key = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey($root, "")
-  $value = $reg_key.OpenSubKey($key).GetValue("")
-  $temp.AddRange($value.Split("\"))
-  $temp.RemoveAt($temp.Count - 1)
-  # This replaces the first quote with a semi-colon which we need
-  # for adding to the PATH
-  $exe_path = [String]::Join("\", $temp).Replace("`"", ";")
-  $scr_path = $exe_path + "\Scripts"
-  $env:PATH = $env:PATH + $exe_path + $scr_path
+function set-python([float]$version=3.2) {
+  $key = "hklm:\software\python\pythoncore\{0}\installpath"
+  $key = [String]::Format($key, $version)
+  $path = (get-itemproperty $key).'(default)'
+
+  # Build the path out properly
+  $path = [String]::Format(";{0};{1}Scripts", $path, $path)
+  $env:PATH = $env:PATH + $exe_path
 }
 
 <#
@@ -80,7 +72,6 @@ function prompt {
 # run garbage collection
 function run-gc() { [void]([System.GC]::Collect()) }
 
-
 # Set up the powershell prompt
 # We start in ~/ at all times. ALWAYS D:<
 # We also want msvc set to VS2010 by default, with x86. There is nothing wrong
@@ -88,7 +79,6 @@ function run-gc() { [void]([System.GC]::Collect()) }
 # as it will just overwrite it :)
 set-location $HOME
 set-msvc 10 x86
-
 set-python
 
 # both git and mercurial will use the $EDITOR value in powershell, so
