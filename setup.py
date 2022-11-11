@@ -110,21 +110,8 @@ def symlink (src, dst):
 def toolsetup ():
   pass
 
-def gitsetup ():
+def aliassetup ():
   gitclear('alias')
-
-  gitconfig('user', 'name', 'Isabella Muerte')
-
-  gitconfig('push', 'default', 'simple')
-
-  gitconfig('core', 'autocrlf', 'input')
-  gitconfig('core', 'editor', 'gvim -f')
-
-  gitconfig('color', 'ui', 'auto')
-
-  gitconfig('log', 'date', 'iso')
-
-  gitconfig('rebase', 'autosquash', 'true')
 
   gitalias(aliases=aliases)
   gitalias(branches='branch -a')
@@ -157,6 +144,20 @@ def gitsetup ():
   gitalias(root='rev-parse --shot-toplevel')
   gitalias(st='status')
 
+def gitsetup ():
+  gitconfig('user', 'name', 'Isabella Muerte')
+
+  gitconfig('push', 'default', 'simple')
+
+  gitconfig('core', 'autocrlf', 'input')
+  gitconfig('core', 'editor', 'gvim -f')
+
+  gitconfig('color', 'ui', 'auto')
+
+  gitconfig('log', 'date', 'iso')
+
+  gitconfig('rebase', 'autosquash', 'true')
+
 def symsetup ():
   if posix: mkdir('~/.config')
 
@@ -173,6 +174,7 @@ if __name__ == '__main__':
   group = parser.add_mutually_exclusive_group()
   argument = partial(group.add_argument, action='store_true')
 
+  argument('--alias', help='gitconfig aliases only')
   argument('--tool', help='utilities only')
   argument('--git', help='gitconfig only')
   argument('--sym', help='symlink only')
@@ -181,10 +183,12 @@ if __name__ == '__main__':
   args = vars(parser.parse_args())
   if not any(args.values()): args = dict.fromkeys(args, True)
 
+  alias = args['aliases']
   tool = args['tool']
   git = args['git']
   sym = args['sym']
 
+  if alias: aliassetup()
   if tool: toolsetup()
   if git: gitsetup()
   if sym: symsetup()
