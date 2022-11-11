@@ -58,7 +58,9 @@ def symlink (src, dst):
 #-----------------------------------------------------------------------------
 def gitsetup ():
     '''sets local files for git usage'''
-    try: call(['git', 'update-index', '--assume-unchanged', 'pwsh/Machine.ps1'])
+    try:
+        call(['git', 'update-index', '--skip-worktree', 'pwsh/Machine.ps1'])
+        call(['git', 'update-index', '--skip-worktree', 'git/machine'])
     except CalledProcessError as e: exit(str(e))
 
 
@@ -70,7 +72,17 @@ def symsetup ():
     symlink('vimrc', '.vimrc')
     symlink('vim', '.vim')
     symlink('git', join('.config', 'git'))
+    symlink('gh', join('.config', 'gh'))
     symlink(shell, shell_target)
+
+
+# TODO: Move this file to powershell (without custom settings)
+# Install-Module -Name Microsoft.PowerShell.SecretManagement -Repository PSGallery 
+# Install-Module -Name Microsoft.PowerShell.SecretStore -Repository PSGallery
+# (Still Experimenting) Install-Module -Name Microsoft.PowerShell.Crescendo -Repository PSGallery
+# (Work Machines Only) Install-Module -Name GoogleCloud -Repository PSGallery
+# (Windows Machines Only) Install-Module -Name VCVars -Repository PSGallery
+# Install-Module -Name Atmosphere -Repository PSGallery
 
 #-----------------------------------------------------------------------------
 # Entry Point
