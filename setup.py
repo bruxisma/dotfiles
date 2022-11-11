@@ -19,6 +19,7 @@ from functools import partial
 
 from argparse import ArgumentDefaultsHelpFormatter
 from argparse import ArgumentParser
+from argparse import Action
 
 from os.path import expanduser as expand
 from os.path import islink
@@ -34,7 +35,16 @@ from os import getcwd
 from os import remove
 
 #-----------------------------------------------------------------------------
+# Classes
+#-----------------------------------------------------------------------------
+class ExecuteAction(Action):
+  pass
+
+#-----------------------------------------------------------------------------
 # Globals
+# TODO: Remove this section once a switch to xonsh is completed (and then
+# do a simple check of the correct path for the singular 'launch a xonsh shell'
+# symlink)
 #-----------------------------------------------------------------------------
 windows = platform == 'win32'
 posix = not windows
@@ -43,12 +53,6 @@ head = 'Documents' if windows else '.config'
 tail = 'WindowsPowershell' if windows else 'fish'
 shell_target = join(head, tail)
 shell = 'psh' if windows else 'fish'
-
-# This is a very large git alias, so we break it up for readability
-aliases = ' | '.join((r'!git config --get-regexp "^alias\\."',
-  r'sed -e "s/^alias\\.\([^\ ]*\)\ /\1#/"',
-  r'sort',
-  r'column -t -s "#"'))
 
 #-----------------------------------------------------------------------------
 # Functions
@@ -107,10 +111,20 @@ def symlink (src, dst):
   try: linker()
   except OSError as e: exit('Could not symlink {}: {}'.format(item, e))
 
+#-----------------------------------------------------------------------------
+# Setup
+#-----------------------------------------------------------------------------
 def toolsetup ():
   pass
 
 def aliassetup ():
+  '''creates git aliases'''
+  # This is a very large git alias, so we break it up for readability
+  aliases = ' | '.join((r'!git config --get-regexp "^alias\\."',
+    r'sed -e "s/^alias\\.\([^\ ]*\)\ /\1#/"',
+    r'sort',
+    r'column -t -s "#"'))
+
   gitclear('alias')
 
   gitalias(aliases=aliases)
@@ -145,6 +159,7 @@ def aliassetup ():
   gitalias(st='status')
 
 def gitsetup ():
+  '''creates gitconfig variables'''
   gitconfig('user', 'name', 'Isabella Muerte')
 
   gitconfig('push', 'default', 'simple')
@@ -159,6 +174,7 @@ def gitsetup ():
   gitconfig('rebase', 'autosquash', 'true')
 
 def symsetup ():
+  '''creates configuration symlinks'''
   if posix: mkdir('~/.config')
 
   symlink('gvimrc', '.gvimrc')
@@ -166,13 +182,19 @@ def symsetup ():
   symlink('vim', '.vim')
   symlink(shell, shell_target)
 
+def allsetup ():
+  '''runs all setup steps'''
+  aliassetup()
+  toolsetup()
+  gitsetup()
+  symsetup()
+
 #-----------------------------------------------------------------------------
 # Entry Point
 #-----------------------------------------------------------------------------
 if __name__ == '__main__':
   parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
-  group = parser.add_mutually_exclusive_group()
-  argument = partial(group.add_argument, action='store_true')
+  argument = partial(parser.add_argument, action='store_true')
 
   argument('--alias', help='gitconfig aliases only')
   argument('--tool', help='utilities only')

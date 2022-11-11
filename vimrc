@@ -151,7 +151,7 @@ let g:gitgutter_avoid_cmd_prompt_on_windows = 0               " gitgutter
 
 " lightline.vim
 let g:lightline = {
-  \ 'colorscheme': 'solarized_' . &background,
+  \ 'colorscheme': 'solarized',
   \ 'active' : {
   \   'left': [
   \     ['mode', 'paste'],
