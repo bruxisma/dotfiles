@@ -89,6 +89,8 @@ Plug 'lepture/vim-jinja'                " Jinja2 Templates
 Plug 'stephpy/vim-yaml'                 " YAML (fix)
 Plug 'cespare/vim-toml'                 " Toml
 Plug 'igankevich/mesonic'               " Meson
+Plug 'chr4/nginx.vim'                   " nginx
+Plug 'cakebaker/scss-syntax.vim'        " sass
 
 call plug#end()
 " }}}
