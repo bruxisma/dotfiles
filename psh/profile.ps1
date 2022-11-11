@@ -1,4 +1,4 @@
-# Personal configuration profile
+﻿# Personal configuration profile
 function test-windows { ($PSEdition -eq "Desktop") -or $IsWindows }
 function test-macos { -not ($PSEdition -eq "Desktop") -and $IsOSX }
 function test-linux { -not ($PSEdition -eq "Desktop") -and $IsLinux }
@@ -66,6 +66,7 @@ append-path $env:EDITOR
 if (test-windows) {
   set-alias less more
   set-alias open explorer
+  set-alias help get-help
 }
 
 # "boilerplate"
@@ -74,17 +75,6 @@ set-location $HOME
 $window = (get-host).UI.RawUI
 $window.BackgroundColor = "black"
 #clear-host
-
-# Does not yet work :/
-#function Set-PosixLocation {
-#  if (-not $args.Length) {
-#    return (set-location $HOME)
-#  }
-#  set-location $args
-#}
-#
-#remove-item alias:cd
-#set-alias cd set-posixlocation
 
 function prompt {
   set-variable -Name username -Value (get-username) -Option Private

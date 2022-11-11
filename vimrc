@@ -25,7 +25,6 @@ endfunction
 "set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 "let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
-let s:starting = has('vim_starting')
 let s:multibyte = has('multi_byte')
 let s:gui = has('gui_running')
 
@@ -40,11 +39,12 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/neosnippet.vim'
 
 Plug 'altercation/vim-colors-solarized'
+Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-eunuch'
 Plug 'gregsexton/gitv'
 Plug 'sjl/gundo.vim'
-Plug 'airblade/vim-gitgutter'
 
 " language support bundles
 Plug 'octol/vim-cpp-enhanced-highlight' " C++
@@ -61,10 +61,12 @@ Plug 'cespare/vim-toml'                 " Toml
 call plug#end()
 
 " options
+if executable('rg') | set grepprg=rg\ --vimgrep | endif
 if s:multibyte | set fileencodings=ucs-bom,utf-8,latin1 | endif
 if s:multibyte | setglobal fileencoding=utf-8 | endif
 if s:multibyte | set encoding=utf-8 | endif
 if &shell =~# 'fish$' | set shell=sh | endif
+
 set fileformats=unix,dos
 set backspace=indent,eol,start
 set background=dark
@@ -102,6 +104,11 @@ Alias files Unite<space>file " unite.vim
 Alias ls Unite<space>buffer  " unite.vim
 Alias unite Unite            " unite.vim
 
+Alias unlink Unlink " eunuch
+Alias chmod Chmod   " eunuch
+Alias rm Remove     " eunuch
+Alias mv Move       " eunuch
+
 Alias checkout Gread " fugitive
 Alias status Gstatus " fugitive
 Alias commit Gcommit " fugitive
@@ -137,6 +144,8 @@ let g:gundo_right = 1                                         " gundo
 let g:gundo_prefer_python3 = 1                                " gundo
 let g:gitgutter_avoid_cmd_prompt_on_windows = 0               " gitgutter
 
+" I hate doxygen with a passion, but I can't get document comments with ///
+" otherwise >:(
 let g:load_doxygen_syntax=1
 
 " lightline.vim
