@@ -11,7 +11,7 @@ function! AliasCommand (abbreviation, expansion, ...)
 endfunction
 
 " toggle between number and relativenumber
-function! ToggleRelativeNumber ()
+function! RelativeNumberToggle ()
   if (&relativenumber == 1)
     set norelativenumber
     set number
@@ -21,8 +21,8 @@ function! ToggleRelativeNumber ()
 endfunction
 
 let s:starting = has('vim_starting')
-let s:gui = has('gui_running')
 let s:multibyte = has('multibyte')
+let s:gui = has('gui_running')
 
 let s:windows = has('win32') || has('win64')
 let s:osx = has('mac')
@@ -51,6 +51,7 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'sjl/gundo.vim'
+NeoBundle 'airblade/vim-gitgutter'
 
 " library support bundles
 NeoBundle 'beyondmarc/opengl.vim' " OpenGL
@@ -107,7 +108,7 @@ if s:gui | set background=light | endif " solarized
 
 " commands
 command! -nargs=+ AliasCommand call AliasCommand(<f-args>)
-command! ToggleRelativeNumber call ToggleRelativeNumber()
+command! RelativeNumberToggle call RelativeNumberToggle()
 
 " Aliases
 Alias reload source<space>% " builtin
@@ -129,6 +130,9 @@ Alias git Git        " fugitive
 
 Alias gundo GundoToggle " gundo
 
+Alias relative RelativeNumberToggle
+Alias gutter GitGutterLineHighlightsToggle
+
 " Variables
 
 if s:multibyte && &termencoding == "" | let &termencoding = &encoding | endif
@@ -143,6 +147,7 @@ let g:rust_recommended_style = 0                              " rust
 let g:opencl_overwrite_lisp = 1                               " opencl
 let g:solarized_hitrail=s:gui                                 " solarized
 let g:gundo_right = 1                                         " gundo
+let g:gitgutter_avoid_cmd_prompt_on_windows = 0               " gitgutter
 
 " lightline.vim
 let g:lightline = {
@@ -176,6 +181,9 @@ smap <expr><tab> neosnippet#expandable_or_jumpable()
 vnoremap / /\v
 nnoremap / /\v
 
+" Change window to directory of local file (fixes occasional glitch with Unite)
+nnoremap <leader>lcd :lcd %:p:h<cr>:pwd<cr>
+
 " Open a new vertical or horizontal split
 nnoremap <leader>v :vsplit<cr>
 nnoremap <leader>h :split<cr>
@@ -186,9 +194,6 @@ nnoremap <leader>hs <c-w>s<c-w>j
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<cr>
-
-" open and close folds
-nnoremap <space> za
 
 " toggle gundo
 nnoremap <leader>u :GundoToggle<cr>
