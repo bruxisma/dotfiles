@@ -20,7 +20,9 @@ if s:osx
 elseif s:windows
   silent set guifont=Cascadia_Code_PL:h12
   silent set guioptions+=!
-  silent! set rop=type:directx,gamma:1.0,contrast:0.5,level:0.5,geom:1,renmode:5,taamode:1
+  silent! set renderoptions=type:directx
+  silent! set renderoptions+=gamma:1.0 ",contrast:0.5,level:0.5,
+  silent! set renderoptions+=geom:1,renmode:5,taamode:2
 else
   set guifont=Delugia\ Nerd\ Font\ 12
 endif

@@ -42,6 +42,8 @@ set autochdir
 
 set hidden
 
+let mapleader = "," " Almost everyone used to do this...
+
 " Plugins {{{ 
 call plug#begin('$HOME/.vim/bundle')
 
@@ -73,6 +75,7 @@ Plug 'tpope/vim-liquid'
 Plug 'pboettch/vim-cmake-syntax'
 Plug 'pest-parser/pest.vim', { 'for': 'pest' }
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
+Plug 'slurps-mad-rips/gitmoji.vim'
 "Plug '~/Desktop/ixm/vim-cmake' ", { 'for': 'cmake' }
 "Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
 call plug#end()
@@ -105,7 +108,82 @@ cnoreabbrev <expr> grep <SID>command("grep", "silent<space>grep")
 
 cnoreabbrev <expr> st <SID>command("st", "GFiles?")
 
-let mapleader = "," " Almost everyone used to do this...
+smap <expr><tab> neosnippet#expandable_or_jumpable()
+  \ ? "\<plug>(neosnippet_expand_or_jump)"
+  \ : "\<tab>"
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+if executable('fd') | inoremap <expr> <C-x><C-f> fzf#vim#complete#path('fd') | endif
+
+inoremap <C-Space> <C-x><C-o>
+
+inoremap <C-c> <Esc>
+vnoremap <C-c> <Esc>
+
+" Use perl/python style regex for searches
+vnoremap / /\v
+nnoremap / /\v
+
+nnoremap [f :lprevious<CR>
+nnoremap ]f :lnext<CR>
+
+" Open a new vertical or horizontal split
+nnoremap <leader>v :vsplit<cr>
+nnoremap <leader>h :split<cr>
+
+" Open a new vertical or horizontal split and switch to it.
+nnoremap <leader>vs <C-w>v<C-w>l
+nnoremap <leader>hs <C-w>s<C-w>j
+
+" clear hlsearch
+nnoremap <leader><space> :silent! call setreg('/', '')<CR>
+
+nnoremap <leader>g :GitGutterLineHighlightsToggle<CR>
+nnoremap <leader>u :MundoToggle<CR>
+
+" This is useful for those languages where I do things
+nnoremap <F5> :silent make<cr>
+nnoremap <F4> :cclose<cr>
+
+nmap <C-PageDown> <Plug>(GitGutterNextHunk)
+nmap <C-PageUp> <Plug>(GitGutterPrevHunk)
+
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+function! s:syntax()
+  let highlight = synID(line('.'), col('.'), 1)->synIDattr('name')
+  let group = synID(line('.'), col('.'), 0)->synIDattr('name')
+  let link = synID(line('.'), col('.'), 1)->synIDtrans()->synIDattr("name")
+  return printf("hi<%s> trans<%s> lo<%s>", highlight, group, link)
+endfunction
+
+" Works on the entire file
+function! s:sortdictfile() range
+  let width = &textwidth
+  setlocal textwidth=1
+  normal ggVGgq
+  sort
+  %join
+  let &l:textwidth = l:width
+endfunction
+
+map <script> <Plug>(vimrc-sort-dictionary) :eval <SID>sortdictfile()<CR>
+map <C-F11> <Plug>(vimrc-sort-dictionary)
+
+map <script> <Plug>(vimrc-syntax) :echo <SID>syntax()<CR>
+map <F10> <Plug>(vimrc-syntax)
+
+if executable('bat')
+  let s:fzf_buffer_preview = 'bat --color=always --style=numbers --pager=never {4}'
+  let s:fzf_buffer_options = #{ options: ['--preview', s:fzf_buffer_preview] }
+
+  command! -bang -nargs=? -complete=buffer Buffers 
+    \ call fzf#vim#buffers(<q-args>, s:fzf_buffer_options, <bang>0)
+endif
 
 " global plugin options
 let g:neosnippet#snippets_directory = expand('$HOME/.vim/snippets') " neosnippet
@@ -159,83 +237,70 @@ let g:lightline =<< trim STATUS
    }
 STATUS
 
-let g:lightline = eval(join(g:lightline, ' '))
+let g:gitmoji_aliases =<< trim ALIASES
+#{
+  adhesive-bandage: ['patch'],
+  alembic: ['try', 'experiment'],
+  alien: ['extern', 'external'],
+  ambulance: ['critical', 'hotfix'],
+  chart-with-upwards-trend: ['analytics', 'stats'],
+  arrow-down: ['downgrade'],
+  arrow-up: ['upgrade'],
+  art: ['format', 'fmt'],
+  bento: ['assets', 'asset'],
+  bookmark: ['version', 'release', 'tag'],
+  boom: ['abi', 'break'],
+  building-construction: ['architecture', 'arch'],
+  bulb: ['comments', 'comment'],
+  busts-in-silhouette: ['contrib', 'contributor', 'contributors'],
+  camera-flash: ['snapshot'],
+  card-file-box: ['database'],
+  children-crossing: ['ux'],
+  clown-face: ['mock'],
+  coffin: ['dead'],
+  construction: ['wip'],
+  construction-worker: ['ci'],
+  animation: ['animations'],
+  fire: ['delete'],
+  globe-with-meridians: ['translate', 'i18n', 'l10n'],
+  goal-net: ['catch'],
+  green-heart: ['fix-ci'],
+  hammer: [ 'build' ],
+  heavy-minus-sign: ['rm'],
+  heavy-plus-sign: ['add'],
+  iphone: ['mobile', 'responsive'],
+  label: ['types', 'typing', 'type-safety'],
+  lipstick: ['ui', 'style'],
+  lock: ['cve'],
+  loud-sound: ['logs', 'log'],
+  monocle-face: ['inspect', 'data'],
+  mute: ['quiet', 'silence'],
+  page-facing-up: ['license'],
+  passport-control: ['permissions', 'permission', 'roles', 'role', 'auth'],
+  memo: ['docs'],
+  pencil2: ['typos', 'typo'],
+  pushpin: ['pin'],
+  recycle: ['refactor'],
+  rewind: ['revert'],
+  rocket: ['deploy'],
+  rotating-light: ['lint'],
+  see-no-evil: ['ignore'],
+  sparkles: ['feature', 'new'],
+  speech-balloon: ['text'],
+  test-tube: ['test-fail', 'failing-test', 'failing-tests', 'tdd'],
+  triangular-flag-on-post:['flag', 'feature-flag'],
+  truck: ['rename', 'mv', 'move'],
+  twisted-rightwards-arrows: ['merge'],
+  wastebasket: ['deprecated', 'deprecate'],
+  wheelchair: ['a11y'],
+  white-check-mark: ['test-pass', 'passing-test', 'passing-tests', 'tests', 'test'],
+  wrench: ['configuration', 'config', 'cfg'],
+  zap: ['performance', 'perf']
+}
+ALIASES
 
-smap <expr><tab> neosnippet#expandable_or_jumpable()
-  \ ? "\<plug>(neosnippet_expand_or_jump)"
-  \ : "\<tab>"
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+let g:gitmoji_aliases = eval(join(g:gitmoji_aliases))
+let g:lightline = eval(join(g:lightline))
 
-if executable('fd') | inoremap <expr> <C-x><C-f> fzf#vim#complete#path('fd') | endif
-
-inoremap <C-Space> <C-x><C-o>
-
-inoremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
-
-" Use perl/python style regex for searches
-vnoremap / /\v
-nnoremap / /\v
-
-nnoremap [f :lprevious<CR>
-nnoremap ]f :lnext<CR>
-
-" Open a new vertical or horizontal split
-nnoremap <leader>v :vsplit<cr>
-nnoremap <leader>h :split<cr>
-
-" Open a new vertical or horizontal split and switch to it.
-nnoremap <leader>vs <C-w>v<C-w>l
-nnoremap <leader>hs <C-w>s<C-w>j
-
-" clear hlsearch
-nnoremap <leader><space> :silent! call setreg('/', '')<CR>
-
-nnoremap <leader>g :GitGutterLineHighlightsToggle<CR>
-nnoremap <leader>u :MundoToggle<CR>
-
-" This is useful for those languages where I do things
-nnoremap <F5> :silent make<cr>
-nnoremap <F4> :cclose<cr>
-
-nmap <C-PageDown> <Plug>(GitGutterNextHunk)
-nmap <C-PageUp> <Plug>(GitGutterPrevHunk)
-
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
 
 colorscheme gruvbox
-
-function! s:syntax()
-  let highlight = synID(line('.'), col('.'), 1)->synIDattr('name')
-  let group = synID(line('.'), col('.'), 0)->synIDattr('name')
-  let link = synID(line('.'), col('.'), 1)->synIDtrans()->synIDattr("name")
-  return printf("hi<%s> trans<%s> lo<%s>", highlight, group, link)
-endfunction
-
-" Works on the entire file
-function! s:sortdictfile() range
-  let width = &textwidth
-  setlocal textwidth=1
-  normal ggVGgq
-  sort
-  %join
-  let &l:textwidth = l:width
-endfunction
-
-map <script> <Plug>(vimrc-sort-dictionary) :eval <SID>sortdictfile()<CR>
-map <C-F11> <Plug>(vimrc-sort-dictionary)
-
-map <script> <Plug>(vimrc-syntax) :echo <SID>syntax()<CR>
-map <F10> <Plug>(vimrc-syntax)
-
-if executable('bat')
-  let s:fzf_buffer_preview = 'bat --color=always --style=numbers --pager=never {4}'
-  let s:fzf_buffer_options = #{ options: ['--preview', s:fzf_buffer_preview] }
-
-  command! -bang -nargs=? -complete=buffer Buffers 
-    \ call fzf#vim#buffers(<q-args>, s:fzf_buffer_options, <bang>0)
-endif
