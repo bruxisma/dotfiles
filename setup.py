@@ -107,6 +107,9 @@ def symlink (src, dst):
   try: linker()
   except OSError as e: exit('Could not symlink {}: {}'.format(item, e))
 
+def toolsetup ():
+  pass
+
 def gitsetup ():
   gitclear('alias')
 
@@ -170,6 +173,7 @@ if __name__ == '__main__':
   group = parser.add_mutually_exclusive_group()
   argument = partial(group.add_argument, action='store_true')
 
+  argument('--tool', help='utilities only')
   argument('--git', help='gitconfig only')
   argument('--sym', help='symlink only')
 
@@ -177,9 +181,11 @@ if __name__ == '__main__':
   args = vars(parser.parse_args())
   if not any(args.values()): args = dict.fromkeys(args, True)
 
+  tool = args['tool']
   git = args['git']
   sym = args['sym']
 
+  if tool: toolsetup()
   if git: gitsetup()
   if sym: symsetup()
 
