@@ -5,7 +5,7 @@ import subprocess
 import sys
 import os
 
-file_list = ['zshrc', 'vimrc', 'gvimrc', 'vim', 'gitignore']
+file_list = ['zshrc', 'vimrc', 'gvimrc', 'vim']
 
 if __name__ == '__main__':
   # It's a good thing that windows has a a symlink-like feature now...
