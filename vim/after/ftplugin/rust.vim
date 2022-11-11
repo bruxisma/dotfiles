@@ -1,5 +1,4 @@
 let s:gui = has('gui_running')
-let s:osx = has('mac')
 
 compiler cargo
 

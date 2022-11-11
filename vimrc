@@ -66,6 +66,8 @@ NeoBundle 'rust-lang/rust.vim'               " rust
 NeoBundle 'PProvost/vim-ps1'                 " Windows Powershell
 NeoBundle 'dag/vim-fish'                     " fish shell
 NeoBundle 'fatih/vim-go'                     " golang
+NeoBundle 'sophacles/vim-bundle-mako'        " mako
+NeoBundle 'stephpy/vim-yaml'                 " YAML (fix)
 
 filetype plugin indent on
 syntax on
