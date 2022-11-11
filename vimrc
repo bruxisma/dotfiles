@@ -53,6 +53,7 @@ NeoBundle 'PProvost/vim-ps1'            " Windows Powershell
 NeoBundle 'tikhomirov/vim-glsl'         " GLSL
 NeoBundle 'fatih/vim-go'                " golang
 NeoBundle 'leafgarland/typescript-vim'  " typescript
+NeoBundle 'arsenerei/vim-ragel'         " ragel
 
 filetype plugin indent on
 syntax on
