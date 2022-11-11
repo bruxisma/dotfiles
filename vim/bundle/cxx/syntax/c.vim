@@ -114,6 +114,46 @@ syntax keyword std_function va_end
 syntax keyword std_function va_copy
 syntax keyword std_function va_start
 
+" stdatomic.h
+" TODO: add all typedefs
+
+syntax keyword std_constant __STDC_NO_ATOMICS__
+
+" TODO: syntax keyword std_constant memory_order
+
+syntax keyword std_type atomic_flag
+
+syntax keyword std_function atomic_flag_test_and_set_explicit
+syntax keyword std_function atomic_flag_and_set
+
+syntax keyword std_function atomic_flag_clear_explicit
+syntax keyword std_function atomic_flag_clear
+
+syntax keyword std_function atomic_is_lock_free
+syntax keyword std_function atomic_init
+
+syntax keyword std_function atomic_store_explicit
+syntax keyword std_function atomic_store
+
+syntax keyword std_function atomic_compare_exchange_strong_explicit
+syntax keyword std_function atomic_compare_exchange_weak_explicit
+syntax keyword std_function atomic_exchange_explicit
+syntax keyword std_function atomic_compare_exchange_strong
+syntax keyword std_function atomic_compare_exchange_weak
+syntax keyword std_function atomic_fetch_add_explicit
+syntax keyword std_function atomic_fetch_sub_explicit
+syntax keyword std_function atomic_fetch_or_explicit
+syntax keyword std_function atomic_fetch_xor_explicit
+syntax keyword std_function atomic_fetch_and_explicit
+syntax keyword std_function atomic_thread_fence
+syntax keyword std_function atomic_signal_fence
+syntax keyword std_function atomic_fetch_and
+syntax keyword std_function atomic_fetch_xor
+syntax keyword std_function atomic_fetch_sub
+syntax keyword std_function atomic_fetch_add
+syntax keyword std_function atomic_fetch_or
+syntax keyword std_function atomic_exchange
+
 " stdbool.h
 " Nothing needed
 
@@ -249,6 +289,67 @@ syntax keyword ext_function strtok_r
 syntax keyword ext_function strsignal
 syntax keyword ext_function strerror_r
 
+" threads.h
+syntax keyword std_constant __STDC_NO_THREADS__
+
+" threads
+syntax keyword std_type thrd_start_t
+syntax keyword std_type thrd_t
+
+syntax keyword std_constant thrd_success
+syntax keyword std_constant thrd_timedout
+syntax keyword std_constant thrd_busy
+syntax keyword std_constant thrd_nomem
+syntax keyword std_constant thrd_error
+
+syntax keyword std_function thrd_create
+syntax keyword std_function thrd_equal
+syntax keyword std_function thrd_current
+syntax keyword std_function thrd_sleep
+syntax keyword std_function thrd_yield
+syntax keyword std_function thrd_exit
+syntax keyword std_function thrd_detach
+syntax keyword std_function thrd_join
+
+" call once
+syntax keyword std_type once_flag
+syntax keyword std_constant ONCE_FLAG_INIT
+syntax keyword std_function call_once
+
+" mutual exclusion
+syntax keyword std_type mtx_t
+
+syntax keyword std_function mtx_init
+syntax keyword std_function mtx_lock
+syntax keyword std_function mtx_timedlock
+syntax keyword std_function mtx_trylock
+syntax keyword std_function mtx_unlock
+syntax keyword std_function mtx_destroy
+
+syntax keyword std_constant mtx_recursive
+syntax keyword std_constant mtx_plain
+syntax keyword std_constant mtx_timed
+
+" condition variable
+syntax keyword std_type cnd_t
+
+syntax keyword std_function cnd_init
+syntax keyword std_function cnd_signal
+syntax keyword std_function cnd_broadcast
+syntax keyword std_function cnd_wait
+syntax keyword std_function cnd_timedwait
+syntax keyword std_function cnd_destroy
+
+" thread-local storage
+syntax keyword std_constant TSS_DTOR_ITERATIONS
+syntax keyword std_type tss_dtor_t
+syntax keyword std_type tss_t
+
+syntax keyword std_function tss_create
+syntax keyword std_function tss_delete
+syntax keyword std_function tss_set
+syntax keyword std_function tss_get
+
 " time.h
 syntax keyword std_function asctime
 syntax keyword std_function clock
@@ -289,9 +390,6 @@ syntax keyword std_function iswxdigit
 syntax keyword std_function towlower
 syntax keyword std_function towupper
 syntax keyword std_function towctrans
-
-" custom stuff
-syntax keyword ext_type export
 
 " link word here
 hi def link ext_conditional Conditional

@@ -1,1 +1,0 @@
-syn keyword doxygenOther contained details headerfile nextgroup=doxygenSpecialMultilineDesc

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Installs the files and folders to $HOME via symlinks
 # Might be considered hackish and bruteforced
-# Assumes it is run as ./install
+# Assumes it is run as ./setup.py
 
 # Errors out if it can't clean up symlinks, or directories.
 # Needs to be run as administrator or with the privelege to create symlinks on
@@ -45,16 +45,17 @@ def symlink(iterable, func, directory=False):
 
 if __name__ == '__main__':
     # Hacky way to remove zsh stuff from being symlinked in windows
-    print(dotfile_list)
     dotfile_list = dotfile_list if not sys.platform == 'win32' else \
             [item for item in dotfile_list if 'zsh' not in item]
-    print(dotfile_list)
     # Now we do the actual symlinking
     symlink(dotfile_list,
         lambda x: '{}{}'.format('.' if sys.platform != 'win32' else '_', x))
     symlink(dir_list,
         lambda x: ('{}files' if sys.platform == 'win32' else '.{}').format(x),
         directory=True)
+    # Small quick symlink to setup terminal colors for hybrid color scheme.
+    if sys.platform == 'linux':
+        symlink('Xresources', lambda x: '.{}'.format(x))
     # Powershell stuff is last, since it is _only_ for windows
     if sys.platform == 'win32':
         symlink(['psh'],

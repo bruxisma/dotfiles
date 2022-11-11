@@ -2,14 +2,10 @@
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 
-" insert mode
-inoremap <C-s> <ESC>
-nnoremap <C-s> i
-
 " increase the size of course
 set lines=54 columns=210
 
-set colorcolumn=80
+set colorcolumn=80 " this works in vim-qt :)
 set guioptions-=T
 set guioptions=aegm
 
@@ -20,3 +16,7 @@ elseif has('win32')
 else
   set gfn=Source\ Code\ Pro\ 10
 endif
+
+" insert mode
+inoremap <C-s> <ESC>
+nnoremap <C-s> i
