@@ -167,4 +167,6 @@ if __name__ == '__main__':
     symlink('gvimrc', '{}gvimrc'.format(front))
     symlink('vimrc', '{}vimrc'.format(front))
     symlink('vim', '{}vim'.format(front))
+    symlink('gdb', '.gdbinit')
+
     symlink(shell, shell_target)
