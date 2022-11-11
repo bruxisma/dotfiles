@@ -72,6 +72,7 @@ set visualbell
 set ruler
 set backspace=indent,eol,start
 set hlsearch
+set noswapfile " disable all .swp files
 
 set cino=N-s " c++ specific indent option
 
