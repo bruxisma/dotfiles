@@ -14,7 +14,7 @@ vim/bundle/.neobundle
 vim/bundle/cxx-syntax.vim
 vim/bundle/fsharp-vim/
 vim/bundle/gitv/
-vim/bundle/glsl.vim/
+vim/bundle/vim-glsl/
 vim/bundle/neosnippet.vim/
 vim/bundle/opengl.vim/
 vim/bundle/unite.vim/

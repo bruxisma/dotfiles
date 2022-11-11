@@ -50,7 +50,7 @@ NeoBundle 'beyondmarc/opengl.vim' " OpenGL
 NeoBundle 'sahchandler/cxx-syntax.vim'  " C11 and C++11+
 NeoBundle 'kongo2002/fsharp-vim'        " F#
 NeoBundle 'PProvost/vim-ps1'            " Windows Powershell
-NeoBundle 'beyondmarc/glsl.vim'         " GLSL
+NeoBundle 'tikhomirov/vim-glsl'         " GLSL
 NeoBundle 'fatih/vim-go'                " golang
 
 filetype plugin indent on
