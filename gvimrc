@@ -12,5 +12,5 @@ set lines=54 columns=210
 set gfn=Consolas:h12
 set guioptions-=T
 if has('win32')
-    set gfn=Consolas:h10
+    set gfn=Consolas:h10:cANSI
 endif

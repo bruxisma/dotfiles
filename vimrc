@@ -17,6 +17,8 @@ set ttyfast
 set visualbell
 set ruler
 
+set backspace=indent,eol,start
+
 au BufNewFile,BufRead *.md set filetype=markdown
 
 nnoremap / /\v
