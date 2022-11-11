@@ -1,5 +1,4 @@
 set nocompatible
-filetype off
 
 " Allows custom aliases for user commands, can also 'overwrite' builtins
 function! AliasCommand (abbreviation, expansion, ...)
@@ -28,55 +27,33 @@ let s:windows = has('win32') || has('win64')
 let s:osx = has('mac')
 
 if s:windows | set rtp^=$HOME/.vim | endif
-if s:starting | set rtp+=$HOME/.vim/bundle/neobundle.vim/ | endif
 
-call neobundle#begin(expand('~/.vim/bundle'))
+call plug#begin('~/.vim/bundle')
 
-NeoBundleFetch 'Shougo/neobundle.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neosnippet.vim'
 
-NeoBundle 'Shougo/vimproc.vim', {
-  \ 'build' : {
-  \ 'windows' : 'mingw32-make -f make_msvc32.mak',
-  \ 'mac' : 'make -f make_mac.mak',
-  \ 'unix' : 'make -f make_unix.mak'
-  \ }
-\ }
-
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/neosnippet.vim'
-
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'airblade/vim-gitgutter'
-
-" library support bundles
-NeoBundle 'beyondmarc/opengl.vim' " OpenGL
+Plug 'altercation/vim-colors-solarized'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
+Plug 'sjl/gundo.vim'
+Plug 'airblade/vim-gitgutter'
 
 " language support bundles
-NeoBundle 'octol/vim-cpp-enhanced-highlight' " C++11/14
-NeoBundle 'leafgarland/typescript-vim'       " typescript
-NeoBundle 'pboettch/vim-cmake-syntax'        " CMake
-NeoBundle 'pangloss/vim-javascript'          " JS
-NeoBundle 'kongo2002/fsharp-vim'             " F#
-NeoBundle 'tikhomirov/vim-glsl'              " GLSL
-NeoBundle 'rust-lang/rust.vim'               " rust
-NeoBundle 'PProvost/vim-ps1'                 " Windows Powershell
-NeoBundle 'dag/vim-fish'                     " fish shell
-NeoBundle 'fatih/vim-go'                     " golang
-NeoBundle 'sophacles/vim-bundle-mako'        " mako
-NeoBundle 'stephpy/vim-yaml'                 " YAML (fix)
-NeoBundle 'cespare/vim-toml'                 " toml
+Plug 'octol/vim-cpp-enhanced-highlight' " C++11/14
+Plug 'leafgarland/typescript-vim'       " typescript
+Plug 'pboettch/vim-cmake-syntax'        " CMake
+Plug 'pangloss/vim-javascript'          " JS
+Plug 'kongo2002/fsharp-vim'             " F#
+Plug 'rust-lang/rust.vim'               " rust
+Plug 'PProvost/vim-ps1'                 " Windows Powershell
+Plug 'dag/vim-fish'                     " fish shell
+Plug 'sophacles/vim-bundle-mako'        " mako
+Plug 'stephpy/vim-yaml'                 " YAML (fix)
+Plug 'cespare/vim-toml'                 " toml
 
-call neobundle#end()
-
-filetype plugin indent on
-syntax on
-
-NeoBundleCheck
+call plug#end()
 
 " options
 if s:multibyte | set fileencodings=ucs-bom,utf-8,latin1 | endif
@@ -107,7 +84,6 @@ set ttyfast    " don't think this has ever been an issue
 set hidden     " prefer buffers over tabs
 set number     " line numbers
 set ruler      " line and column
-"if s:gui | set background=light | endif " solarized
 
 " commands
 command! -nargs=+ AliasCommand call AliasCommand(<f-args>)
@@ -116,8 +92,9 @@ command! RelativeNumberToggle call RelativeNumberToggle()
 " Aliases
 Alias reload source<space>% " builtin
 
-Alias ls Unite<space>buffer " unite.vim
-Alias unite Unite           " unite.vim
+Alias files Unite<space>file " unite.vim
+Alias ls Unite<space>buffer  " unite.vim
+Alias unite Unite            " unite.vim
 
 Alias checkout Gread " fugitive
 Alias status Gstatus " fugitive
@@ -144,13 +121,17 @@ let mapleader = "," " Almost everyone does this
 
 " global plugin options
 let g:neosnippet#snippets_directory=expand('~/.vim/snippets') " neosnippet
+let g:neosnippet#disable_runtime_snippets = { '_' : 1 }       " neosnippet
 let g:vimfiler_as_default_explorer = 1                        " vimfiler
 let g:cpp_class_scope_highlight = 1                           " cxx
 let g:rust_recommended_style = 0                              " rust
 let g:opencl_overwrite_lisp = 1                               " opencl
 let g:solarized_hitrail=s:gui                                 " solarized
 let g:gundo_right = 1                                         " gundo
+let g:gundo_prefer_python3 = 1                                " gundo
 let g:gitgutter_avoid_cmd_prompt_on_windows = 0               " gitgutter
+
+let g:load_doxygen_syntax=1
 
 " lightline.vim
 let g:lightline = {
