@@ -19,6 +19,7 @@ add-path (get-vimpath)
 set-alias less more
 set-alias python3 python
 set-alias open explorer
+set-alias make mingw32-make
 
 # "boilerplate"
 $window = (get-host).UI.RawUI
