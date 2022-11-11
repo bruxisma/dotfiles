@@ -15,7 +15,7 @@ call flux#set('kadesh', 'vaygr')
 set gfn=Consolas:h12
 
 set guioptions-=T
-set guioptions=aeg
+set guioptions=aegm
 
 if has('mac') || has('win32')
   set gfn=DejaVu\ Sans\ Mono:h10
