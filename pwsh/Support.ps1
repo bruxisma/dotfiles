@@ -28,9 +28,7 @@ function Touch-Item {
     if (Test-Path -LiteralPath $_) {
       (Get-Item -Path $_).LastWriteTime = Get-Date
     } else {
-      New-Item -Type File -Path $_
+      New-Item -ItemType File -Path $_
     }
   }
 }
-
-

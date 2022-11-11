@@ -3,16 +3,22 @@ if ($IsWindows) { Import-Module -Force (Join-Path $PSScriptRoot Windows.ps1) }
 if ($IsMacOS) { Import-Module -Force (Join-Path $PSScriptRoot MacOS.ps1) }
 if ($IsLinux) { Import-Module -Force (Join-Path $PSScriptRoot Linux.ps1) }
 
-Import-Module -Force (Join-Path $PSScriptRoot Machine.ps1) -Scope Global
-Import-Module -Force (Join-Path $PSScriptRoot Support.ps1) -Scope Local
-Import-Module -Force (Join-Path $PSScriptRoot rustup.ps1) -Scope Global
-Import-Module -Force (Join-Path $PSScriptRoot ssh.ps1) -Scope Global
+$ScriptsPath = Join-Path $PSScriptRoot Scripts
+
+Import-Module (Join-Path $PSScriptRoot Support.ps1) -Force -Scope Local
+Import-Module (Join-Path $PSScriptRoot Machine.ps1) -Force -Global
+
+Import-Module (Join-Path $ScriptsPath rustup.ps1) -Force -Global -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ScriptsPath github.ps1) -Force -Global -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ScriptsPath ssh.ps1) -Force -Global -ErrorAction SilentlyContinue
 
 $readline = Import-PowerShellDataFile (Join-Path $PSScriptRoot readline.psd1)
 Set-PSReadlineOption @readline
 Remove-Variable readline
 
 Set-EnvironmentVariable -Name FZF_DEFAULT_COMMAND -Value "fd --type f"
+Set-EnvironmentVariable -Name CMAKE_GENERATOR -Value Ninja
+Set-EnvironmentVariable -Name DOCKER_BUILDKIT -Value 1
 
 Set-PSReadlineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
 Set-PSReadlineKeyHandler -Chord Ctrl+a -Function BeginningOfLine
