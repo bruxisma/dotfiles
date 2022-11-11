@@ -6,11 +6,12 @@ import-module posix
 $env:EDITOR = get-vimpath
 
 set-location $HOME
-set-python # TODO: Need to have a python/python3 alias setup :/
+set-python
 set-msvc
 set-vars # Sets global constant values.
 
 set-alias less more
+set-alias python3 python
 
 # "boilerplate"
 $window = (get-host).UI.RawUI
