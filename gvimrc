@@ -18,7 +18,7 @@ if s:osx
   set macligatures
   set guifont=DelugiaNerdFont-Regular:h16
 elseif s:windows
-  silent set guifont=Delugia_Nerd_Font:h14
+  silent set guifont=Cascadia_Code_PL:h14
   silent set guioptions+=!
   silent! set rop=type:directx,gamma:1.0,contrast:0.5,level:0.5,geom:1,renmode:5,taamode:1
 else

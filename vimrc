@@ -10,6 +10,7 @@ if empty(glob('$HOME/.vim/autoload/plug.vim'))
 endif
 
 if executable('rg') | set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case | endif
+if !$WT_SESSION->empty() | set t_Co=256 | endif
 
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 set list
@@ -63,11 +64,12 @@ Plug 'lepture/vim-jinja', { 'for': 'jinja' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 "Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-liquid'
 Plug 'pboettch/vim-cmake-syntax'
 Plug 'pest-parser/pest.vim', { 'for': 'pest' }
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
-"Plug '~/Desktop/vim-cmake' ", { 'for': 'cmake' }
+"Plug '~/Desktop/ixm/vim-cmake' ", { 'for': 'cmake' }
 "Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
 call plug#end()
 
@@ -80,7 +82,7 @@ endfunction
 cnoreabbrev <expr> grc <SID>command("grc", "edit<space>$MYGVIMRC")
 cnoreabbrev <expr> rc <SID>command("rc", "edit<space>$MYVIMRC")
 
-cnoreabbrev <expr> unstage <SID>command("restore", "GitGutterUndoHunk")
+cnoreabbrev <expr> unstage <SID>command("unstage", "GitGutterUndoHunk")
 cnoreabbrev <expr> stage <SID>command("stage", "GitGutterStageHunk")
 
 cnoreabbrev <expr> refresh <SID>command("refresh", "filetype<space>detect")
@@ -92,7 +94,7 @@ cnoreabbrev <expr> find <SID>command("find", "Files<space>$HOME/Desktop")
 cnoreabbrev <expr> rm <SID>command("rm", "Delete")
 cnoreabbrev <expr> ls <SID>command("ls", "Buffers")
 
-cnoreabbrev <expr> json <SID>command("json", "%!python", "-m", "json.tool")
+cnoreabbrev <expr> json <SID>command("json", "%!jq<space>.")
 
 cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<space>lgrep")
 cnoreabbrev <expr> grep <SID>command("grep", "silent<space>grep")
