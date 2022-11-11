@@ -46,3 +46,10 @@ function Touch-Item {
     }
   }
 }
+
+<# Truly clears History from *everything* #>
+function Clear-History {
+  Remove-Item $(Get-PSReadlineOption).HistorySavePath
+  [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
+  Clear-Host
+}
