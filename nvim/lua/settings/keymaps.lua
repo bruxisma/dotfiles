@@ -12,12 +12,12 @@ vim.keymap.set("n", "<Leader>hs", ":split<CR><C-W>j", {
   noremap = true,
 })
 
-vim.keymap.set("n", "<Leader>v", ":vsplit<CR>", {
+vim.keymap.set("n", "<Leader>v", vim.cmd.vsplit, {
   desc = "Open a new vertical split",
   noremap = true,
 })
 
-vim.keymap.set("n", "<Leader>h", ":split<CR>", {
+vim.keymap.set("n", "<Leader>h", vim.cmd.split, {
   desc = "Open a new horizontal split",
   noremap = true,
 })
@@ -37,7 +37,7 @@ vim.keymap.set("n", "]f", ":lnext<CR>", {
   noremap = true,
 })
 
-vim.keymap.set("n", "<Leader><Space>", [[:call setreg('/', '')<CR>]], {
+vim.keymap.set("n", "<Leader><Space>", function() vim.fn.setreg('/', '') end, {
   desc = "Clear 'hlsearch'",
   silent = true,
   noremap = true,
