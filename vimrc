@@ -113,3 +113,6 @@ else
   set background=dark
 endif
 colorscheme solarized
+
+" match chevrons in C++ files
+autocmd FileType cpp set mps+=<:>
