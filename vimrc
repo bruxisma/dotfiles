@@ -170,9 +170,6 @@ smap <expr><tab> neosnippet#expandable_or_jumpable()
 inoremap <C-c> <Esc>
 vnoremap <C-c> <Esc>
 
-inoremap <Esc> <C-c>
-vnoremap <Esc> <C-c>
-
 " Use perl/python style regex for searches
 vnoremap / /\v
 nnoremap / /\v
