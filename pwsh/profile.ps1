@@ -4,6 +4,9 @@ Import-Module -Force (Join-Path $PSScriptRoot Filters.ps1)
 Import-Script -Platform Windows -Path Windows.ps1 -Force
 Import-Script -Platform MacOS -Path MacOS.ps1 -Force
 Import-Script -Platform Linux -Path Linux.ps1 -Force
+Import-Script -Platform Posix -Path Posix.ps1 -Force
+
+Import-Module -Force (Join-Path $PSScriptRoot Machine.ps1)
 
 Set-Alias which Get-Command
 Set-Alias edit Edit-File

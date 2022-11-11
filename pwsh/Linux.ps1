@@ -13,7 +13,4 @@ function Set-Service { systemctl set-property }
 function Remove-Service { systemctl disable }
 function New-Service { systemctl enable }
 
-Append-Path $HOME/.cargo/bin
-Append-Path /usr/local/go/bin
-
-$env:EDITOR = (which gvim)
+Set-Alias ls exa -Scope Global

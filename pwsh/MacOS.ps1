@@ -17,6 +17,3 @@ Append-Path /usr/local/bin
 Append-Path /Library/Frameworks/Python.framework/Version/3.7/bin
 Append-Path /Applications/MacVim.app/Contents/bin
 Append-Path /Applications/CMake.app/Contents/bin
-Append-Path $HOME/.cargo/bin
-
-$env:EDITOR = (which gvim)
