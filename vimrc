@@ -95,12 +95,11 @@ AliasCommand alias AliasCommand
 " solarized
 if has('gui_running')
   let g:solarized_hitrail=1
-  colorscheme solarized
   set background=light
 else
   set background=dark
-  colorscheme default
 endif
+colorscheme solarized
 
 " unite.vim
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
