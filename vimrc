@@ -21,6 +21,13 @@ if !has('mac')
   set t_Co=256
 endif
 
+" Fixes *some* C++ support :)
+let c_no_curly_error = 1
+let mapleader = ","
+if !has('mac') || !has('win32')
+  let g:hybrid_use_Xresources=1
+endif
+
 vnoremap <leader>z zf
 vnoremap / /\v
 
@@ -36,12 +43,5 @@ nnoremap / /\v
 " Open a new vertical or horizontal split respectively split and switch to it.
 nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>hs <C-w>s<C-w>j
-
-" Fixes *some* C++ support :)
-let c_no_curly_error = 1
-let mapleader = ","
-if !has('mac') || !has('win32')
-  let g:hybrid_use_Xresources=1
-endif
 
 colorscheme hybrid
