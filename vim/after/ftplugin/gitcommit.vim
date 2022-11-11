@@ -201,3 +201,5 @@ iabbrev :dizzy: 💫
 
 iabbrev :wastebasket: 🗑
 iabbrev :deprecate: 🗑
+
+setlocal tabstop=2

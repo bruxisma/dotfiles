@@ -52,6 +52,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
+Plug 'editorconfig/editorconfig-vim'
 
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'plasticboy/vim-markdown'
@@ -62,7 +63,7 @@ Plug 'othree/yajs.vim', { 'for': 'js' }
 Plug 'zigford/vim-powershell', { 'for': 'powershell' }
 Plug 'lepture/vim-jinja', { 'for': 'jinja' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-"Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-liquid'
@@ -111,6 +112,7 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_concepts_highlight = 1
 let g:load_doxygen_syntax=1
 let g:rust_recommended_style = 0
+let g:go_fmt_command = "gofmt"
 
 let g:gitgutter_map_keys = 0
 if executable('rg') | let g:gitgutter_grep = 'rg --color never' | endif
@@ -165,6 +167,8 @@ imap <expr><TAB>
  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 if executable('fd') | inoremap <expr> <C-x><C-f> fzf#vim#complete#path('fd') | endif
+
+inoremap <C-Space> <C-x><C-o>
 
 inoremap <C-c> <Esc>
 vnoremap <C-c> <Esc>
