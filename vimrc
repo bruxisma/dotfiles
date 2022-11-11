@@ -19,6 +19,12 @@ function! RelativeNumberToggle ()
   endif
 endfunction
 
+"set directory=$XDG_CACHE_HOME/vim,~/,$TEMP
+"set backupdir=$XDG_CACHE_HOME/vim,~/,$TEMP
+"set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+"set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+"let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+
 let s:starting = has('vim_starting')
 let s:multibyte = has('multi_byte')
 let s:gui = has('gui_running')
@@ -58,6 +64,11 @@ call plug#end()
 if s:multibyte | set fileencodings=ucs-bom,utf-8,latin1 | endif
 if s:multibyte | setglobal fileencoding=utf-8 | endif
 if s:multibyte | set encoding=utf-8 | endif
+" XXX: This will chang when I switch to powershell everywhere
+if &shell =~# 'cmd.exe$'
+  set shell=powershell
+  set shellcmdflag=-command
+endif
 if &shell =~# 'fish$' | set shell=sh | endif
 set fileformats=unix,dos
 set backspace=indent,eol,start
@@ -116,7 +127,7 @@ Alias gutter GitGutterLineHighlightsToggle
 " Variables
 
 if s:multibyte && &termencoding == "" | let &termencoding = &encoding | endif
-let c_no_curly_error = 1 " Fixes C++11 highlighting issues
+let c_no_curly_error = 1 " Fixes C++ highlighting issues
 let mapleader = "," " Almost everyone does this
 
 " global plugin options
@@ -161,6 +172,14 @@ smap <expr><tab> neosnippet#expandable_or_jumpable()
   \ ? "\<plug>(neosnippet_expand_or_jump)"
   \ : "\<tab>"
 
+nnoremap <C-c> <Esc>
+inoremap <C-c> <Esc>
+vnoremap <C-c> <Esc>
+
+nnoremap <Esc> <C-c>
+inoremap <Esc> <C-c>
+vnoremap <Esc> <C-c>
+
 " Use perl/python style regex for searches
 vnoremap / /\v
 nnoremap / /\v
@@ -173,8 +192,8 @@ nnoremap <leader>v :vsplit<cr>
 nnoremap <leader>h :split<cr>
 
 " Open a new vertical or horizontal split and switch to it.
-nnoremap <leader>vs <c-w>v<c-w>l
-nnoremap <leader>hs <c-w>s<c-w>j
+nnoremap <leader>vs <C-w>v<C-w>l
+nnoremap <leader>hs <C-w>s<C-w>j
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<cr>
