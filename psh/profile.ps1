@@ -4,6 +4,7 @@ import-module development
 import-module posix
 
 $env:EDITOR = get-vimpath
+$env:GOPATH = $HOME\Projects\go
 
 set-location $HOME
 set-python

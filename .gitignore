@@ -3,5 +3,24 @@
 *.swp
 *.pyc
 *~
+
+fish_history
+fishd.*
 .netrwhist
 tags
+
+# vim bundles to ignore
+vim/bundle/.neobundle
+vim/bundle/cxx-syntax.vim
+vim/bundle/fsharp-vim/
+vim/bundle/gitv/
+vim/bundle/glsl.vim/
+vim/bundle/neosnippet.vim/
+vim/bundle/opengl.vim/
+vim/bundle/unite.vim/
+vim/bundle/vim-colors-solarized/
+vim/bundle/vim-fugitive/
+vim/bundle/vim-go/
+vim/bundle/vim-ps1/
+vim/bundle/vimfiler.vim/
+vim/bundle/vimproc.vim/
