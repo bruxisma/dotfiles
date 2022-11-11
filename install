@@ -1,37 +1,39 @@
 #!/usr/bin/env python
 # Installs the dotfiles via symlinks
 
-import os
-import sys
 import subprocess
+import shutil
+import sys
+import os
 
 file_list = ['zshrc', 'vimrc', 'gvimrc', 'vim', 'gitignore']
 
 if __name__ == '__main__':
-    # Windows support is sooo hackish :X
-    if sys.platform == 'win32':
-        for file_name in file_list:
-            command_list = ['mklink']
-            if os.path.isdir(file_name): command_list.append('/D')
-            if 'git' in file_name: link = '.{0}'.format(file_name)
-            if 'vim' in file_name and not os.path.isdir(file_name): link = '_{0}'.format(file_name)
-            if file_name == 'vim': link = 'vimfiles'
-            link = os.path.expanduser('~\\{0}'.format(link))
-            if os.path.exists(link):
-                try: os.remove(link)
-                except OSError: pass
-            command_list.append(link)
-            command_list.append('{0}\\{1}'.format(os.getcwd(), file_name))
-            os.system(' '.join(command_list))
-        sys.exit(0)
+  # Windows support is sooo hackish :X
+  # Also need to manually place profile.ps1 in $HOME/Documents/WindowsPowershell
+  if sys.platform == 'win32':
     for file_name in file_list:
-        command_list = ['ln']
-        args_string = list('-')
-        if 'darwin' in sys.platform or 'bsd' in sys.platform:
-            if os.path.isdir(file_name): args_string.append('Fh')
-        if os.path.exists(file_name): args_string.append('f')
-        args_string.append('sv')
-        command_list.append(''.join(args_string))
-        command_list.append('{0}/{1}'.format(os.getcwd(), file_name))
-        command_list.append(os.path.expanduser('~/.{0}'.format(file_name)))
-        subprocess.call(command_list)
+      command_list = ['mklink']
+      if os.path.isdir(file_name): command_list.append('/D')
+      if 'git' in file_name: link = '.{0}'.format(file_name)
+      if 'vim' in file_name and not os.path.isdir(file_name): link = '_{0}'.format(file_name)
+      if file_name == 'vim': link = 'vimfiles'
+      link = os.path.expanduser('~\\{0}'.format(link))
+      if os.path.exists(link):
+        try: os.remove(link)
+        except OSError: pass
+        command_list.append(link)
+        command_list.append('{0}\\{1}'.format(os.getcwd(), file_name))
+        os.system(' '.join(command_list))
+        sys.exit(0)
+  for file_name in file_list:
+    command_list = ['ln']
+    args_string = list('-')
+    if 'darwin' in sys.platform or 'bsd' in sys.platform:
+      if os.path.isdir(file_name): args_string.append('Fh')
+    if os.path.exists(file_name): args_string.append('f')
+    args_string.append('sv')
+    command_list.append(''.join(args_string))
+    command_list.append('{0}/{1}'.format(os.getcwd(), file_name))
+    command_list.append(os.path.expanduser('~/.{0}'.format(file_name)))
+    subprocess.call(command_list)
