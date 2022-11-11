@@ -139,6 +139,8 @@ if __name__ == '__main__':
     gitconfig('core', 'autocrlf', 'input')
     gitconfig('core', 'editor', 'gvim -f')
 
+    gitconfig('color', 'ui', 'auto')
+
     gitconfig('log', 'date', 'iso')
 
     gitalias('unshelve', unshelve)
