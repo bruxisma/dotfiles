@@ -20,12 +20,13 @@ NeoBundle 'Shougo/vimfiler.vim'
 "NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'tpope/vim-fugitive'
 
-NeoBundle 'zhaocai/GoldenView.Vim'
-NeoBundle 'SirVer/ultisnips'
+NeoBundle 'altercation/vim-colors-solarized'
+"NeoBundle 'zhaocai/GoldenView.Vim'
+"NeoBundle 'SirVer/ultisnips'
 "NeoBundle 'octol/vim-cpp-enhanced-highlight'
 "NeoBundle 'scrooloose/syntastic'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'bling/vim-airline'
+"NeoBundle 'gregsexton/gitv'
+"NeoBundle 'bling/vim-airline'
 
 filetype plugin indent on
 syntax on
@@ -75,4 +76,4 @@ nnoremap / /\v
 nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>hs <C-w>s<C-w>j
 
-colorscheme hybrid
+colorscheme solarized

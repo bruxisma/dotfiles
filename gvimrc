@@ -7,8 +7,8 @@ set guioptions=aegm
 
 if has('mac')
   set gfn=Source\ Code\ Pro:h12
-elseif has('win32')
-  set gfn=Source_Code_Pro:h10
+elseif has('win32') || has('win64')
+  set guifont=Consolas:h12:b:cANSI
 else
   set gfn=Source\ Code\ Pro\ 10
 endif
