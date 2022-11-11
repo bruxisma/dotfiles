@@ -23,6 +23,29 @@ function get-vimpath() {
 
 <#
 .SYNOPSIS
+  Gets the (default) Python location, and sets its folder AND \Scripts
+  to be on the system PATH.
+  NOTE: Assumes that the Python.File\shell\open\command value doesn't have
+  anything weird it in (i.e., splitting the string by a \ will make it
+  place all non-important portions of the path at the end
+#>
+function set-python() {
+  $key = "python.file\shell\open\command"
+  $temp = new-object system.collections.generic.list[string]
+  $root = [Microsoft.Win32.RegistryHive]::ClassesRoot
+  $reg_key = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey($root, "")
+  $value = $reg_key.OpenSubKey($key).GetValue("")
+  $temp.AddRange($value.Split("\"))
+  $temp.RemoveAt($temp.Count - 1)
+  # This replaces the first quote with a semi-colon which we need
+  # for adding to the PATH
+  $exe_path = [String]::Join("\", $temp).Replace("`"", ";")
+  $scr_path = $exe_path + "\Scripts"
+  $env:PATH = $env:PATH + $exe_path + $scr_path
+}
+
+<#
+.SYNOPSIS
   Invokes a particular visual studio batch file, while keeping all of the
   system settings.
 .PARAMETER version
@@ -65,6 +88,8 @@ function run-gc() { [void]([System.GC]::Collect()) }
 # as it will just overwrite it :)
 set-location $HOME
 set-msvc 10 x86
+
+set-python
 
 # both git and mercurial will use the $EDITOR value in powershell, so
 # we get the actual path and set it.
