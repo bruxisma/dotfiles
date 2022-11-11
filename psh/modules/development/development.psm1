@@ -28,6 +28,23 @@ function add-registrypath(
 
 <#
 .SYNOPSIS
+  Adds the given path to $env:PATH. This allows for directories to be
+  temporarily added just for powershell. Like vim. Or git. Or anything else,
+  because why would you use cmd.exe?
+#>
+function add-path([string]$path) {
+  $path = $path -replace '"', ""
+  if (!(test-path $path)) { return }
+  $is_file = test-path -pathtype leaf $path
+  if ($is_file) {
+    $path = [IO.Path]::GetDirectoryName($path)
+  }
+
+  $env:PATH += [String]::Format(";{0}", $path)
+}
+
+<#
+.SYNOPSIS
   Gets the path of gvim via the windows registry.
   Assumes the path can be found via hklm:\software\vim\gvim
   Returns the path as a quoted string.
