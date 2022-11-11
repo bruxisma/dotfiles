@@ -20,8 +20,7 @@ end
 local bootstrapped = bootstrap()
 return require("packer").startup {
   function(use)
-    use { "gruvbox-community/gruvbox" } -- replace with gruvbox.nvim
-    use { "nvim-lua/popup.nvim" }
+    use { "ellisonleao/gruvbox.nvim" }
     use { "neovim/nvim-lspconfig" }
     use { "rcarriga/nvim-notify" }
 
@@ -123,7 +122,6 @@ return require("packer").startup {
     -- { "danymat/neogen" }
     -- { "ray-x/lsp_signature.nvim" }
     -- { "p00f/clangd_extensions.nvim" }
-    -- { "ellisonleao/gruvbox.nvim" }
     -- { "nvim-lualine/lualine.nvim" }
 
     if bootstrapped then

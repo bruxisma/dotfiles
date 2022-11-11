@@ -12,6 +12,10 @@ set.termguicolors = true
 set.guifont = "Delugia:h10"
 set.mouse = "a"
 
+require("gruvbox").setup {
+  invert_selection = true,
+  contrast = "hard"
+}
 vim.cmd.colorscheme("gruvbox")
 
 global.is_kornshell = 0
