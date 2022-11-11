@@ -10,6 +10,8 @@ $modules = @(
   "PSScriptAnalyzer"
 )
 
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+
 foreach ($module in $modules) {
   if ($PSCmdlet.ShouldProcess($module, "Install-Module")) {
     Install-Module $module
