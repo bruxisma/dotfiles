@@ -1,37 +1,35 @@
 ﻿# Personal configuration profile
-function test-windows { ($PSEdition -eq "Desktop") -or $IsWindows }
-function test-macos { -not ($PSEdition -eq "Desktop") -and $IsOSX }
-function test-linux { -not ($PSEdition -eq "Desktop") -and $IsLinux }
+function Test-Windows { ($PSEdition -eq "Desktop") -or $IsWindows }
+function Test-MacOS { -not ($PSEdition -eq "Desktop") -and $IsOSX }
+function Test-Linux { -not ($PSEdition -eq "Desktop") -and $IsLinux }
 
-function test-file ([string]$path) { test-path -pathtype leaf $path }
+function Test-File ([String]$Path) { Test-Path -PathType Leaf $Path }
 
-function get-hostname {
+function Get-HostName {
   $name = [System.Net.Dns]::GetHostName().ToLower()
   $index = $name.IndexOf('.')
   if ($index -lt 0) { $index = $name.Length }
-  return $name.SubString(0, $index)
+  $name.SubString(0, $index)
 }
 
-function get-username {
-  if (test-windows) { return $env:USERNAME.ToLower() }
-  $env:USER
+function Get-UserName {
+  if (Test-Windows) { return $env:USERNAME.ToLower() }
+  $env:USER.ToLower()
 }
 
-function append-path ([string]$path) {
-  $path = $path.Replace('"', "") #XXX: Why is this here?
-  if (-not (test-path $path)) { return }
-  if (test-file $path) {
-    $path = [IO.Path]::GetDirectoryName($path)
-  }
-  if ($env:PATH.Contains($path)) { return }
-  $env:PATH += ';{0}' -f $path
+function Append-Path ([String]$Path) {
+  if (Test-File $Path) { $Path = [IO.Path]::GetDirectoryName($Path) }
+  if (-not (Test-Path $Path)) { return }
+  if ($env:PATH.Contains($Path)) { return }
+  if (-not $env:PATH.EndsWith(";")) { $Path = $Path.Insert(0, ';') }
+  $env:PATH += $Path
 }
 
 #function invoke-gdb {
 #  & gdb -nh -x $env:XDG_CONFIG_HOME/gdb/init
 #}
 
-function reload-profile { . $PROFILE.CurrentUserAllHosts }
+function Reload-Profile { . $PROFILE.CurrentUserAllHosts }
 
 $env:EDITOR = (Get-ItemProperty HKLM:\SOFTWARE\Vim\Gvim\).Path
 
@@ -64,7 +62,7 @@ append-path $env:EDITOR
 
 # A little bit of cross-platform naming conventions
 if (test-windows) {
-  set-alias less more
+  set-alias less more # Hates UTF8 codepage. Need a replacement!
   set-alias open explorer
   set-alias help get-help
 }
@@ -72,10 +70,12 @@ if (test-windows) {
 # "boilerplate"
 set-location $HOME
 
+# TODO: This needs to be changed *for sure*. It is NOT helpful in most cases
 $window = (get-host).UI.RawUI
 $window.BackgroundColor = "black"
-#clear-host
+clear-host
 
+# TODO: Make $path be green.
 function prompt {
   set-variable -Name username -Value (get-username) -Option Private
   set-variable -Name hostname -Value (get-hostname) -Option Private
