@@ -47,10 +47,14 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim'
+Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-eunuch'
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 Plug 'junegunn/fzf', { 'do': 'go build -o bin/' } | Plug 'junegunn/fzf.vim'
+Plug 'godlygeek/tabular'
 
+Plug 'plasticboy/vim-markdown'
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
@@ -110,7 +114,6 @@ let g:gitgutter_map_keys = 0
 if executable('rg') | let g:gitgutter_grep = 'rg --color never' | endif
 
 " github icons
-
 let g:gitgutter_sign_removed_first_line = "\uf476"
 let g:gitgutter_sign_modified_removed = "\uf5a"
 let g:gitgutter_sign_modified = "\uf459"
@@ -127,9 +130,11 @@ let g:netrw_winsize = 30
 let g:netrw_banner = 0
 let g:netrw_menu = 0
 
+let g:gruvbox_contrast_dark = 'hard'
+
 let g:lightline =<< trim STATUS
   #{
-      colorscheme: 'onedark',
+      colorscheme: 'gruvbox',
       active: #{
         left: [
           ['mode', 'paste'],
@@ -192,7 +197,7 @@ nmap <C-PageUp> <Plug>(GitGutterPrevHunk)
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-colorscheme onedark
+colorscheme gruvbox
 
 function! s:syntax()
   let highlight = synIDattr(synID(line('.'), col('.'), 1), 'name')
