@@ -16,7 +16,7 @@ if __name__ == '__main__':
             if 'git' in file_name: link = '.{0}'.format(file_name)
             if 'vim' in file_name and not os.path.isdir(file_name): link = '_{0}'.format(file_name)
             if file_name == 'vim': link = 'vimfiles'
-            link = os.path.expanduser('~\\{0}'.format(link)
+            link = os.path.expanduser('~\\{0}'.format(link))
             if os.path.exists(link):
                 try: os.remove(link)
                 except OSError: pass
