@@ -36,7 +36,7 @@ function set-msvc([int]$version=10, [string]$type='x86') {
 function prompt {
   write-host ('[' + [environment]::UserName + '@' +
               [environment]::MachineName.ToLower() + ']:' +
-              (pwd).Path.Replace('\', '/').Replace($HOME, '~') +'$') -NoNewline
+              (pwd).Path.Replace($HOME, '~').Replace('\', '/') +'$') -NoNewline
   return ' '
 }
 

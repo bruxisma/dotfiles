@@ -11,6 +11,7 @@ if __name__ == '__main__':
   # It's a good thing that windows has a a symlink-like feature now...
   if sys.platform == 'win32':
     for file_name in file_list:
+      if 'zsh' in file_name: continue
       command_list = ['mklink']
       if os.path.isdir(file_name): command_list.append('/D')
       if 'git' in file_name: link = '.{0}'.format(file_name)
@@ -23,10 +24,15 @@ if __name__ == '__main__':
         except OSError: pass
         command_list.append(link)
         command_list.append('{0}\\{1}'.format(os.getcwd(), file_name))
+        print ' '.join(command_list)
         os.system(' '.join(command_list))
     pws_dir = os.path.expanduser('~/Documents/WindowsPowershell')
+    if not os.path.exists(pws_dir):
+      try: os.makedirs(pws_dir)
+      except OSError: pass
     pws = 'mklink {0}/profile.ps1 {1}/profile.ps1'.format(pws_dir, os.getcwd())
-    os.system(pws.replace('\\', '/'))
+    os.system(pws.replace('/', '\\'))
+    sys.exit(0)
   for file_name in file_list:
     command_list = ['ln']
     args_string = list('-')
