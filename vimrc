@@ -4,7 +4,7 @@ source $VIMRUNTIME/defaults.vim
 source $MYRUNTIME/defaults.vim
 
 if empty(glob('$HOME/.vim/autoload/plug.vim'))
-  silent !curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs
+  silent !curl -fLo $MYRUNTIME/autoload/plug.vim --create-dirs
         \ https://github.com/junegunn/vim-plug/raw/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
@@ -15,7 +15,7 @@ if executable('rg')
 endif
 if !$WT_SESSION->empty() | set t_Co=256 | endif
 
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set listchars=tab:»\ ,extends:▶,precedes:◀,nbsp:␣,trail:·
 set list
 
 set background=dark
@@ -45,10 +45,9 @@ set hidden
 let mapleader = "," " Almost everyone used to do this...
 
 " Plugins {{{ 
-call plug#begin('$HOME/.vim/bundle')
+call plug#begin('$MYRUNTIME/bundle')
 
 Plug 'Shougo/neosnippet.vim'
-
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
@@ -86,29 +85,29 @@ function! s:command(name, ...)
         \ : a:name
 endfunction 
 
-cnoreabbrev <expr> grc <SID>command("grc", "edit<space>$MYGVIMRC")
-cnoreabbrev <expr> rc <SID>command("rc", "edit<space>$MYVIMRC")
+cnoreabbrev <expr> grc <SID>command("grc", "edit<Space>$MYGVIMRC")
+cnoreabbrev <expr> rc <SID>command("rc", "edit<Space>$MYVIMRC")
 
 cnoreabbrev <expr> unstage <SID>command("unstage", "GitGutterUndoHunk")
 cnoreabbrev <expr> stage <SID>command("stage", "GitGutterStageHunk")
 
-cnoreabbrev <expr> refresh <SID>command("refresh", "filetype<space>detect")
+cnoreabbrev <expr> refresh <SID>command("refresh", "filetype<Space>detect")
 
-cnoreabbrev <expr> reload <SID>command("reload", "source<space>$MYVIMRC")
+cnoreabbrev <expr> reload <SID>command("reload", "source<Space>$MYVIMRC")
 cnoreabbrev <expr> chmod <SID>command("chmod", "Chmod")
 
-cnoreabbrev <expr> find <SID>command("find", "Files<space>$HOME/Desktop")
+cnoreabbrev <expr> find <SID>command("find", "Files<Space>$HOME/Desktop")
 cnoreabbrev <expr> rm <SID>command("rm", "Delete")
 cnoreabbrev <expr> ls <SID>command("ls", "Buffers")
 
-cnoreabbrev <expr> json <SID>command("json", "%!jq<space>.")
+cnoreabbrev <expr> json <SID>command("json", "%!jq<Space>.")
 
-cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<space>lgrep")
-cnoreabbrev <expr> grep <SID>command("grep", "silent<space>grep")
+cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<Space>lgrep")
+cnoreabbrev <expr> grep <SID>command("grep", "silent<Space>grep")
 
 cnoreabbrev <expr> st <SID>command("st", "GFiles?")
 
-smap <expr><tab> neosnippet#expandable_or_jumpable()
+smap <expr><Tab> neosnippet#expandable_or_jumpable()
   \ ? "\<plug>(neosnippet_expand_or_jump)"
   \ : "\<tab>"
 imap <expr><TAB>
@@ -116,12 +115,12 @@ imap <expr><TAB>
  \ neosnippet#expandable_or_jumpable() ?
  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-if executable('fd') | inoremap <expr> <C-x><C-f> fzf#vim#complete#path('fd') | endif
+if executable('fd') | inoremap <expr> <C-X><C-F> fzf#vim#complete#path('fd') | endif
 
-inoremap <C-Space> <C-x><C-o>
+inoremap <C-Space> <C-X><C-O>
 
-inoremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
+inoremap <C-C> <Esc>
+vnoremap <C-C> <Esc>
 
 " Use perl/python style regex for searches
 vnoremap / /\v
@@ -131,22 +130,22 @@ nnoremap [f :lprevious<CR>
 nnoremap ]f :lnext<CR>
 
 " Open a new vertical or horizontal split
-nnoremap <leader>v :vsplit<cr>
-nnoremap <leader>h :split<cr>
+nnoremap <Leader>v :vsplit<CR>
+nnoremap <Leader>h :split<CR>
 
 " Open a new vertical or horizontal split and switch to it.
-nnoremap <leader>vs <C-w>v<C-w>l
-nnoremap <leader>hs <C-w>s<C-w>j
+nnoremap <Leader>vs <C-W>v<C-W>l
+nnoremap <Leader>hs <C-W>s<C-W>j
 
 " clear hlsearch
-nnoremap <leader><space> :silent! call setreg('/', '')<CR>
+nnoremap <Leader><Space> :silent! call setreg('/', '')<CR>
 
-nnoremap <leader>g :GitGutterLineHighlightsToggle<CR>
-nnoremap <leader>u :MundoToggle<CR>
+nnoremap <Leader>g :GitGutterLineHighlightsToggle<CR>
+nnoremap <Leader>u :MundoToggle<CR>
 
 " This is useful for those languages where I do things
-nnoremap <F5> :silent make<cr>
-nnoremap <F4> :cclose<cr>
+nnoremap <F5> :silent make<CR>
+nnoremap <F4> :cclose<CR>
 
 nmap <C-PageDown> <Plug>(GitGutterNextHunk)
 nmap <C-PageUp> <Plug>(GitGutterPrevHunk)
@@ -162,6 +161,7 @@ function! s:syntax()
 endfunction
 
 " Works on the entire file
+" XXX: Why did I write this??
 function! s:sortdictfile() range
   let width = &textwidth
   setlocal textwidth=1
@@ -186,7 +186,7 @@ if executable('bat')
 endif
 
 " global plugin options
-let g:neosnippet#snippets_directory = expand('$HOME/.vim/snippets') " neosnippet
+let g:neosnippet#snippets_directory = expand('$MYRUNTIME/snippets') " neosnippet
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }       " neosnippet
 
 let g:cpp_class_scope_highlight = 1
@@ -200,7 +200,7 @@ if executable('rg') | let g:gitgutter_grep = 'rg --color never' | endif
 
 " github icons
 let g:gitgutter_sign_removed_first_line = "\uf476"
-let g:gitgutter_sign_modified_removed = "\uf5a"
+let g:gitgutter_sign_modified_removed = "\uf45a"
 let g:gitgutter_sign_modified = "\uf459"
 let g:gitgutter_sign_removed = "\uf458"
 let g:gitgutter_sign_added = "\uf457"

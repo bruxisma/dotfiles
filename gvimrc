@@ -18,8 +18,8 @@ if s:osx
   set macligatures
   set guifont=CascadiaCodePL-Roman:h16
 elseif s:windows
-  silent set guifont=Cascadia_Code_PL:h12
-  silent set guioptions+=!
+  silent! set guifont=Delugia:h12
+  silent! set guioptions+=!
   silent! set renderoptions=type:directx
   silent! set renderoptions+=gamma:1.0 ",contrast:0.5,level:0.5,
   silent! set renderoptions+=geom:1,renmode:5,taamode:2
