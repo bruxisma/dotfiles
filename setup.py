@@ -183,7 +183,7 @@ if __name__ == '__main__':
   args = vars(parser.parse_args())
   if not any(args.values()): args = dict.fromkeys(args, True)
 
-  alias = args['aliases']
+  alias = args['alias']
   tool = args['tool']
   git = args['git']
   sym = args['sym']
