@@ -1,4 +1,4 @@
-local window, option, fn = vim.w, vim.opt, vim.fn
+local global, window, option, fn = vim.g, vim.w, vim.opt, vim.fn
 
 window.termencoding = "utf-8"
 window.foldlevelstart = 10
@@ -14,7 +14,7 @@ option.tabstop = 2
 
 option.fileformats = { "unix", "dos" }
 option.laststatus = 2
-option.shortmess:append "aoOTIF"
+option.shortmess = "aoOTIF"
 
 option.modeline = false
 option.swapfile = false
@@ -31,15 +31,16 @@ option.autochdir = true
 
 option.list = true
 
-if vim.fn.has "+diff" then
+global.mapleader = ","
+
+if fn.has "+diff" then
   option.diffopt:append "vertical"
 end
 
-if vim.fn.executable "rg" then
+if fn.executable "rg" then
   option.grepformat:prepend "%f:%l%c:%m"
   option.grepprg = [[rg --vimgrep --no-heading --smart-case]]
 end
 
-vim.cmd [[let mapleader = ","]]
 -- For some reason this doesn't work if written in raw lua
 vim.cmd [[set listchars=tab:»\ ,extends:▶,precedes:◀,nbsp:␣,trail:·]]
