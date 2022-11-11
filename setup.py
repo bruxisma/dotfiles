@@ -65,6 +65,11 @@ if __name__ == '__main__':
   shell = 'psh' if windows else 'fish'
 
   unshelve = 'stash pop'
+  aliases = ' | '.join((r'!git config --list',
+    r'grep "alias\."',
+    r'sed -e "s/alias\.\([^=]*\)=\(.*\)/\1#\2/" -e "s/aliases#\(.*\)//"',
+    r'sort',
+    r'column -t -s "#"'))
   unstage = 'reset HEAD'
   changes = 'status -s'
   history = 'log --graph --decorate --pretty=oneline --abbrev-commit --all'
@@ -90,6 +95,7 @@ if __name__ == '__main__':
   gitconfig('log', 'date', 'iso')
 
   gitconfig('alias', 'unshelve', unshelve)
+  gitconfig('alias', 'aliases', aliases)
   gitconfig('alias', 'unstage', unstage)
   gitconfig('alias', 'changes', changes)
   gitconfig('alias', 'history', history)
