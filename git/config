@@ -41,6 +41,7 @@
   fixup = commit --fixup
   amend = commit --amend
   undo = reset --soft HEAD~1
+  bash = "!bash"
   stat = status
   st = status
 [delta]
