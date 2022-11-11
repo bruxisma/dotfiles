@@ -13,6 +13,11 @@
   autocrlf = input
   editor = gvim -f
   pager = delta --diff-so-fancy
+[pager]
+  reflog = delta
+  diff = delta
+  show = delta
+  log = delta
 [fetch]
   prune = true
   pruneTags = true
@@ -38,11 +43,12 @@
   undo = reset --soft HEAD~1
   stat = status
   st = status
-
 [delta]
-syntax-theme = OneHalfDark
+  syntax-theme = OneHalfDark
+[include]
+  path = machine
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true

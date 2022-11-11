@@ -54,3 +54,11 @@ function Clear-History {
   [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
   Clear-Host
 }
+
+<# Updates all installed cargo tools *if* cargo is installed #>
+function Update-CargoTools {
+  if (-not (Get-Command "cargo" -ErrorAction SilentlyContinue)) { return }
+  cargo install --list `
+  | Where-Object { $_ -match '^\S' } `
+  | Foreach-Object { cargo install "$($_ -replace '^(\S+).*$', '$1')" }
+}
