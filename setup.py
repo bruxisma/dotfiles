@@ -13,7 +13,7 @@ from glob import glob
 import sys
 import os
 
-dotfile_list = glob('*rc')
+dotfile_list = glob('*rc') + ['zshenv']
 dir_list = ['vim']
 
 def symlink(iterable, func, directory=False):
@@ -35,15 +35,20 @@ def symlink(iterable, func, directory=False):
             except OSError as e:
                 print('Could not remove old symlink {}: {}'.format(link, e))
                 sys.exit(2)
-        try: os.symlink(item, link, target_is_directory=directory)
+        try:
+            if sys.platform == 'win32':
+                os.symlink(item, link, target_is_directory=directory)
+            else: os.symlink(item, link)
         except OSError as e:
             print('Could not symlink {}: {}'.format(item, e))
             sys.exit(1)
 
 if __name__ == '__main__':
     # Hacky way to remove zsh stuff from being symlinked in windows
-    dotfile_list = [item for item in dotfile_list
-            if 'zsh' not in item and sys.platform == 'win32']
+    print(dotfile_list)
+    dotfile_list = dotfile_list if not sys.platform == 'win32' else \
+            [item for item in dotfile_list if 'zsh' not in item]
+    print(dotfile_list)
     # Now we do the actual symlinking
     symlink(dotfile_list,
         lambda x: '{}{}'.format('.' if sys.platform != 'win32' else '_', x))
