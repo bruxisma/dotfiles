@@ -44,33 +44,24 @@ tail = 'WindowsPowershell' if windows else 'fish'
 shell_target = join(head, tail)
 shell = 'psh' if windows else 'fish'
 
-unshelve = 'stash pop'
-aliases = ' | '.join((r'!git config --list',
-  r'grep "alias\."',
-  r'sed -e "s/alias\.\([^=]*\)=\(.*\)/\1#\2/" -e "s/aliases#\(.*\)//"',
+# This is a very large git alias, so we break it up for readability
+aliases = ' | '.join((r'!git config --get-regexp "^alias\\."',
+  r'sed -e "s/^alias\\.\([^\ ]*\)\ /\1#/"',
   r'sort',
   r'column -t -s "#"'))
-unstage = 'reset HEAD'
-changes = 'status -s'
-remotes = '!git remote -v | column -t'
-current = 'rev-parse --abbrev-ref @'
-history = 'log --graph --decorate --pretty=oneline --abbrev-commit --all'
-shelve = 'stash save --include-untracked'
-ignore = '!f(){ echo $1 >> .gitignore; }; f'
-fixup = 'commit --fixup'
-head = 'rev-list --max-count=1 --abbrev-commit HEAD'
-save = 'stash save'
-last = 'log --graph --decorate --pretty=oneline --abbrev-commit --numstat -1'
-this = '!git init && git add . && git commit -m "Initial Commit"'
-find = '!git ls-files | grep -i'
-root = 'rev-parse --show-toplevel'
-undo = 'reset --soft @~1'
-mar = 'checkout --'
-st = 'status'
 
 #-----------------------------------------------------------------------------
 # Functions
 #-----------------------------------------------------------------------------
+def gitclear (section):
+  '''Given a *section*, removes all members of that section.
+
+  Exits with an error message if the call fails
+  '''
+  cmd = ['git', 'config', '--global', '--remove-section', '{}'.format(section)]
+  try: call(cmd)
+  except CalledProcessError as e: exit(str(e))
+
 def gitconfig (section, variable, value):
   '''Given a *section*, *variable*, and *value*, adds the *variable* to the
   global .gitconfig with *value*. This is done instead of adding a .gitconfig
@@ -81,6 +72,10 @@ def gitconfig (section, variable, value):
   cmd = ['git', 'config', '--global', '{}.{}'.format(section, variable), value]
   try: call(cmd)
   except CalledProcessError as e: exit(str(e))
+
+def gitalias (**kwargs):
+  for key, value in kwargs.items():
+    gitconfig('alias', key, value)
 
 def mkdir (path):
   '''Creates a directory *path*, after performing file path expansion. Does
@@ -112,6 +107,59 @@ def symlink (src, dst):
   try: linker()
   except OSError as e: exit('Could not symlink {}: {}'.format(item, e))
 
+def gitsetup ():
+  gitconfig('user', 'name', 'Isabella Muerte')
+
+  gitconfig('push', 'default', 'simple')
+
+  gitconfig('core', 'autocrlf', 'input')
+  gitconfig('core', 'editor', 'gvim -f')
+
+  gitconfig('color', 'ui', 'auto')
+
+  gitconfig('log', 'date', 'iso')
+
+  gitclear('alias')
+
+  gitalias(aliases=aliases)
+  gitalias(branches='branch -a')
+  gitalias(commits='log --graph --decorate --pretty=oneline --abbrev-commit')
+  gitalias(stashes='stash list')
+  gitalias(remotes='!git remote -v | column -t')
+  gitalias(changes='status -s')
+  gitalias(tags='tag')
+
+  gitalias(unshelve='stash pop')
+  gitalias(uncommit='reset --mixed @~')
+  gitalias(unstage='reset -q @ --')
+  gitalias(undo='reset --soft @~1')
+
+  gitalias(squash='commit --squash')
+  gitalias(fixup='commit --fixup')
+  gitalias(cram='rebase -i --autosquash')
+
+  gitalias(current='rev-parse --abbrev-ref @')
+  gitalias(history='!git commits --all')
+  gitalias(discard='checkout --')
+  gitalias(shelve='stash save --include-untracked')
+  gitalias(update='add -A')
+  gitalias(track='branch -u')
+  gitalias(shove='push -f')
+  gitalias(head='rev-list --max-count=1 --abbrev-commit @')
+  gitalias(save='stash save')
+  gitalias(last='!git commits --numstat -1')
+  gitalias(find='!git ls-files | grep -i')
+  gitalias(root='rev-parse --shot-toplevel')
+  gitalias(st='status')
+
+def symsetup ():
+  if posix: mkdir('~/.config')
+
+  symlink('gvimrc', '.gvimrc')
+  symlink('vimrc', '.vimrc')
+  symlink('vim', '.vim')
+  symlink(shell, shell_target)
+
 #-----------------------------------------------------------------------------
 # Entry Point
 #-----------------------------------------------------------------------------
@@ -130,44 +178,6 @@ if __name__ == '__main__':
   git = args['git']
   sym = args['sym']
 
-  if git:
-    gitalias = partial(gitconfig, 'alias')
+  if git: gitsetup()
+  if sym: symsetup()
 
-    gitconfig('user', 'name', 'Isabella Muerte')
-
-    gitconfig('push', 'default', 'simple')
-
-    gitconfig('core', 'autocrlf', 'input')
-    gitconfig('core', 'editor', 'gvim -f')
-
-    gitconfig('color', 'ui', 'auto')
-
-    gitconfig('log', 'date', 'iso')
-
-    gitalias('unshelve', unshelve)
-    gitalias('aliases', aliases)
-    gitalias('unstage', unstage)
-    gitalias('changes', changes)
-    gitalias('remotes', remotes)
-    gitalias('current', current)
-    gitalias('history', history)
-    gitalias('shelve', shelve)
-    gitalias('ignore', ignore)
-    gitalias('fixup', fixup)
-    gitalias('head', head)
-    gitalias('save', save)
-    gitalias('last', last)
-    gitalias('this', this)
-    gitalias('find', find)
-    gitalias('root', root)
-    gitalias('undo', undo)
-    gitalias('mar', mar)
-    gitalias('st', st)
-
-  if sym:
-    if posix: mkdir('~/.config')
-
-    symlink('gvimrc', '.gvimrc')
-    symlink('vimrc', '.vimrc')
-    symlink('vim', '.vim')
-    symlink(shell, shell_target)
