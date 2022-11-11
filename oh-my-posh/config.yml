@@ -1,0 +1,107 @@
+console_title_template: "{{.PWD}} on {{ lower .HostName }}"
+final_space: true
+osc99: true
+version: 1
+# Based on gruvbox dark palette
+palette:
+  bg:main: "#282828"
+  bg:0: "#1d2021"
+  bg:1: "#3c3836"
+  bg:2: "#504945"
+  bg:3: "#665c54"
+  bg:4: "#7c6f64"
+
+  fg:main: "#ebdbb2"
+  fg:0: "#fbf1c7"
+  fg:1: "#ebdbb2"
+  fg:2: "#d5c4a1"
+  fg:3: "#bdae93"
+  fg:4: "#a89984"
+
+  bg:red: "#cc241d"
+  bg:green: "#98971a"
+  bg:yellow: "#d79921"
+  bg:blue: "#458588"
+  bg:purple: "#b16286"
+  bg:aqua: "#689d6a"
+  bg:gray: "#928374"
+  bg:orange: "#d65d0e"
+
+  fg:red: "#fb4934"
+  fg:green: "#b8bb26"
+  fg:yellow: "#fabd2f"
+  fg:blue: "#83a598"
+  fg:purple: "#d3869b"
+  fg:aqua: "#8ec07c"
+  fg:orange: "#fe8019"
+blocks:
+  - alignment: left
+    type: prompt
+    segments:
+      - type: session
+        style: diamond
+        background: p:bg:yellow
+        foreground: p:bg:main
+        trailing_diamond: 
+        properties:
+          display_host: false
+          template: >-
+            {{if .SSHSession }}{{end}}
+            {{lower .UserName}}{{lower .HostName}} 
+      - type: path
+        style: diamond
+        leading_diamond: <transparent,background></>
+        trailing_diamond: 
+        background: p:bg:orange
+        foreground: p:bg:main
+        properties:
+          style: mixed
+          folder_separator_icon: "  "
+          folder_icon: 
+          home_icon: 
+          template: " {{ path .Path .Location }} "
+      - type: git
+        style: diamond
+        leading_diamond: <transparent,background></>
+        trailing_diamond: 
+        background: p:bg:green
+        foreground: p:bg:main
+        background_templates:
+          - "{{if or (.Working.Changed) (.Staging.Changed)}}p:bg:yellow{{end}}"
+          - "{{if and (gt .Ahead 0) (gt .Behind 0)}}p:bg:red{{end}}"
+          - "{{if gt .Ahead 0}}p:bg:purple{{end}}"
+          - "{{if gt .Behind 0}}p:bg:aqua{{end}}"
+        foreground_templates:
+          - "{{ if or (.Working.Changed) (.Staging.Changed)}}p:bg:main{{end}}"
+          - "{{if and (gt .Ahead 0) (gt .Behind 0)}}p:fg:main{{end}}"
+          - "{{if gt .Ahead 0}}p:fg:main{{end}}"
+        properties:
+          fetch_upstream_icon: true
+          fetch_status: true
+          github_icon: 
+          template: >-
+            {{if .UpstreamURL}} {{url .UpstreamIcon .UpstreamURL}}{{end}}
+            {{.HEAD}}
+            {{.BranchStatus}}
+            {{if .Working.Changed}} {{.Working.String}}{{end}}
+            {{if .Staging.Changed}} {{.Staging.String}}{{end}}
+      - type: root
+        style: diamond
+        leading_diamond: <transparent,background></>
+        trailing_diamond: 
+        background: p:bg:purple
+        foreground: p:bg:white
+        properties:
+          root_icon: 
+          template: 
+      - type: exit
+        style: diamond
+        leading_diamond: <transparent,background></>
+        trailing_diamond: 
+        background: p:bg:blue
+        foreground: p:fg:main
+        background_templates:
+          - "{{if gt .Code 0}}p:bg:red{{end}}"
+        properties:
+          always_enabled: true
+          template: " {{if gt .Code 0}}{{else}}{{end}} "

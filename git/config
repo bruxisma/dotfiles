@@ -11,7 +11,7 @@
   ui = auto
 [core]
   autocrlf = input
-  editor = gvim -f
+  editor = nvim
   pager = delta --diff-so-fancy
 [pager]
   reflog = delta
@@ -24,7 +24,7 @@
 [rebase]
   autosquash = true
 [format]
-  pretty = %C(red)%h%C(r)  %C(bold blue)%an%C(r): %C(white)%s%C(r) %C(dim white) %C(bold green)(%ar)%C(r) %C(bold yellow)%d%C(r)
+  pretty = %C(red)%h%C(reset)  %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white) %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)
 [merge]
   tool = gvimdiff
   conflictstyle = diff3

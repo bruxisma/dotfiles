@@ -74,8 +74,10 @@ def symsetup ():
     symlink('vimrc', '.vimrc')
     symlink('vim', '.vim')
 
+    symlink('nvim', join('.config', 'nvim'))
     symlink('git', join('.config', 'git'))
     symlink('lsd', join(roaming, 'lsd'))
+    symlink('oh-my-posh', join('.config', 'oh-my-posh'))
 
     symlink(shell, shell_target)
     symlink('gh', gh_target)

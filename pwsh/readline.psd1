@@ -2,7 +2,7 @@
   HistoryNoDuplicates = $true
   EditMode = "Windows"
   BellStyle = "None"
-  PredictionSource = "History"
+  PredictionSource = "HistoryAndPlugin"
   PromptText = "$ "
   Colors = @{
     ContinuationPrompt = "White"
