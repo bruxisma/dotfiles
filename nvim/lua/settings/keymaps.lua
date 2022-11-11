@@ -7,9 +7,14 @@ vim.keymap.set("n", "<Leader>vs", ":vsplit<CR><C-W>l", {
   noremap=true,
 })
 
+vim.keymap.set("n", "<Leader>hs", ":split<CR><C-W>j", {
+  desc = "Open a new horizontal split and switch to it",
+  noremap=true,
+})
+
 vim.keymap.set("n", "<Leader>v", ":vsplit<CR>", {
   desc = "Open a new vertical split",
-  noremap = true,
+  noremap=true,
 })
 
 vim.keymap.set("n", "<Leader>h", ":split<CR>", {

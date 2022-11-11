@@ -1,7 +1,7 @@
 require "settings.options"
 require "settings.keymaps"
 require "settings.autocmd"
---require "settings.abbrev"
+require "settings.abbrev"
 
 local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
