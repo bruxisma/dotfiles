@@ -5,7 +5,7 @@ require("packer").startup {
   require("plugins.manifest"),
   config = {
     compile_path = require("packer.util").join_paths(
-      fn.stdpath "cache",
+      fn.stdpath("cache"),
       "packer.nvim",
       "compiled.lua"
     ),
@@ -17,4 +17,3 @@ require("packer").startup {
     },
   },
 }
-

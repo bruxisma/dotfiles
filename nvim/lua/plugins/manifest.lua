@@ -1,18 +1,25 @@
 local function telescope(use)
-  use { "nvim-telescope/telescope.nvim",
+  use {
+    "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
     requires = { "nvim-lua/plenary.nvim" },
   }
   use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
   use { "nvim-telescope/telescope-symbols.nvim", requires = { "nvim-telescope/telescope.nvim" } }
-  use { "nvim-telescope/telescope-packer.nvim", requires = {
-    "nvim-telescope/telescope.nvim",
-    "wbthomas/packer.nvim",
-  }}
-  use { "nvim-telescope/telescope-github.nvim", requires = {
-    "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope.nvim",
-  }}
+  use {
+    "nvim-telescope/telescope-packer.nvim",
+    requires = {
+      "nvim-telescope/telescope.nvim",
+      "wbthomas/packer.nvim",
+    },
+  }
+  use {
+    "nvim-telescope/telescope-github.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  }
 end
 
 local function completion(use)
@@ -27,43 +34,57 @@ local function languages(use)
 end
 
 local function treesitter(use)
-  use { "nvim-treesitter/nvim-treesitter", run = function()
-    if vim.fn.exists(':TSUpdate') == 2 then
-      vim.cmd [[:TSUpdate]]
-    end
-  end}
-  use { "nvim-treesitter/nvim-treesitter-context", requires = {
+  use {
     "nvim-treesitter/nvim-treesitter",
-  }}
+    run = function()
+      if vim.fn.exists(":TSUpdate") == 2 then
+        vim.cmd([[:TSUpdate]])
+      end
+    end,
+  }
+  use {
+    "nvim-treesitter/nvim-treesitter-context",
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  }
   use { "nvim-treesitter/playground", requires = {
     "nvim-treesitter/nvim-treesitter",
-  }}
+  } }
 end
 
 local function debugger(use)
-  use { "theHamsta/nvim-dap-virtual-text", requires = {
-    "nvim-treesitter/nvim-treesitter",
-    "mfussenegger/nvim-dap",
-  }}
+  use {
+    "theHamsta/nvim-dap-virtual-text",
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+      "mfussenegger/nvim-dap",
+    },
+  }
 end
 
 local function trouble(use)
-  use { "folke/trouble.nvim", requires = {
-    "kyazdani42/nvim-web-devicons",
-    "folke/lsp-colors.nvim",
-  }}
+  use {
+    "folke/trouble.nvim",
+    requires = {
+      "kyazdani42/nvim-web-devicons",
+      "folke/lsp-colors.nvim",
+    },
+  }
   use {
     "folke/todo-comments.nvim",
     requires = { "nvim-lua/plenary.nvim" },
-    config = function() require('todo-comments').setup{} end,
+    config = function()
+      require("todo-comments").setup {}
+    end,
   }
 end
 
 -- Older, pure vim, plugins
 local function classic(use)
-  use "tpope/vim-eunuch"
-  use "bruxisma/gitmoji.vim"
-  use "airblade/vim-gitgutter"
+  use("tpope/vim-eunuch")
+  use("bruxisma/gitmoji.vim")
+  use("airblade/vim-gitgutter")
   use { "shinchu/lightline-gruvbox.vim", requires = "itchyny/lightline.vim" }
 end
 

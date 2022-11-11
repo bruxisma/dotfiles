@@ -33,14 +33,14 @@ option.list = true
 
 global.mapleader = ","
 
-if fn.has "+diff" then
-  option.diffopt:append "vertical"
+if fn.has("+diff") then
+  option.diffopt:append("vertical")
 end
 
-if fn.executable "rg" then
-  option.grepformat:prepend "%f:%l%c:%m"
+if fn.executable("rg") then
+  option.grepformat:prepend("%f:%l%c:%m")
   option.grepprg = [[rg --vimgrep --no-heading --smart-case]]
 end
 
 -- For some reason this doesn't work if written in raw lua
-vim.cmd [[set listchars=tab:»\ ,extends:▶,precedes:◀,nbsp:␣,trail:·]]
+vim.cmd([[set listchars=tab:»\ ,extends:▶,precedes:◀,nbsp:␣,trail:·]])

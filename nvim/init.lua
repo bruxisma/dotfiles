@@ -1,6 +1,6 @@
-require "plugins"
-require "settings"
-require "gitmoji"
+require("plugins")
+require("settings")
+require("gitmoji")
 
 local keymap = vim.keymap
 local global = vim.g
@@ -9,7 +9,7 @@ local set = vim.opt
 set.mouse = "a"
 set.guifont = "Delugia:h10"
 
-vim.cmd [[colorscheme gruvbox]]
+vim.cmd([[colorscheme gruvbox]])
 
 global.is_kornshell = 0
 global.is_posix = 1
@@ -17,9 +17,8 @@ global.sh_fold_enabled = 3
 
 global.copilot_filetypes = { sshconfig = false }
 
-
 -- Leftover from orginal vimrc. Will remain until it can be replaced.
-vim.cmd [[
+vim.cmd([[
 function! s:command(name, ...)
   return getcmdtype() == ':' && getcmdline() =~# '^' .. a:name
         \ ? join(a:000, ' ')
@@ -49,4 +48,4 @@ cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<Space>lgrep")
 cnoreabbrev <expr> grep <SID>command("grep", "silent<Space>grep")
 
 cnoreabbrev <expr> st <SID>command("st", "GFiles?")
-]]
+]])

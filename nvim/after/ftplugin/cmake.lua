@@ -1,1 +1,1 @@
-vim.opt_local.matchpairs:append('<:>')
+vim.opt_local.matchpairs:append("<:>")

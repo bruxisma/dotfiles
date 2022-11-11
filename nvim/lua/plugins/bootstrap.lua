@@ -1,5 +1,5 @@
 local fn = vim.fn
-local packer = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+local packer = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(packer)) > 0 then
   return fn.system {
     "git",
