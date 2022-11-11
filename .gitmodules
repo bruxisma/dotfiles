@@ -10,3 +10,6 @@
 [submodule "vim/bundle/flux"]
 	path = vim/bundle/flux
 	url = git://github.com/sahchandler/vim-flux.git
+[submodule "vim/bundle/scala"]
+	path = vim/bundle/scala
+	url = git@github.com:sahchandler/vim-scala.git
