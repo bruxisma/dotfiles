@@ -1,5 +1,8 @@
 [user]
   name = Isabella Muerte
+  email = 63051+slurps-mad-rips@users.noreply.github.com
+[push]
+  default = simple
 [log]
   date = iso
 [color]
@@ -9,13 +12,20 @@
   editor = gvim -f
 [rebase]
   autosquash = true
+[format]
+  pretty = %C(red)%h%C(r)  %C(bold blue)%an%C(r): %C(white)%s%C(r) %C(dim white) %C(bold green)(%ar)%C(r) %C(bold yellow)%d%C(r)
+[merge]
+  tool = gvimdiff
+  conflictstyle = diff3
+  prompt = false
 [alias]
-  aliases = "!git config --global --get-regexp '^alias[.]' | rg -e '^alias[.](\\w+) ' -r '$1\t=> $2'" 
+  aliases = "!git config --global --get-regexp '^alias[.]' | rg -e '^alias[.](\\w+) ' -r '$1 \t=> $2'" 
   branches = branch -a
   commits = log --graph --decorate --pretty=oneline --abbrev-commit
   remotes = remote -v
   tags = tag
   squash = commit --squash 
   fixup = commit --fixup
+  undo = reset --soft HEAD~1
   stat = status
   st = status

@@ -132,6 +132,8 @@ let g:netrw_menu = 0
 
 let g:gruvbox_contrast_dark = 'hard'
 
+let g:vim_markdown_no_default_key_mappings = 1
+
 let g:lightline =<< trim STATUS
   #{
       colorscheme: 'gruvbox',

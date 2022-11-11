@@ -1,14 +1,23 @@
 " Gitmoji abbreviations
+" TODO: Some of these have since been removed, and a cleanup is in order
+" TODO: I rarely use the 'canonical' name for these, so changing it to use
+"       just the 'prefix' name would be ideal
+iabbrev :format: 🎨
 iabbrev :art: 🎨
+
+iabbrev :performance: ⚡
 iabbrev :zap: ⚡
+
 iabbrev :bug: 🐛
+
+iabbrev :delete: 🔥
 iabbrev :fire: 🔥
 
-iabbrev :build: 🛠
+iabbrev :build: 🔨
 
 iabbrev :ambulance: 🚑
 iabbrev :critical: 🚑
-iabbrev :hotfix:
+iabbrev :hotfix: 🚑
 
 iabbrev :sparkles: ✨
 iabbrev :feature: ✨
@@ -43,7 +52,7 @@ iabbrev :apple: 🍎
 iabbrev :macos: 🍎
 
 iabbrev :green_apple: 🍏
-iabbrev :ios: 💚
+iabbrev :ios: 🍏
 
 iabbrev :penguin: 🐧
 iabbrev :linux: 🐧
@@ -68,7 +77,6 @@ iabbrev :wip: 🚧
 
 iabbrev :green_heart: 💚
 iabbrev :fix-ci: 💚
-iabbrev :ci: 💚
 
 iabbrev :arrow_down: ⬇
 iabbrev :downgrade: ⬇
@@ -80,7 +88,7 @@ iabbrev :pushpin: 📌
 iabbrev :pin: 📌
 
 iabbrev :construction-worker: 👷
-iabbrev :add-ci: 👷
+iabbrev :ci: 👷
 
 iabbrev :analytics: 📈
 
@@ -183,7 +191,6 @@ iabbrev :wheel_of_dharma: ☸
 iabbrev :kubernetes: ☸
 iabbrev :k8s: ☸
 
-iabbrev :feature: 🚩
 iabbrev :flag: 🚩
 
 iabbrev :animation: 💫

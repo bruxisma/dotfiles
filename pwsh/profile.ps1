@@ -19,6 +19,7 @@ Remove-Variable readline
 Set-EnvironmentVariable -Name FZF_DEFAULT_COMMAND -Value "fd --type f"
 Set-EnvironmentVariable -Name CMAKE_GENERATOR -Value Ninja
 Set-EnvironmentVariable -Name DOCKER_BUILDKIT -Value 1
+Set-EnvironmentVariable -Name LESSCHARSET -Value "utf-8"
 
 Set-PSReadlineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
 Set-PSReadlineKeyHandler -Chord Ctrl+a -Function BeginningOfLine

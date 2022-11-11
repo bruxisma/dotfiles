@@ -7,7 +7,7 @@ function! s:command(name, ...)
         \ : a:name
 endfunction 
 
-cnoreabbrev <expr> twitch <SID>command("twitch", "set columns=176 lines=60")
+cnoreabbrev <expr> twitch <SID>command("twitch", "set columns=168 lines=60")
 cnoreabbrev <expr> pwsh <SID>command("pwsh", "term ++close pwsh -NoLogo -WorkingDirectory %:p:h")
 
 set guioptions=afgm

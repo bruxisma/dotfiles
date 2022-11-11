@@ -1,0 +1,7 @@
+# Files
+.DS_Store
+*.swp
+*.pyc
+*~
+# Folders
+/node_modules/
