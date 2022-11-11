@@ -1,6 +1,7 @@
 # Personal configuration profile
 
 import-module development
+import-module posix
 
 $env:EDITOR = get-vimpath
 
@@ -10,9 +11,6 @@ set-msvc
 set-vars # Sets global constant values.
 
 set-alias less more
-
-# git
-enable-gitcolors
 
 # "boilerplate"
 $window = (get-host).UI.RawUI
