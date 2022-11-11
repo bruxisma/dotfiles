@@ -249,7 +249,8 @@ nnoremap <F4> :cclose<cr>
 
 " }}}
 
-" match chevrons in C++ files
+" match chevrons in C++ and CMake files
+autocmd FileType cmake set mps+=<:>
 autocmd FileType cpp set mps+=<:>
 
 
