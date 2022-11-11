@@ -71,12 +71,16 @@ function set-msvc([int]$version=10, [string]$type="x86") {
 
 <#
 .SYNOPSIS
-  Invokes the .NET Garbage Collector
+  Creates constant read-only values in the global scope
 .NOTES
-  This function might do better in a utility module
+  Used primarily for 'caching' values
 #>
-function run-gc() {
-  [void]([System.GC]::Collect())
+function set-constant($name, $value, [string]$description='') {
+  set-variable -name $name `
+    -option constant `
+    -value $value `
+    -scope global `
+    -description $description `
 }
 
 <# This should probably go into a utility module as well
@@ -85,11 +89,7 @@ out a great deal, I'm sure
 
 use `set-variable <varname> -option Constant -value <value>`
 #>
-function set-prompt {
-  write-host ('[' + [Environment]::UserName.ToLower() +
-              '@' + [Environment]::MachineName.ToLower() +
-              ']:' + (pwd).Path.Replace($HOME, '~').Replace('\', '/') +
-              '$') -NoNewLine
-  return ' '
+function set-vars {
+  set-constant username ([Environment]::UserName.ToLower())
+  set-constant machinename ([Environment]::MachineName.ToLower())
 }
-

@@ -1,36 +1,30 @@
 # Personal configuration profile
 
 import-module development
+import-module posh-git
 
-# Set up the powershell prompt
-# We start in ~/ at all times. ALWAYS D:<
-# This is to keep the behavior that my zshell follows on OS X
-set-location $HOME
-
-# At some point there will be a 'python' module which will use stuff like
-# virtualenv, and act as virtualenv wrapper tools and stuff.
-set-python
-
-# We also want msvc set to VS2010 by default, with amd64.
-# There is nothing wrong with us calling
-# `set-msvc [some other version] [some other toolchain]`
-# as it will just overwrite it :)
-# A note however, that calling the x86 version will get more "tools" available
-# for use.
-set-msvc
-
-# both git and mercurial will use the $EDITOR value in powershell, so
-# we get the actual path and set it.
 $env:EDITOR = get-vimpath
 
-# Useful aliases to be more "unixy"
+set-location $HOME
+set-python # TODO: Need to have a python/python3 alias setup :/
+set-msvc
+set-vars # Sets global constant values.
+
 set-alias less more
 
-# Blue is nice, but it messes with some of my programs :/
+# git
+enable-gitcolors
+
+# "boilerplate"
 $window = (get-host).UI.RawUI
 $window.BackgroundColor = "black"
 clear-host
 
 function prompt {
-  return set-prompt
+  $path = (pwd).Path.Replace($HOME, '~').Replace('\', '/')
+
+  [String]::Format('[{0}@{1}]:{2}$', $username, $machinename, $path) |
+  write-host -nonewline
+
+  return ' '
 }
