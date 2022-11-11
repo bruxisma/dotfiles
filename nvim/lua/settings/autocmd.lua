@@ -1,14 +1,22 @@
-vim.cmd([[autocmd QuickFixCmdPost [^l]* nested cwindow]])
-vim.cmd([[autocmd QuickFixCmdPost    l* nested lwindow]])
-
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.local/share/ssh/*.conf,*/.config/ssh/*.conf setfiletype sshconfig
-]])
-
---[[
-TODO: Move to this kind of call when possible.
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
-  pattern = {"*/.config/ssh/*.conf"},
+  pattern = {
+    vim.fn.expand("~") .. "/.local/share/ssh/*.conf",
+    vim.fn.expand("~") .. "/.config/ssh/*.conf"
+  },
   command = "setfiletype sshconfig"
 })
-]]
+
+-- I'm unsure if I need these anymore
+vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, {
+  desc = "Automatically open quickfix on :make",
+  command = "cwindow",
+  pattern = "[^l]*",
+  nested = true,
+})
+
+vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, {
+  desc = "Automatically open quickfix on :make",
+  command = "lwindow",
+  pattern = "l*",
+  nested = true,
+})
