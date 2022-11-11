@@ -12,6 +12,12 @@ abbr include-guard
 
 	#endif /* $1 */
 
+snippet hinc
+abbr has-include
+  #if __has_include(<${1}>)
+    #include <${1}>
+  #endif /* __has_include(<${1}>) */
+
 snippet ns
 abbr namespace { }
 options head
