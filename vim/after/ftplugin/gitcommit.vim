@@ -91,6 +91,7 @@ iabbrev :construction-worker: 👷
 iabbrev :ci: 👷
 
 iabbrev :analytics: 📈
+iabbrev :stats: 📈
 
 iabbrev :recycle: ♻
 iabbrev :refactor: ♻
@@ -162,6 +163,7 @@ iabbrev :database: 🗃
 iabbrev :loud_sound: 🔊
 iabbrev :logs: 🔊
 
+iabbrev :quiet: 🔇
 iabbrev :mute: 🔇
 
 iabbrev :busts_in_silhouette: 👥
@@ -186,6 +188,7 @@ iabbrev :snapshot: 📸
 
 iabbrev :experiment: ⚗
 iabbrev :alembic: ⚗
+iabbrev :try: ⚗
 
 iabbrev :wheel_of_dharma: ☸
 iabbrev :kubernetes: ☸

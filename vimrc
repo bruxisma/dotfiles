@@ -108,6 +108,7 @@ let g:neosnippet#disable_runtime_snippets = { '_' : 1 }       " neosnippet
 
 let g:cpp_class_scope_highlight = 1
 let g:cpp_concepts_highlight = 1
+let g:load_doxygen_syntax=1
 let g:rust_recommended_style = 0
 
 let g:gitgutter_map_keys = 0

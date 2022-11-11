@@ -1,6 +1,8 @@
 [user]
   name = Isabella Muerte
   email = 63051+slurps-mad-rips@users.noreply.github.com
+[init]
+  defaultBranch = main
 [push]
   default = simple
 [log]
@@ -10,6 +12,7 @@
 [core]
   autocrlf = input
   editor = gvim -f
+  pager = delta --diff-so-fancy
 [rebase]
   autosquash = true
 [format]
@@ -18,6 +21,8 @@
   tool = gvimdiff
   conflictstyle = diff3
   prompt = false
+[diff]
+  colormoved = default
 [alias]
   aliases = "!git config --global --get-regexp '^alias[.]' | rg -e '^alias[.](\\w+) ' -r '$1 \t=> $2'" 
   branches = branch -a
@@ -26,6 +31,10 @@
   tags = tag
   squash = commit --squash 
   fixup = commit --fixup
+  amend = commit --amend
   undo = reset --soft HEAD~1
   stat = status
   st = status
+
+[delta]
+syntax-theme = OneHalfDark
