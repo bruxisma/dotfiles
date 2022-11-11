@@ -22,17 +22,17 @@ function get-vimpath() {
 
 <#
 .SYNOPSIS
-  Gets the Python location, and sets its folder AND the Scripts folder to be
-  on the system PATH. Default value is CPython 3.2
+  Gets the Python location, and sets its Scripts folder to be
+  on the system PATH. Default value is CPython 3.3
   This checks for both 32-bit and 64-bit python versions, but assumes that
   all python versions installed are all either 32-bit or 64-bit.
   Undefined behavior results otherwise
 .PARAMETER $version
   The python version to set as the 'primary' tool. Must be a float
 .EXAMPLE
-  [@]:~/$ set-python 3.2
+  [@]:~/$ set-python 3.3
 #>
-function set-python([float]$version=3.2) {
+function set-python([float]$version=3.3) {
   $root = "hklm:\software\{0}"
   $test = [String]::Format($root, "python")
   if (test-registry $test) { $root = $test }
@@ -41,7 +41,7 @@ function set-python([float]$version=3.2) {
   $path = (get-itemproperty $key).'(default)'
 
   # Builds the path out properly
-  $env:PATH += [String]::Format(";{0};{0}Scripts", $path)
+  $env:PATH += [String]::Format(";{0}Scripts", $path)
 }
 
 <#
