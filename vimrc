@@ -21,7 +21,7 @@ function! RelativeNumberToggle ()
 endfunction
 
 let s:starting = has('vim_starting')
-let s:multibyte = has('multibyte')
+let s:multibyte = has('multi_byte')
 let s:gui = has('gui_running')
 
 let s:windows = has('win32') || has('win64')
@@ -107,7 +107,7 @@ set ttyfast    " don't think this has ever been an issue
 set hidden     " prefer buffers over tabs
 set number     " line numbers
 set ruler      " line and column
-if s:gui | set background=light | endif " solarized
+"if s:gui | set background=light | endif " solarized
 
 " commands
 command! -nargs=+ AliasCommand call AliasCommand(<f-args>)

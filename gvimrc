@@ -1,16 +1,16 @@
 let s:windows = has('win32') || has('win64')
 let s:osx = has('mac')
 
-set guioptions-=T   " Remove all those icons I never use
-set guioptions=aegm " But keep the stuff I do!
-set columns=180     " increase number of columns
-set lines=54        " increase number of vertical lines
+set background=light " solarized light for gui
+set guioptions-=T    " Remove all those icons I never use
+set guioptions=aegm  " But keep the stuff I do!
+set columns=160      " increase number of columns
+set lines=50         " increase number of vertical lines
 
 if s:osx
-  set guifont=Office\ Code\ Pro:h13
+  set guifont=Ubuntu\ Mono:h16
 elseif s:windows
-  silent set guifont=Office_Code_Pro_Medium:h14:cANSI
-  " Its about time someone made gvim use Direct2D :D
+  silent set guifont=Ubuntu_Mono:h16:cANSI:qDRAFT
   silent! set renderoptions=type:directx,
       \gamma:1.5,
       \contrast:0.5,
@@ -19,5 +19,5 @@ elseif s:windows
       \taamode:1,
       \level:0.5
 else
-  set guifont=Office\ Code\ Pro\ 14
+  set guifont=Ubuntu\ Mono\ 16
 endif
