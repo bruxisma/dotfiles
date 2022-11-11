@@ -50,7 +50,6 @@ end
 -- treesitter
 local treesitter = require "nvim-treesitter.configs"
 treesitter.setup {
-  ensure_installed = "maintained",
   highlight = {
     additional_vim_regex_highlighting = { "dockerfile", "cmake" },
     enable = true,
