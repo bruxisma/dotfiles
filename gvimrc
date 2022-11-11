@@ -7,7 +7,8 @@ set columns=120      " increase number of columns
 set lines=40         " increase number of vertical lines
 
 if s:osx
-  set guifont=Ubuntu\ Mono:h16
+  set macligatures
+  set guifont=Fira\ Code\ Retina:h16
 elseif s:windows
   silent set guifont=Ubuntu_Mono:h16:cANSI:qDRAFT
   " Its about time someone made gvim use Direct2D :D
