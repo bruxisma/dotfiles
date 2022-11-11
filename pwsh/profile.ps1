@@ -68,7 +68,7 @@ if (Get-Command -Name "Update-SystemPath" -Module Atmosphere) {
 }
 
 <# Environment Variables #>
-if (${nvim} = Get-Command -Name nvim -CommandType Application) {
+if (${nvim} = Get-Command -Name "nvim" -CommandType Application -ErrorAction SilentlyContinue) {
   Set-Item -Path Env:EDITOR -Value ${nvim}.Source
 }
 
