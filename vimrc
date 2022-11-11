@@ -17,9 +17,11 @@ set ttyfast
 set visualbell
 set ruler
 
+set colorcolumn=110
+
 set backspace=indent,eol,start
 
-au BufNewFile,BufRead *.md set filetype=markdown
+au BufRead,BufNewFile *.md set filetype=markdown
 
 nnoremap / /\v
 vnoremap / /\v
@@ -27,9 +29,6 @@ vnoremap / /\v
 vnoremap <leader>z :fold
 
 let mapleader = ","
-
-" Let's make the old leader useful ;)
-nnoremap \ $
 
 " simplify saving
 nnoremap <leader>w :update<CR>
@@ -39,11 +38,14 @@ nnoremap <leader>vs <C-w>v<C-w>l
 " Open a new horizontal split and switch to it.
 nnoremap <leader>hs <C-w>s<C-w>j
 
-" For navigating split windows easier
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Use for tolding a tag
+nnoremap <leader>ft Vatzf
+
+" First Person Shooter Movement keys
+"nnoremap w k
+"nnoremap s j
+"nnoremap d l
+"nnoremap a h
 
 " NERDTree
 nnoremap <leader>m :NERDTreeToggle<CR>
