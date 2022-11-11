@@ -9,9 +9,9 @@ set lines=54        " increase number of vertical lines
 if s:osx
   set guifont=Office\ Code\ Pro:h13
 elseif s:windows
-  silent set guifont=Consolas:h12:b:cANSI
+  silent set guifont=Office_Code_Pro_Medium:h14:cANSI
   " Its about time someone made gvim use Direct2D :D
-  silent set renderoptions=type:directx,
+  silent! set renderoptions=type:directx,
       \gamma:1.5,
       \contrast:0.5,
       \geom:1,
@@ -19,5 +19,5 @@ elseif s:windows
       \taamode:1,
       \level:0.5
 else
-  set guifont=Source\ Code\ Pro\ 10
+  set guifont=Office\ Code\ Pro\ 14
 endif

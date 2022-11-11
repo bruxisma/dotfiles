@@ -39,7 +39,6 @@ from os import remove
 windows = platform == 'win32'
 posix = not windows
 
-front = '_' if windows else '.'
 head = 'Documents' if windows else '.config'
 tail = 'WindowsPowershell' if windows else 'fish'
 shell_target = join(head, tail)
@@ -164,9 +163,7 @@ if __name__ == '__main__':
   if sym:
     if posix: mkdir('~/.config')
 
-    symlink('gvimrc', '{}gvimrc'.format(front))
-    symlink('vimrc', '{}vimrc'.format(front))
-    symlink('vim', '{}vim'.format(front))
-    symlink('gdb', '.gdbinit')
-
+    symlink('gvimrc', '.gvimrc')
+    symlink('vimrc', '.vimrc')
+    symlink('vim', '.vim')
     symlink(shell, shell_target)
