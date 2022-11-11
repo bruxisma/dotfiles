@@ -1,0 +1,37 @@
+snippet once
+abbr include-guard
+	#ifndef ${1}
+	#define $1
+
+	${0}
+
+	#endif /* $1 */
+
+snippet ns
+abbr namespace { }
+options head
+	namespace ${1} {
+	${0}
+	} /* namespace $1 */
+
+snippet ins
+abbr inline-namespace
+	inline namespace ${1} {
+	${0}
+	} /* namespace $1 */
+
+snippet cast
+abbr static_cast<>()
+	static_cast<${1}>(${2})${0}
+
+snippet dcast
+abbr dynamic_cast<>()
+	static_cast<${1}>(${2})${0}
+
+snippet rcast
+abbr reinterpret_cast<>()
+	reinterpret_cast<${1}>(${2})${0}
+
+snippet ccast
+abbr const_cast<>()
+	const_cast<${1}>(${2})${0}

@@ -23,7 +23,8 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
-"NeoBundle 'Shougo/neocomplcache.vim'
+NeoBundle 'Shougo/neosnippet.vim'
+"NeoBundle 'Shougo/neocomplete.vim'
 
 "NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'tpope/vim-fugitive'
@@ -64,24 +65,24 @@ set visualbell
 set ruler
 set backspace=indent,eol,start
 
-if !has('mac')
-  set t_Co=256
-endif
+set cino=N-s " c++ specific indent option
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
 
-" ultisnips
-let g:UltiSnipsUsePythonVersion = 3
+" neosnippet
+imap <expr><TAB> neosnippet#expandable_or_jumpable()
+  \ ? "\<Plug>(neosnippet_expand_or_jump)"
+  \ : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable()
+  \ ? "\<Plug>(neosnippet_expand_or_jump)"
+  \ : "\<TAB>"
+
+let g:neosnippet#snippets_directory='~/.vim/snippets'
 
 let c_no_curly_error = 1 " Fixes *some* C++ support (from 7.3)
 
 let mapleader = "," " Using comma for leader is pretty useful, I think
-if !has('mac') || !has('win32')
-  let g:hybrid_use_Xresources=1
-endif
-
-vnoremap <leader>z zf
 
 " Use perl/python style regex for searches
 vnoremap / /\v
