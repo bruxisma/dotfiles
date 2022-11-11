@@ -194,11 +194,25 @@ iabbrev :wheel_of_dharma: ☸
 iabbrev :kubernetes: ☸
 iabbrev :k8s: ☸
 
+" Add or update types
+iabbrev :label: 🏷
+iabbrev :types: 🏷
+
+" Add or update seed files
+iabbrev :seedling: 🌱
+
+" Add, update, or remove feature flags
+iabbrev :triangular_flag_on_post:
 iabbrev :flag: 🚩
 
+" Add or update animations and transitions
 iabbrev :animation: 💫
 iabbrev :dizzy: 💫
 
+iabbrev :goal_net: 🥅
+iabbrev :catch: 🥅
+
+" Deprecate code that needs to be cleaned up
 iabbrev :wastebasket: 🗑
 iabbrev :deprecate: 🗑
 
@@ -213,9 +227,14 @@ iabbrev :adhesive_bandage: 🩹
 iabbrev :patch: 🩹
 
 iabbrev :monocle_face: 🧐
+iabbrev :inspect: 🧐
 iabbrev :data: 🧐
 
 iabbrev :coffin: ⚰
 iabbrev :dead: ⚰
+
+" Add a failing test
+iabbrev :test_tube: 🧪
+iabbrev :tdd: 🧪
 
 setlocal tabstop=2
