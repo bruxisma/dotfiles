@@ -167,11 +167,9 @@ smap <expr><tab> neosnippet#expandable_or_jumpable()
   \ ? "\<plug>(neosnippet_expand_or_jump)"
   \ : "\<tab>"
 
-nnoremap <C-c> <Esc>
 inoremap <C-c> <Esc>
 vnoremap <C-c> <Esc>
 
-nnoremap <Esc> <C-c>
 inoremap <Esc> <C-c>
 vnoremap <Esc> <C-c>
 
