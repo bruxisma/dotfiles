@@ -13,6 +13,7 @@ set lines=54 columns=210
 call flux#set('kadesh', 'vaygr')
 
 set gfn=Consolas:h12
+
 set guioptions-=T
 if has('mac')
     set gfn=Consolas:h12
