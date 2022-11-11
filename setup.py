@@ -58,21 +58,22 @@ def symlink (src, dst):
 #-----------------------------------------------------------------------------
 def gitsetup ():
     '''sets local files for git usage'''
-    try:
-        call(['git', 'update-index', '--skip-worktree', 'pwsh/Machine.ps1'])
-        call(['git', 'update-index', '--skip-worktree', 'git/machine'])
+    try: call(['git', 'update-index', '--skip-worktree', '--', 'pwsh/Machine.ps1', 'git/machine'])
     except CalledProcessError as e: exit(str(e))
 
 
 def symsetup ():
     '''creates configuration symlinks'''
     os.makedirs(os.path.expanduser('~/.config'), mode=0o755, exist_ok=True)
+    roaming = join('AppData', 'Roaming') if windows else '.config'
 
     symlink('gvimrc', '.gvimrc')
     symlink('vimrc', '.vimrc')
     symlink('vim', '.vim')
-    symlink('git', join('.config', 'git'))
+
     symlink('gh', join('.config', 'gh'))
+    symlink('git', join('.config', 'git'))
+    symlink('lsd', join(roaming, 'lsd'))
     symlink(shell, shell_target)
 
 
