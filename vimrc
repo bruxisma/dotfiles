@@ -64,9 +64,9 @@ call plug#begin('~/.vim/bundle')
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neosnippet.vim'
 
-Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'gregsexton/gitv'
@@ -192,7 +192,7 @@ let g:load_doxygen_syntax=1
 
 " lightline.vim
 let g:lightline = {
-  \ 'colorscheme': 'Dracula',
+  \ 'colorscheme': 'onedark',
   \ 'active' : {
   \   'left': [
   \     ['mode', 'paste'],
@@ -260,4 +260,4 @@ autocmd FileType cpp set mps+=<:>
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-colorscheme dracula
+colorscheme onedark

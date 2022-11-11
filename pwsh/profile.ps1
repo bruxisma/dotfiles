@@ -19,6 +19,14 @@ Set-PSReadlineKeyHandler -Key Ctrl+a -Function BeginningOfLine
 Set-PSReadlineKeyHandler -Key Ctrl+e -Function EndOfLine
 Set-PSReadlineKeyHandler -Key Ctrl+k -ScriptBlock { Reset-Terminal }
 
+Set-PSReadlineOption -Colors @{
+  "ContinuationPrompt" = [ConsoleColor]::White;
+  "Default" = [ConsoleColor]::White;
+  "Parameter" = [ConsoleColor]::DarkMagenta;
+  "Operator" = [ConsoleColor]::Magenta;
+  "Type" = [ConsoleColor]::Blue;
+}
+
 function Prompt {
   "[$(Get-UserName)@$(Get-HostName)]:$(Get-PromptPath)$ "
 }

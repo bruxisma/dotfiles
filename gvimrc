@@ -18,3 +18,11 @@ endif
 
 " Because of habit D:
 nnoremap <C-S-B> :silent make<CR>
+
+if (has("autocmd"))
+  augroup colorextend
+    autocmd!
+    autocmd ColorScheme * call onedark#extend_highlight("Function", {"gui": "bold"})
+  augroup END
+endif
+

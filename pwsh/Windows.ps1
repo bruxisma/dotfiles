@@ -7,6 +7,7 @@ function global:Activate-Venv {
 function global:Invoke-Exa { & bash.exe -c "`$HOME/.cargo/bin/exa $args" }
 
 $env:EDITOR = (Get-ItemProperty HKLM:\SOFTWARE\Vim\Gvim\).Path
+$env:GOPATH = "$env:LOCALAPPDATA\Go"
 
 Set-Alias clear Clear-Terminal -Scope Global
 Set-Alias open Start-Process -Scope Global
@@ -16,3 +17,5 @@ Append-Path 'C:\MinGW\bin'
 Append-Path $env:EDITOR
 
 Add-WindowsPSModulePath
+
+Start-Service ssh-agent
