@@ -30,7 +30,13 @@ option.expandtab = true
 option.autochdir = true
 
 option.list = true
-
+option.listchars = {
+  precedes = "◀",
+  extends = "▶",
+  nbsp = "␣",
+  trail = "·",
+  tab = "» ",
+}
 global.mapleader = ","
 
 if fn.has("+diff") then
@@ -45,11 +51,3 @@ end
 if fn.executable("pwsh") then
   -- TODO: Fill this out correctly for pwsh $SHELL usage
 end
-
-option.listchars = {
-  precedes = "◀",
-  extends = "▶",
-  nbsp = "␣",
-  trail = "·",
-  tab = "» ",
-}
