@@ -9,7 +9,7 @@ local set = vim.opt
 set.mouse = "a"
 set.guifont = "Delugia:h10"
 
-keymap.set('i', "<Tab>", [[copilo#Accept("\<Tab>")]], {
+keymap.set('i', "<Tab>", [[copilot#Accept("\<Tab>")]], {
   silent = true,
   script = true,
   expr = true
