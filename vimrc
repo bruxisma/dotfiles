@@ -17,13 +17,16 @@ set ttyfast
 set visualbell
 set ruler
 
+if !has('mac')
+  set t_Co=256
+endif
 " Code folding!
 vnoremap <leader>z zf
 nnoremap <leader>z za
 
 " colorcolumn is broken in linux right now :/
 if has('mac') || has('win32')
-    set colorcolumn=80
+  set colorcolumn=80
 endif
 
 set backspace=indent,eol,start

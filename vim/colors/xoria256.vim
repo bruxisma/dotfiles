@@ -15,9 +15,9 @@
 
 " Initialization {{{
 if &t_Co != 256 && ! has("gui_running")
-  echomsg ""
-  echomsg "err: please use GUI or a 256-color terminal (so that t_Co=256 could be set)"
-  echomsg ""
+"  echomsg ""
+"  echomsg "err: please use GUI or a 256-color terminal (so that t_Co=256 could be set)"
+"  echomsg ""
   finish
 endif
 
