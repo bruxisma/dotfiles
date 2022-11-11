@@ -3,6 +3,13 @@ require "settings.keymaps"
 require "settings.autocmd"
 --require "settings.abbrev"
 
+local function on_attach(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  local options = { noremap = true, silent = true, buffer = bufnr }
+  -- override C-] to jump to definitions
+  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, options)
+end
+
 --[[
 Section Below is because there is a bug with packer where the `config` field is
 ignored entirely for some reason
@@ -60,15 +67,9 @@ treesitter.setup {
 }
 
 -- nvim-lspconfig
-require("lspconfig").rust_analyzer.setup {}
-require("lspconfig").gopls.setup {
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    local options = { noremap = true, silent = true, buffer = bufnr }
-    -- override C-] to jump to definitions
-    vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, options)
-  end,
-}
+require("lspconfig").rust_analyzer.setup {on_attach = on_attach}
+require("lspconfig").clangd.setup {on_attach = on_attach}
+require("lspconfig").gopls.setup {on_attach = on_attach}
 -- rust-tools.nvim
 require("rust-tools").setup {}
 -- ray-x/go.nvim
