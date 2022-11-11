@@ -20,26 +20,23 @@ set ruler
 nnoremap / /\v
 vnoremap / /\v
 
+vnoremap <leader>z :fold
+
 " Auto plugins
-autocmd VimEnter * MiniBufExplorer
-autocmd VimEnter * wincmd p
 call flux#set('kadesh', 'vaygr')
 
-" consider setting to capslock?
 let mapleader = ","
 
-" insert mode
-inoremap <C-s> <ESC>
-nnoremap <C-s> i
-" j and k will act like they should now
-nnoremap j gj
-nnoremap k gk
+" Let's make the old leader useful ;)
+nnoremap \ $
 
 " simplify saving
 nnoremap <leader>w :update<CR>
 
 " Open a new vertical split and switch to it.
 nnoremap <leader>vs <C-w>v<C-w>l
+" Open a new horizontal split and switch to it.
+nnoremap <leader>hs <C-w>s<C-w>j
 
 " For navigating split windows easier
 nnoremap <C-h> <C-w>h
@@ -50,14 +47,5 @@ nnoremap <C-l> <C-w>l
 " NERDTree
 nnoremap <leader>m :NERDTreeToggle<CR>
 
-" flux mapping
-nnoremap <leader>flux :call flux#update()<CR>
-nnoremap <leader>swi  :call flux#switch()<CR>
-
 " pathogen mappings
 nnoremap <leader>help :call pathogen#helptags()<CR>
-
-" Mini Buffer Explorer
-map <leader>b :MiniBufExplorer<CR>
-map <leader>t :TMiniBufExplorer<CR>
-map <leader>u :UMiniBufExplorer<CR>

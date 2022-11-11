@@ -11,7 +11,8 @@ if __name__ == '__main__':
     for file_name in file_list:
         command_list = ['ln']
         args_string = list('-')
-        if os.path.isdir(file_name): args_string.append('Fh')
+        if 'darwin' in sys.platform or 'bsd' in sys.platform:
+            if os.path.isdir(file_name): args_string.append('Fh')
         if os.path.exists(file_name): args_string.append('f')
         args_string.append('sv')
         command_list.append(''.join(args_string))
