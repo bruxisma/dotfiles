@@ -71,17 +71,6 @@ local function plugins(use)
     },
   }
 
-  -- The following plugins are taken from my old vimrc
-  use "tpope/vim-eunuch"
-  use "bruxisma/gitmoji.vim"
-  use {
-    "airblade/vim-gitgutter",
-  }
-  use {
-    "shinchu/lightline-gruvbox.vim",
-    requires = "itchyny/lightline.vim",
-  }
-
   use {
     "theHamsta/nvim-dap-virtual-text",
     requires = {
@@ -92,6 +81,18 @@ local function plugins(use)
   use "ray-x/go.nvim"
 
   use 'hrsh7th/nvim-cmp'
+
+
+  -- The following plugins are taken from my old vimrc
+  use "tpope/vim-eunuch"
+  use "bruxisma/gitmoji.vim"
+  use {
+    "airblade/vim-gitgutter",
+  }
+  use {
+    "shinchu/lightline-gruvbox.vim",
+    requires = "itchyny/lightline.vim",
+  }
 
   if bootstrap then
     require("packer").sync()
