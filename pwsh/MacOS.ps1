@@ -41,10 +41,8 @@ function Set-Service { }
 function Remove-Service { launchctl unload }
 function New-Service { launchctl load }
 
-Set-Alias ls exa -Scope Global
-
-Prepend-Path /usr/local/bin
-Append-Path /Library/Frameworks/Python.framework/Versions/3.7/bin
-Append-Path /Applications/MacVim.app/Contents/bin
-Append-Path /Applications/CMake.app/Contents/bin
-Append-Path /usr/local/share/dotnet
+Update-Path -Prepend /usr/local/bin
+Update-Path /Library/Frameworks/Python.framework/Versions/3.7/bin
+Update-Path /Applications/MacVim.app/Contents/bin
+Update-Path /Applications/CMake.app/Contents/bin
+Update-Path /usr/local/share/dotnet

@@ -23,8 +23,10 @@ function global:Import-ShellScript {
   }
 }
 
-$env:EDITOR = (which gvim)
-$env:GOPATH = "$HOME/.cache/go"
+Set-Alias ls exa -Scope Global
 
-Append-Path $HOME/.cargo/bin
-Append-Path /usr/local/go/bin
+Set-EnvironmentVariable EDITOR (which gvim)
+Set-EnvironmentVariable GOPATH $HOME/.cache/go
+
+Update-Path $HOME/.cargo/bin
+Update-Path /usr/local/go/bin

@@ -12,5 +12,3 @@ function Set-Service { systemctl set-property }
 
 function Remove-Service { systemctl disable }
 function New-Service { systemctl enable }
-
-Set-Alias ls exa -Scope Global

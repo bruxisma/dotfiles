@@ -1,41 +1,28 @@
-Import-Module -Force (Join-Path $PSScriptRoot Functions.ps1)
-Import-Module -Force (Join-Path $PSScriptRoot Filters.ps1)
-
-Import-Script -Platform Windows -Path Windows.ps1 -Force
-Import-Script -Platform MacOS -Path MacOS.ps1 -Force
-Import-Script -Platform Linux -Path Linux.ps1 -Force
-Import-Script -Platform Posix -Path Posix.ps1 -Force
-
+if (-not $IsWindows) { Import-Module -Force (Join-Path $PSScriptRoot Posix.ps1) }
+if ($IsWindows) { Import-Module -Force (Join-Path $PSScriptRoot Windows.ps1) }
+if ($IsMacOS) { Import-Module -Force (Join-Path $PSScriptRoot MacOS.ps1) }
+if ($IsLinux) { Import-Module -Force (Join-Path $PSScriptRoot Linux.ps1) }
 Import-Module -Force (Join-Path $PSScriptRoot Machine.ps1) -Scope Global
+Import-Module -Force (Join-Path $PSScriptRoot Support.ps1) -Scope Local
 
+$readline = Import-PowerShellDataFile (Join-Path $PSScriptRoot readline.psd1)
+Set-PSReadlineOption @readline
+Remove-Variable readline
+
+Set-EnvironmentVariable -Name FZF_DEFAULT_COMMAND -Value "fd --type f"
+
+Set-PSReadlineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
+Set-PSReadlineKeyHandler -Chord Ctrl+a -Function BeginningOfLine
+Set-PSReadlineKeyHandler -Chord Ctrl+e -Function EndOfLine
+
+Set-Alias reload Update-Profile
 Set-Alias which Get-Command
 Set-Alias edit Edit-File
 Set-Alias info Get-Help
 
-Set-Item -Path Env:FZF_DEFAULT_COMMAND -Value "fd --type f"
-
-# Basic Readline options.
-Set-PSReadlineOption -HistoryNoDuplicates -EditMode Windows -BellStyle None
-
-# I like Windows Editing, but Ctrl+a and Ctrl+e from bash are forever burned
-# into my soul
-Set-PSReadlineKeyHandler -Key Ctrl+d -Function DeleteCharOrExit
-Set-PSReadlineKeyHandler -Key Ctrl+a -Function BeginningOfLine
-Set-PSReadlineKeyHandler -Key Ctrl+e -Function EndOfLine
-Set-PSReadlineKeyHandler -Key Ctrl+k -ScriptBlock { Reset-Terminal }
-
-Set-PSReadlineOption -Colors @{
-  "ContinuationPrompt" = [ConsoleColor]::White;
-  "Default" = [ConsoleColor]::White;
-  "Parameter" = [ConsoleColor]::DarkMagenta;
-  "Operator" = [ConsoleColor]::Magenta;
-  "Type" = [ConsoleColor]::Blue;
-}
-
 function Prompt {
-  $ESC = [char]27
-  $GREEN = "$ESC[1;32m"
-  $CYAN = "$ESC[1;36m"
-  $RESET = "$ESC[0m"
+  $GREEN = "`e[1;32m"
+  $CYAN = "`e[1;36m"
+  $RESET = "`e[0m"
   "${GREEN}[$(Get-UserName)@$(Get-HostName)]${RESET}:${CYAN}$(Get-PromptPath)${RESET}$ "
 }
