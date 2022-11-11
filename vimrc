@@ -58,6 +58,7 @@ endif
 let ConqueTerm_CWInsert=1
 let ConqueTerm_InsertOnEnter=1
 let ConqueTerm_CloseOnEnd=1
+let ConqueTerm_EscKey='<C-s>'
 if has('win32')
   nnoremap <leader>c :ConqueTermSplit Powershell.exe<CR>
 else
