@@ -9,7 +9,10 @@ if empty(glob('$HOME/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-if executable('rg') | set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case | endif
+if executable('rg') 
+  set grepformat^=%f:%l%c:%m
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+endif
 if !$WT_SESSION->empty() | set t_Co=256 | endif
 
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
@@ -26,7 +29,7 @@ set softtabstop=-1 tabstop=2 shiftwidth=2
 
 set virtualedit=block
 set nrformats=hex
-set diffopt+=vertical
+if has('+diff') | set diffopt+=vertical | endif
 
 set ignorecase smartcase
 set incsearch hlsearch

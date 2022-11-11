@@ -23,10 +23,10 @@ function global:Import-ShellScript {
   }
 }
 
-Set-Alias ls exa -Scope Global
-
-Set-EnvironmentVariable EDITOR (which gvim)
+Set-EnvironmentVariable EDITOR /usr/local/bin/gvim
 Set-EnvironmentVariable GOPATH $HOME/.cache/go
+
+Set-Alias ls lsd -Scope Global
 
 Update-Path $HOME/.cargo/bin
 Update-Path /usr/local/go/bin

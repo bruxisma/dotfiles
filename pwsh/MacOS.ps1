@@ -42,7 +42,8 @@ function Remove-Service { launchctl unload }
 function New-Service { launchctl load }
 
 Update-Path -Prepend /usr/local/bin
-Update-Path /Library/Frameworks/Python.framework/Versions/3.7/bin
+Update-Path /Library/Frameworks/Python.framework/Versions/3.8/bin
 Update-Path /Applications/MacVim.app/Contents/bin
 Update-Path /Applications/CMake.app/Contents/bin
 Update-Path /usr/local/share/dotnet
+Update-Path ${env:GOPATH}/bin
