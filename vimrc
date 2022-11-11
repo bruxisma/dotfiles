@@ -5,6 +5,16 @@ if has('win32') || has('win64')
   set rtp^=$HOME/.vim
 endif
 
+" This should be the default, but NOOOO.
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+
 if has('vim_starting')
   set rtp+=$HOME/.vim/bundle/neobundle.vim/
 endif
