@@ -1,64 +1,32 @@
-set nocompatible
-
-" Functions {{{
-" LightlineReadonly {{{
-function! LightlineReadonly()
-  return &readonly ? "\ue0a2" : ''
-endfunction
-
-" }}}
-" LightlineFugitive {{{
-function! LightlineFugitive()
-  if exists('*fugitive#head')
-    let branch = fugitive#head()
-    return branch !=# '' ? "\ue0a0 " . branch : '' 
-  endif
-  return ''
-endfunction
-
-" }}}
-" AliasCommand {{{
-function! AliasCommand (abbreviation, expansion, ...)
-  " Allows custom aliases for user commands, can also 'overwrite' builtins
-  execute 'cabbrev ' . a:abbreviation . ' <c-r>=
-    \ getcmdpos() == 1 &&  getcmdtype() == ":"
-    \ ? "' . a:expansion . '"
-    \ : "' . a:abbreviation . '"
-    \<cr>'
-endfunction
-" }}}
-" ToggleRelativeNumber {{{
-function! ToggleRelativeNumber ()
-  " toggle between number and relativenumber
-  if (&relativenumber == 1)
-    set norelativenumber
-    set number
-  else
-    set relativenumber
-  endif
-endfunction
-" }}}
-" }}}
-
-" XDG Support {{{
-set directory=$XDG_CACHE_HOME/vim,$TEMP,~/
-set backupdir=$XDG_CACHE_HOME/vim,$TEMP,~/
-set viminfo+=n$TEMP/viminfo
-"set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
-"let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
-" }}}
-
-" Feature Checks {{{
-let s:multibyte = has('multi_byte')
-let s:gui = has('gui_running')
+source $VIMRUNTIME/defaults.vim
 
 let s:windows = has('win32') || has('win64')
 let s:osx = has('mac')
 
-if s:windows | set rtp^=$HOME/.vim | set rtp+=$HOME/.vim/after | endif
-"}}}
+" Adjust runtimepath to match POSIX more closely
+if s:windows
+  set runtimepath-=$HOME/vimfiles/after
+  set runtimepath-=$HOME/vimfiles
+  set packpath-=$HOME/vimfiles/after
+  set packpath-=$HOME/vimfiles
+  set runtimepath^=$HOME/.vim
+  set runtimepath+=$HOME/.vim/after
+  set packpath^=$HOME/.vim
+  set packpath+=$HOME/.vim/after
+  set fileformats=unix,dos
+  let $XDG_CACHE_HOME = get(environ(), 'XDG_CACHE_HOME', $LOCALAPPDATA)
+endif
 
-" Plugins {{{
+if s:osx
+  let $XDG_CACHE_HOME = get(environ(), 'XDG_CACHE_HOME', $HOME .. "/Library/Caches")
+endif
+
+set directory=$XDG_CACHE_HOME/vim/swapfile
+set backupdir=$XDG_CACHE_HOME/vim/backup
+set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+set viewdir=$XDG_CACHE_HOME/vim/view
+
+" Plugins {{{ 
 call plug#begin('~/.vim/bundle')
 
 Plug 'Shougo/unite.vim'
@@ -67,153 +35,136 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
-Plug 'gregsexton/gitv'
-Plug 'dracula/vim'
-Plug 'sjl/gundo.vim'
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
-" language support bundles
-Plug 'wavded/vim-stylus'                " stylus
-Plug 'jparise/vim-graphql'              " GraphQL
-Plug 'octol/vim-cpp-enhanced-highlight' " C++
-Plug 'pboettch/vim-cmake-syntax'        " CMake
-Plug 'leafgarland/typescript-vim'       " TypeScript
-Plug 'HerringtonDarkholme/yats.vim'     " TypeScript
-Plug 'othree/yajs.vim'                  " JavaScript
-Plug 'rust-lang/rust.vim'               " Rust
-Plug 'PProvost/vim-ps1'                 " Windows Powershell
-Plug 'dag/vim-fish'                     " Fish Shell
-Plug 'sophacles/vim-bundle-mako'        " Mako Templates
-Plug 'lepture/vim-jinja'                " Jinja2 Templates
-Plug 'stephpy/vim-yaml'                 " YAML (fix)
-Plug 'cespare/vim-toml'                 " Toml
-Plug 'igankevich/mesonic'               " Meson
-Plug 'chr4/nginx.vim'                   " nginx
-Plug 'cakebaker/scss-syntax.vim'        " sass
-
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+Plug 'othree/yajs.vim', { 'for': 'js' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'zigford/vim-powershell', { 'for': 'powershell' }
+Plug 'lepture/vim-jinja', { 'for': 'jinja' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+Plug '~/Desktop/vim-cmake', { 'for': 'cmake' }
+"Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
 call plug#end()
-" }}}
 
-" Vim Options {{{
-if executable('rg') | set grepprg=rg\ --vimgrep | endif
-if s:multibyte | set fileencodings=ucs-bom,utf-8,latin1 | endif
-if s:multibyte | setglobal fileencoding=utf-8 | endif
-if s:multibyte | set encoding=utf-8 | endif
-if &shell =~# 'fish$' | set shell=sh | endif
 
-set fileformats=unix,dos
-set backspace=indent,eol,start
+if executable('rg') | set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case | endif
+
+setglobal termencoding=utf-8
+set encoding=utf-8
+scriptencoding utf-8
+
+set shortmess+=aoOTI
 set background=dark
-set foldlevelstart=10
-set foldnestmax=10
-set colorcolumn=80 " draw a line at 80 columns
-set softtabstop=2
-set shiftwidth=2
-set laststatus=2   " always have a statusline
-set tabstop=2
-set cino=N-s   " c++ specific indent option
-set autoindent " Copy line indent (not always correct)
-set nomodeline " modelines are really dumb
-set visualbell " beeps rarely help
-set noswapfile " disable all .swp files
-set cursorline " highlight current line
-set foldenable " allow folds
-set expandtab  " convert tabs to spaces
-set autochdir  " set current directory to buffer
-set wildmenu   " menu for matching during command autocomplete
-set hlsearch   " highlight matches
-set ttyfast    " don't think this has ever been an issue
+set laststatus=2
+set wildmenu
+
+set foldlevelstart=10 foldnestmax=10 foldenable
+set showmatch matchtime=1
+
+set cursorline colorcolumn=80
+set softtabstop=-1 tabstop=2 shiftwidth=2
+
+set virtualedit=block
+set nrformats=hex
+set diffopt+=vertical
+
+set nomodeline noswapfile
+set ignorecase smartcase
+set incsearch hlsearch
+set expandtab smarttab
+set number ruler
+
+set cinoptions=N-s
+set updatetime=2000
+set autoindent
+
+set visualbell
+set autochdir
+
 set hidden     " prefer buffers over tabs
-set number     " line numbers
-set ruler      " line and column
-" }}}
 
-" Commands {{{
-command! -nargs=+ AliasCommand call AliasCommand(<f-args>)
-command! ToggleRelativeNumber call ToggleRelativeNumber()
-" }}}
+function! s:command(name, ...)
+  return getcmdtype() == ':' && getcmdline() =~# '^' .. a:name
+        \ ? join(a:000, ' ')
+        \ : a:name
+endfunction 
 
-" Aliases {{{
-Alias reload source<space>$MYVIMRC " builtin
+cnoreabbrev <expr> restore <SID>command("restore", "GitGutterUnstageHunk")
+cnoreabbrev <expr> stage <SID>command("stage", "GitGutterStageHunk")
+                                       
+cnoreabbrev <expr> refresh <SID>command("refresh", "filetype<space>detect")
 
-Alias files Unite<space>file " unite.vim
-Alias ls Unite<space>buffer  " unite.vim
-Alias unite Unite            " unite.vim
+cnoreabbrev <expr> reload <SID>command("reload", "source<space>$MYVIMRC")
+cnoreabbrev <expr> chmod <SID>command("chmod", "Chmod")
 
-Alias unlink Unlink " eunuch
-Alias chmod Chmod   " eunuch
-Alias rm Delete     " eunuch
-Alias mv Move       " eunuch
+cnoreabbrev <expr> rm <SID>command("rm", "Delete")
+cnoreabbrev <expr> ls <SID>command("ls", "Unite<space>buffer")
 
-Alias checkout Gread " fugitive
-Alias status Gstatus " fugitive
-Alias commit Gcommit " fugitive
-Alias blame Gblame   " fugitive
-Alias diff Gvdiff    " fugitive
-Alias pull Gpull     " fugitive
-Alias push Gpush     " fugitive
-Alias gitk Gitv      " fugitive
-Alias add Gwrite     " fugitive
-Alias log Glog       " fugitive
-Alias git Git        " fugitive
+cnoreabbrev <expr> json <SID>command("json", "%!python", "-m", "json.tool")
 
-Alias gundo GundoToggle " gundo
+cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<space>lgrep")
 
-Alias relative RelativeNumberToggle
-Alias gutter GitGutterLineHighlightsToggle
-
-" }}}
-
-" Plugin Variables {{{
-
-if s:multibyte && &termencoding == "" | let &termencoding = &encoding | endif
-let c_no_curly_error = 1 " Fixes C++ highlighting issues
-let mapleader = "," " Almost everyone does this
+let mapleader = "," " Almost everyone used to do this...
 
 " global plugin options
 let g:neosnippet#snippets_directory=expand('~/.vim/snippets') " neosnippet
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }       " neosnippet
-let g:vimfiler_force_overwrite_statusline = 0                 " vimfiler
-let g:vimfiler_as_default_explorer = 1                        " vimfiler
+
 let g:unite_force_overwrite_statusline = 0                    " unite
-let g:cpp_class_scope_highlight = 1                           " cxx
-let g:cpp_concepts_highlight = 1                              " cxx
-let g:rust_recommended_style = 0                              " rust
-let g:opencl_overwrite_lisp = 1                               " opencl
-let g:solarized_hitrail=s:gui                                 " solarized
-let g:gundo_right = 1                                         " gundo
-let g:gundo_prefer_python3 = 1                                " gundo
-let g:gitgutter_avoid_cmd_prompt_on_windows = 0               " gitgutter
 
-" I hate doxygen with a passion, but I can't get document comments with ///
-" otherwise >:(
-let g:load_doxygen_syntax=1
+let g:cpp_class_scope_highlight = 1
+let g:cpp_concepts_highlight = 1
+let g:rust_recommended_style = 0
 
-" lightline.vim
-let g:lightline = {
-  \ 'colorscheme': 'onedark',
-  \ 'active' : {
-  \   'left': [
-  \     ['mode', 'paste'],
-  \     ['fugitive', 'readonly', 'filename', 'modified']
-  \   ]
-  \ },
-  \ 'component' : { 'lineinfo': "\ue0a1 %3l:%-2v" },
-  \ 'component_function' : {
-  \ 'readonly' : 'LightlineReadonly',
-  \   'fugitive' : 'LightlineFugitive'
-  \ },
-  \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-	\ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-  \ }
+let g:gitgutter_map_keys = 0
+let g:gitgutter_grep = 'rg --color never'
 
-" call last set of functions here
-call unite#filters#matcher_default#use(['matcher_fuzzy']) " unite.vim
+" github icons
 
-" }}}
+let g:gitgutter_sign_removed_first_line = "\uf476"
+let g:gitgutter_sign_modified_removed = "\uf5a"
+let g:gitgutter_sign_modified = "\uf459"
+let g:gitgutter_sign_removed = "\uf458"
+let g:gitgutter_sign_added = "\uf457"
 
-" Bindings {{{
+
+let g:mundo_prefer_python3 = 1
+let g:mundo_right = 1
+
+let g:netrw_liststyle = 3
+let g:netrw_winsize = 30
+let g:netrw_banner = 0
+let g:netrw_menu = 0
+
+let g:lightline =<< trim STATUS
+  #{
+      colorscheme: 'onedark',
+      active: #{
+        left: [
+          ['mode', 'paste'],
+          ['fugitive', 'readonly', 'filename', 'modified']
+        ]
+      },
+      component : #{ lineinfo: "\ue0a1 %3l:%-2v" },
+      component_function : #{
+        readonly: 'LightlineReadonly',
+        fugitive: 'LightlineFugitive'
+      },
+      separator: #{ left: "\ue0b0", right: "\ue0b2" },
+	    subseparator: #{ left: "\ue0b1", right: "\ue0b3" }
+   }
+STATUS
+
+let g:lightline = eval(join(g:lightline, ' '))
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
 imap <expr><tab> neosnippet#expandable_or_jumpable()
   \ ? "\<plug>(neosnippet_expand_or_jump)"
   \ : pumvisible() ? "\<c-n>" : "\<tab>"
@@ -228,8 +179,8 @@ vnoremap <C-c> <Esc>
 vnoremap / /\v
 nnoremap / /\v
 
-" Change window to directory of local file (fixes occasional glitch with Unite)
-nnoremap <leader>lcd :lcd %:p:h<cr>:pwd<cr>
+nnoremap [f :lprevious<CR>
+nnoremap ]f :lnext<CR>
 
 " Open a new vertical or horizontal split
 nnoremap <leader>v :vsplit<cr>
@@ -240,24 +191,31 @@ nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>hs <C-w>s<C-w>j
 
 " turn off search highlight
-nnoremap <leader><space> :nohlsearch<cr>
+nnoremap <leader><space> :silent! call setreg('/', '')<CR>
 
-" toggle gundo
-nnoremap <leader>u :GundoToggle<cr>
+nnoremap <leader>g :GitGutterLineHighlightsToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>u :MundoToggle<CR>
 
 " This is useful for those languages where I do things
 nnoremap <F5> :silent make<cr>
 nnoremap <F4> :cclose<cr>
 
-" }}}
-
-" match chevrons in C++ and CMake files
-autocmd FileType cmake set mps+=<:>
-autocmd FileType cpp set mps+=<:>
+nmap <C-PageDown> <Plug>(GitGutterNextHunk)
+nmap <C-PageUp> <Plug>(GitGutterPrevHunk)
 
 
-" quickfix window on :make
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 colorscheme onedark
+
+function! s:syntax()
+  let highlight = synIDattr(synID(line('.'), col('.'), 1), 'name')
+  let group = synIDattr(synID(line('.'),col('.'), 0), 'name')
+  let link = synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+  return printf("hi<%s> trans<%s> lo<%s>", highlight, group, link)
+endfunction
+
+map <script> <Plug>(vimrc-syntax) :echo <SID>syntax()<CR>
+map <F10> <Plug>(vimrc-syntax)

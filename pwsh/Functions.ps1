@@ -59,7 +59,7 @@ function Prepend-Path ([String]$Path) {
   $separator = [IO.Path]::PathSeparator
   $Path = Test-AddPath $Path
   if (-not $Path) { return }
-  $env:PATH.Insert(0, ('{0}{1}' -f $Path, $separator))
+  $env:PATH = $env:PATH.Insert(0, ('{0}{1}' -f $Path, $separator))
 }
 
 function Prepend-To ([String]$Var, [String]$Path) {
