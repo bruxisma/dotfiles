@@ -18,6 +18,9 @@ set visualbell
 set ruler
 
 " Auto plugins
+autocmd VimEnter * MiniBufExplorer
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
 call flux#set('kadesh', 'vaygr')
 
 " consider setting to capslock?
@@ -39,8 +42,17 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" NERDTree
+nnoremap <leader>q :NERDTreeToggle<CR>
+
 " flux mapping
 nnoremap <leader>flux :call flux#update()<CR>
 nnoremap <leader>swi  :call flux#switch()<CR>
+
 " pathogen mappings
 nnoremap <leader>help :call pathogen#helptags()<CR>
+
+" Mini Buffer Explorer
+map <leader>b :MiniBufExplorer<CR>
+map <leader>t :TMiniBufExplorer<CR>
+map <leader>u :UMiniBufExplorer<CR>
