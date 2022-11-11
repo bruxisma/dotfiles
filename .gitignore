@@ -7,6 +7,4 @@
 .netrwhist
 tags
 
-psh/Modules/
-# vim bundles to ignore
-vim/bundle/
+/vim/bundle/

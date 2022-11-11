@@ -159,6 +159,9 @@ def gitsetup ():
     gitconfig('log', 'date', 'iso')
 
     gitconfig('rebase', 'autosquash', 'true')
+    try: call(['git', 'update-index', '--assume-unchanged', 'pwsh/Machine.ps1'])
+    except CalledProcessError as e: exit(str(e))
+
 
 def symsetup ():
     '''creates configuration symlinks'''

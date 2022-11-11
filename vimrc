@@ -14,11 +14,17 @@ if s:windows
   set packpath^=$HOME/.vim
   set packpath+=$HOME/.vim/after
   set fileformats=unix,dos
+  let $XDG_CONFIG_HOME = get(environ(), 'XDG_CONFIG_HOME', $APPDATA)
   let $XDG_CACHE_HOME = get(environ(), 'XDG_CACHE_HOME', $LOCALAPPDATA)
-endif
-
-if s:osx
+  let $XDG_DATA_HOME = get(environ(), 'XDG_DATA_HOME', $LOCALAPPDATA)
+elseif s:osx
+  let $XDG_CONFIG_HOME = get(environ(), 'XDG_CONFIG_HOME', $HOME .. "/Library/Application Support")
   let $XDG_CACHE_HOME = get(environ(), 'XDG_CACHE_HOME', $HOME .. "/Library/Caches")
+  let $XDG_DATA_HOME = get(environ(), 'XDG_DATA_HOME', $HOME .. "/Library")
+else
+  let $XDG_CONFIG_HOME = get(environ(), 'XDG_CONFIG_HOME', $HOME .. "/.config")
+  let $XDG_CACHE_HOME = get(environ(), 'XDG_CACHE_HOME', $HOME .. "/.cache")
+  let $XDG_DATA_HOME = get(environ(), 'XDG_DATA_HOME', $HOME .. "/.local/share")
 endif
 
 set directory=$XDG_CACHE_HOME/vim/swapfile
@@ -26,10 +32,15 @@ set backupdir=$XDG_CACHE_HOME/vim/backup
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set viewdir=$XDG_CACHE_HOME/vim/view
 
-" Plugins {{{ 
-call plug#begin('~/.vim/bundle')
+if empty(glob('$HOME/.vim/autoload/plug.vim'))
+  silent !curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs
+        \ https://github.com/junegunn/vim-plug/raw/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-Plug 'Shougo/unite.vim'
+" Plugins {{{ 
+call plug#begin('$HOME/.vim/bundle')
+
 Plug 'Shougo/neosnippet.vim'
 
 Plug 'airblade/vim-gitgutter'
@@ -37,7 +48,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'junegunn/fzf', { 'do': 'go build -o bin/'} | Plug 'junegunn/fzf.vim'
 
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
@@ -52,12 +63,14 @@ Plug '~/Desktop/vim-cmake', { 'for': 'cmake' }
 "Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
 call plug#end()
 
-
 if executable('rg') | set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case | endif
 
 setglobal termencoding=utf-8
 set encoding=utf-8
 scriptencoding utf-8
+
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set list
 
 set shortmess+=aoOTI
 set background=dark
@@ -87,7 +100,7 @@ set autoindent
 set visualbell
 set autochdir
 
-set hidden     " prefer buffers over tabs
+set hidden
 
 function! s:command(name, ...)
   return getcmdtype() == ':' && getcmdline() =~# '^' .. a:name
@@ -95,16 +108,20 @@ function! s:command(name, ...)
         \ : a:name
 endfunction 
 
+cnoreabbrev <expr> grc <SID>command("grc", "edit<space>$MYGVIMRC")
+cnoreabbrev <expr> rc <SID>command("rc", "edit<space>$MYVIMRC")
+
 cnoreabbrev <expr> restore <SID>command("restore", "GitGutterUnstageHunk")
 cnoreabbrev <expr> stage <SID>command("stage", "GitGutterStageHunk")
-                                       
+
 cnoreabbrev <expr> refresh <SID>command("refresh", "filetype<space>detect")
 
 cnoreabbrev <expr> reload <SID>command("reload", "source<space>$MYVIMRC")
 cnoreabbrev <expr> chmod <SID>command("chmod", "Chmod")
 
+cnoreabbrev <expr> find <SID>command("find", "Files<space>$HOME/Desktop")
 cnoreabbrev <expr> rm <SID>command("rm", "Delete")
-cnoreabbrev <expr> ls <SID>command("ls", "Unite<space>buffer")
+cnoreabbrev <expr> ls <SID>command("ls", "Buffers")
 
 cnoreabbrev <expr> json <SID>command("json", "%!python", "-m", "json.tool")
 
@@ -113,17 +130,15 @@ cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<space>lgrep")
 let mapleader = "," " Almost everyone used to do this...
 
 " global plugin options
-let g:neosnippet#snippets_directory=expand('~/.vim/snippets') " neosnippet
+let g:neosnippet#snippets_directory = expand('$HOME/.vim/snippets') " neosnippet
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }       " neosnippet
-
-let g:unite_force_overwrite_statusline = 0                    " unite
 
 let g:cpp_class_scope_highlight = 1
 let g:cpp_concepts_highlight = 1
 let g:rust_recommended_style = 0
 
 let g:gitgutter_map_keys = 0
-let g:gitgutter_grep = 'rg --color never'
+if executable('rg') | let g:gitgutter_grep = 'rg --color never' | endif
 
 " github icons
 
@@ -133,6 +148,7 @@ let g:gitgutter_sign_modified = "\uf459"
 let g:gitgutter_sign_removed = "\uf458"
 let g:gitgutter_sign_added = "\uf457"
 
+let g:fzf_layout = #{ up: "~20%" }
 
 let g:mundo_prefer_python3 = 1
 let g:mundo_right = 1
@@ -157,13 +173,11 @@ let g:lightline =<< trim STATUS
         fugitive: 'LightlineFugitive'
       },
       separator: #{ left: "\ue0b0", right: "\ue0b2" },
-	    subseparator: #{ left: "\ue0b1", right: "\ue0b3" }
+      subseparator: #{ left: "\ue0b1", right: "\ue0b3" }
    }
 STATUS
 
 let g:lightline = eval(join(g:lightline, ' '))
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 imap <expr><tab> neosnippet#expandable_or_jumpable()
   \ ? "\<plug>(neosnippet_expand_or_jump)"
@@ -194,7 +208,6 @@ nnoremap <leader>hs <C-w>s<C-w>j
 nnoremap <leader><space> :silent! call setreg('/', '')<CR>
 
 nnoremap <leader>g :GitGutterLineHighlightsToggle<CR>
-nnoremap <leader>t :TagbarToggle<CR>
 nnoremap <leader>u :MundoToggle<CR>
 
 " This is useful for those languages where I do things
@@ -203,7 +216,6 @@ nnoremap <F4> :cclose<cr>
 
 nmap <C-PageDown> <Plug>(GitGutterNextHunk)
 nmap <C-PageUp> <Plug>(GitGutterPrevHunk)
-
 
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow

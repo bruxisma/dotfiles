@@ -94,7 +94,7 @@ iabbrev :wrench: 🔧
 iabbrev :config: 🔧
 iabbrev :cfg: 🔧
 
-iabbrev :translate_with_meridians:
+iabbrev :globe_with_meridians: 🌐
 iabbrev :translate: 🌐
 iabbrev :i18n: 🌐
 iabbrev :l10n: 🌐
@@ -110,7 +110,7 @@ iabbrev :revert: ⏪
 iabbrev :twisted_rightwards_arrows: 🔀
 iabbrev :merge: 🔀
 
-iabbrev :package:
+iabbrev :package: 📦
 
 iabbrev :extern: 👽
 iabbrev :alien: 👽
