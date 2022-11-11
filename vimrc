@@ -48,7 +48,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
-Plug 'junegunn/fzf', { 'do': 'go build -o bin/'} | Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': 'go build -o bin/' } | Plug 'junegunn/fzf.vim'
 
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
@@ -59,6 +59,7 @@ Plug 'zigford/vim-powershell', { 'for': 'powershell' }
 Plug 'lepture/vim-jinja', { 'for': 'jinja' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+"Plug 'pboettch/vim-cmake-syntax', { 'for': 'cmake' }
 Plug '~/Desktop/vim-cmake', { 'for': 'cmake' }
 "Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
 call plug#end()
