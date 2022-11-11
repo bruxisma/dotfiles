@@ -85,6 +85,7 @@ Plug 'rust-lang/rust.vim'               " Rust
 Plug 'PProvost/vim-ps1'                 " Windows Powershell
 Plug 'dag/vim-fish'                     " Fish Shell
 Plug 'sophacles/vim-bundle-mako'        " Mako Templates
+Plug 'lepture/vim-jinja'                " Jinja2 Templates
 Plug 'stephpy/vim-yaml'                 " YAML (fix)
 Plug 'cespare/vim-toml'                 " Toml
 Plug 'igankevich/mesonic'               " Meson

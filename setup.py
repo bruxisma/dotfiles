@@ -40,7 +40,7 @@ posix = not windows
 
 head = 'Documents' if windows else '.config'
 shell_target = join(head, 'powershell')
-shell = 'psh'
+shell = 'pwsh'
 
 #-----------------------------------------------------------------------------
 # Functions
