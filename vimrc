@@ -1,6 +1,6 @@
-let $MYRUNTIME = printf("%s/vim", $MYVIMRC->resolve()->fnamemodify(':h'))
+let $MYRUNTIME = printf("%s/vim", expand('<sfile>:p')->resolve()->fnamemodify(':h'))
 
-source $VIMRUNTIME/defaults.vim
+if !has('nvim') | source $VIMRUNTIME/defaults.vim | endif
 source $MYRUNTIME/defaults.vim
 
 if empty(glob('$HOME/.vim/autoload/plug.vim'))
@@ -56,17 +56,18 @@ Plug 'tpope/vim-eunuch'
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
+Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
-Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
-Plug 'othree/yajs.vim', { 'for': 'js' }
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'zigford/vim-powershell', { 'for': 'powershell' }
 Plug 'lepture/vim-jinja', { 'for': 'jinja' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'cespare/vim-toml', { 'for': 'toml', 'branch': 'main' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'hashivim/vim-terraform'
@@ -75,7 +76,7 @@ Plug 'pboettch/vim-cmake-syntax'
 Plug 'pest-parser/pest.vim', { 'for': 'pest' }
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
 Plug 'NoahTheDuke/vim-just'
-Plug 'slurps-mad-rips/gitmoji.vim'
+Plug 'bruxisma/gitmoji.vim'
 "Plug '~/Desktop/ixm/vim-cmake' ", { 'for': 'cmake' }
 "Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
 call plug#end()
@@ -196,6 +197,9 @@ let g:load_doxygen_syntax = 1
 let g:rust_recommended_style = 0
 let g:go_fmt_command = "gofmt"
 
+" javascript
+let g:javascript_plugin_jsdoc = 1
+
 " sh.vim
 let g:is_kornshell = 0
 let g:is_posix = 1
@@ -224,6 +228,24 @@ let g:netrw_menu = 0
 let g:gruvbox_contrast_dark = 'hard'
 
 let g:vim_markdown_no_default_key_mappings = 1
+
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠'
+let g:ale_fix_on_save = 1
+
+let g:ale_linters =<< trim LINTERS
+  #{
+    javascript: ['eslint'],
+    typescript: ['eslint'],
+  }
+LINTERS
+
+let g:ale_fixers =<< trim FIXERS
+  #{
+    javascript: ['eslint'],
+    typescript: ['eslint']
+  }
+FIXERS
 
 let g:lightline =<< trim STATUS
   #{
@@ -306,6 +328,8 @@ let g:gitmoji_aliases =<< trim ALIASES
 ALIASES
 
 let g:gitmoji_aliases = eval(join(g:gitmoji_aliases))
+let g:ale_linters = eval(join(g:ale_linters))
+let g:ale_fixers = eval(join(g:ale_fixers))
 let g:lightline = eval(join(g:lightline))
 
 

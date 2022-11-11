@@ -11,7 +11,9 @@ Import-Module (Join-Path $PSScriptRoot Machine.ps1) -Force -Global
 Import-Completions gh completion --shell powershell
 Import-Completions pack completion --shell powershell
 Import-Completions just --completions powershell
+
 Import-Completions rustup completions powershell
+Import-Completions hugo completion powershell
 Import-Completions op completion powershell
 
 $readline = Import-PowerShellDataFile (Join-Path $PSScriptRoot readline.psd1)

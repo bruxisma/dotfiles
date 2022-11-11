@@ -45,6 +45,8 @@ set directory=$XDG_STATE_HOME/vim/swap
 set undodir=$XDG_STATE_HOME/vim/undo
 set viewdir=$XDG_DATA_HOME/vim/view
 
+if has('nvim') | set shadafile=$XDG_STATE_HOME/nvim/shada | endif
+
 call mkdir(&backupdir, 'p', 0700)
 call mkdir(&directory, 'p', 0700)
 call mkdir(&viewdir, 'p', 0700)

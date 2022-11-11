@@ -13,6 +13,7 @@ Update-SystemPath "${env:ProgramFiles(x86)}\GnuPG\bin"
 Update-SystemPath "${env:ProgramFiles}\Yubico\YubiKey Manager"
 Update-SystemPath ${env:GOPATH}\bin
 Update-SystemPath $(Split-Path -Parent ${env:EDITOR})
+Update-SystemPath ${HOME}\.cargo\bin
 
 Add-WindowsPSModulePath
 
