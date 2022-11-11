@@ -5,11 +5,13 @@
 " Provides syntax highlighting for the C++17 esque keywords as well as
 " attributes. Mostly for modules and concepts
 
-syntax keyword cxxStructure concept
-syntax keyword cxxKeyword requires
+" Modules TS
 syntax keyword cxxImport import module
 
-syntax match cxxAttribute "\<\(nodiscard\|noreturn\|carries_dependency\|fallthrough\|unused\|deprecated\)\>"
+" Coroutines TS
+syntax keyword cxxKeyword co_await co_return co_yield
+
+syntax match cxxAttribute "\<\(nodiscard\|noreturn\|carries_dependency\|fallthrough\|maybe_unused\|deprecated\)\>"
 syntax match cxxAttribute "\<\(gnu\|clang\)::\i\+\>"
 
 syntax match cxxConcept "\(\<concept bool\s\+\)\@<=\i\+\>"

@@ -30,7 +30,7 @@ let s:osx = has('mac')
 if s:windows | set rtp^=$HOME/.vim | endif
 if s:starting | set rtp+=$HOME/.vim/bundle/neobundle.vim/ | endif
 
-call neobundle#rc(expand('~/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -59,7 +59,7 @@ NeoBundle 'beyondmarc/opengl.vim' " OpenGL
 " language support bundles
 NeoBundle 'octol/vim-cpp-enhanced-highlight' " C++11/14
 NeoBundle 'leafgarland/typescript-vim'       " typescript
-NeoBundle 'slurps-mad-rips/cmake.vim'        " CMake
+NeoBundle 'pboettch/vim-cmake-syntax'        " CMake
 NeoBundle 'pangloss/vim-javascript'          " JS
 NeoBundle 'kongo2002/fsharp-vim'             " F#
 NeoBundle 'tikhomirov/vim-glsl'              " GLSL
@@ -69,6 +69,9 @@ NeoBundle 'dag/vim-fish'                     " fish shell
 NeoBundle 'fatih/vim-go'                     " golang
 NeoBundle 'sophacles/vim-bundle-mako'        " mako
 NeoBundle 'stephpy/vim-yaml'                 " YAML (fix)
+NeoBundle 'cespare/vim-toml'                 " toml
+
+call neobundle#end()
 
 filetype plugin indent on
 syntax on
