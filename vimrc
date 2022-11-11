@@ -95,8 +95,10 @@ AliasCommand alias AliasCommand
 " solarized
 if has('gui_running')
   let g:solarized_hitrail=1
+  let s:lightlinecolor = 'solarized_light'
   set background=light
 else
+  let s:lightlinecolor = 'solarized_dark'
   set background=dark
 endif
 colorscheme solarized
@@ -107,7 +109,7 @@ Alias ls Unite<Space>buffer " replace ls with Unite buffer
 
 " lightline.vim
 let g:lightline = {
-  \ 'colorscheme': 'solarized_light',
+  \ 'colorscheme': s:lightlinecolor,
   \ 'active' : {
   \   'left': [
   \     ['mode', 'paste'],
