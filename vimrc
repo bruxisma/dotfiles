@@ -59,9 +59,12 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'zigford/vim-powershell', { 'for': 'powershell' }
 Plug 'lepture/vim-jinja', { 'for': 'jinja' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'pboettch/vim-cmake-syntax', { 'for': 'cmake' }
-"Plug '~/Desktop/vim-cmake', { 'for': 'cmake' }
+Plug 'tpope/vim-liquid'
+Plug 'pboettch/vim-cmake-syntax'
+Plug 'pest-parser/pest.vim', { 'for': 'pest' }
+"Plug '~/Desktop/vim-cmake' ", { 'for': 'cmake' }
 "Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
 call plug#end()
 
@@ -89,6 +92,7 @@ cnoreabbrev <expr> ls <SID>command("ls", "Buffers")
 cnoreabbrev <expr> json <SID>command("json", "%!python", "-m", "json.tool")
 
 cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<space>lgrep")
+cnoreabbrev <expr> grep <SID>command("grep", "silent<space>grep")
 
 cnoreabbrev <expr> st <SID>command("st", "GFiles?")
 

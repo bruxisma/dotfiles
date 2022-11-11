@@ -4,6 +4,8 @@ iabbrev :zap: ⚡
 iabbrev :bug: 🐛
 iabbrev :fire: 🔥
 
+iabbrev :build: 🛠
+
 iabbrev :ambulance: 🚑
 iabbrev :critical: 🚑
 
@@ -28,6 +30,8 @@ iabbrev :tada: 🎉
 
 iabbrev :white_check_mark: ✅
 iabbrev :update-tests: ✅
+iabbrev :tests: ✅
+iabbrev :test: ✅
 
 iabbrev :lock: 🔒
 iabbrev :cve: 🔒
@@ -63,6 +67,7 @@ iabbrev :wip: 🚧
 
 iabbrev :green_heart: 💚
 iabbrev :fix-ci: 💚
+iabbrev :ci: 💚
 
 iabbrev :arrow_down: ⬇
 iabbrev :downgrade: ⬇
