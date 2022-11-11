@@ -28,6 +28,8 @@ NeoBundle 'altercation/vim-colors-solarized'
 "NeoBundle 'gregsexton/gitv'
 "NeoBundle 'bling/vim-airline'
 
+NeoBundle 'sahchandler/cxx-syntax.vim'
+
 filetype plugin indent on
 syntax on
 
