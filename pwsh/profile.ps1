@@ -12,6 +12,8 @@ Set-Alias which Get-Command
 Set-Alias edit Edit-File
 Set-Alias info Get-Help
 
+Set-Item -Path Env:FZF_DEFAULT_COMMAND -Value "fd --type f"
+
 # Basic Readline options.
 Set-PSReadlineOption -HistoryNoDuplicates -EditMode Windows -BellStyle None
 

@@ -3,17 +3,48 @@
 function Suspend-Service { }
 function Resume-Service { }
 
-function Restart-Service { }
-function Start-Service { launchtl start }
-function Stop-Service { launchtl stop }
+function global:Restart-Service {
+  param(
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [String]
+    $Service
+  )
+  Start-Service $Service
+  Stop-Service $Service
+}
 
-function Get-Service { launchctl list }
+function global:Start-Service {
+  param(
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [String]
+    $Service
+  )
+  launchctl start $Service
+}
+
+function global:Stop-Service {
+
+  param(
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [String]
+    $Service
+  )
+  launchctl stop $Service
+}
+
+function global:Get-Service ([String]$Service) { launchctl list $Service }
 function Set-Service { }
 
 function Remove-Service { launchctl unload }
 function New-Service { launchctl load }
 
-Append-Path /usr/local/bin
-Append-Path /Library/Frameworks/Python.framework/Version/3.7/bin
+Set-Alias ls exa -Scope Global
+
+Prepend-Path /usr/local/bin
+Append-Path /Library/Frameworks/Python.framework/Versions/3.7/bin
 Append-Path /Applications/MacVim.app/Contents/bin
 Append-Path /Applications/CMake.app/Contents/bin
+Append-Path /usr/local/share/dotnet

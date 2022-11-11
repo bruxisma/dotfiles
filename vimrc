@@ -90,6 +90,8 @@ cnoreabbrev <expr> json <SID>command("json", "%!python", "-m", "json.tool")
 
 cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<space>lgrep")
 
+cnoreabbrev <expr> st <SID>command("st", "GFiles?")
+
 let mapleader = "," " Almost everyone used to do this...
 
 " global plugin options

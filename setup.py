@@ -107,8 +107,8 @@ def symlink (src, dst):
 def aliassetup ():
     '''creates git aliases'''
     # This is a very large git alias, so we break it up for readability
-    aliases = ' | '.join((r'!git config --get-regexp "^alias\\."',
-        r'sed -e "s/^alias\\.\([^\ ]*\)\ /\1#/"',
+    aliases = ' | '.join((r'!git config --get-regexp "^alias[.]"',
+        r'rg -e "^alias[.](\w+) " -r "\$1#"'
         r'sort',
         r'column -t -s "#"'))
 
@@ -118,46 +118,20 @@ def aliassetup ():
     gitalias(branches='branch -a')
     gitalias(commits='log --graph --decorate --pretty=oneline --abbrev-commit')
     gitalias(stashes='stash list')
-    gitalias(remotes='!git remote -v | column -t')
-    gitalias(changes='status -s')
+    gitalias(remotes='remote -v')
+    gitalias(summary='status -s')
     gitalias(tags='tag')
-
-    gitalias(unshelve='stash pop')
-    gitalias(uncommit='reset --mixed @~')
-    gitalias(unstage='reset -q @ --')
-    gitalias(undo='reset --soft @~1')
 
     gitalias(squash='commit --squash')
     gitalias(fixup='commit --fixup')
-    gitalias(cram='rebase -i')
 
-    gitalias(current='rev-parse --abbrev-ref @')
-    gitalias(history='!git commits --all')
-    gitalias(discard='checkout --')
-    gitalias(shelve='stash save --include-untracked')
-    gitalias(update='add -A')
-    gitalias(track='branch -u')
-    gitalias(shove='push -f')
-    gitalias(head='rev-list --max-count=1 --abbrev-commit @')
-    gitalias(save='stash save')
-    gitalias(last='!git commits --numstat -1')
-    gitalias(find='!git ls-files | grep -i')
+    gitalias(history='commits --all')
     gitalias(root='rev-parse --shot-toplevel')
+    gitalias(stat='status')
     gitalias(st='status')
 
 def gitsetup ():
     '''creates gitconfig variables'''
-    gitconfig('user', 'name', 'Isabella Muerte')
-
-    gitconfig('push', 'default', 'simple')
-
-    gitconfig('core', 'autocrlf', 'input')
-    gitconfig('core', 'editor', 'gvim -f')
-
-    gitconfig('color', 'ui', 'auto')
-
-    gitconfig('log', 'date', 'iso')
-
     gitconfig('rebase', 'autosquash', 'true')
     try: call(['git', 'update-index', '--assume-unchanged', 'pwsh/Machine.ps1'])
     except CalledProcessError as e: exit(str(e))

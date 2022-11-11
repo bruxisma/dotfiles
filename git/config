@@ -1,0 +1,21 @@
+[user]
+  name = Isabella Muerte
+[log]
+  date = iso
+[color]
+  ui = auto
+[core]
+  autocrlf = input
+  editor = gvim -f
+[rebase]
+  autosquash = true
+[alias]
+  aliases = "!git config --global --get-regexp '^alias[.]' | rg -e '^alias[.](\\w+) ' -r '$1\t=> $2'" 
+  branches = branch -a
+  commits = log --graph --decorate --pretty=oneline --abbrev-commit
+  remotes = remote -v
+  tags = tag
+  squash = commit --squash 
+  fixup = commit --fixup
+  stat = status
+  st = status
