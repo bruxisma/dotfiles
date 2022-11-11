@@ -10,8 +10,11 @@ set-python
 set-msvc
 set-vars # Sets global constant values.
 
+
+# A little bit of cross-platform naming conventions
 set-alias less more
 set-alias python3 python
+set-alias open explorer
 
 # "boilerplate"
 $window = (get-host).UI.RawUI
