@@ -35,6 +35,9 @@ local function treesitter(use)
   use { "nvim-treesitter/nvim-treesitter-context", requires = {
     "nvim-treesitter/nvim-treesitter",
   }}
+  use { "nvim-treesitter/playground", requires = {
+    "nvim-treesitter/nvim-treesitter",
+  }}
 end
 
 local function debugger(use)
