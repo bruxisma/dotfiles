@@ -41,7 +41,7 @@ ${env:XDG_STATE_HOME} ??= "${HOME}/.local/share/state"
 ${env:XDG_DATA_HOME} ??= "${HOME}/.local/share"
 
 # Import local profile *first*
-Import-Module $(Join-Path $PSScriptRoot Machine.ps1) -Force -Global
+Import-Module $(Join-Path $PSScriptRoot machine.ps1) -Force -Global
 
 <# Script Local Variables #>
 Set-Variable -Scope Script -Name OhMyPoshConfig -Value (Join-Path ${env:XDG_CONFIG_HOME} oh-my-posh config.yml)
@@ -80,7 +80,7 @@ if (Get-Command -Name "Update-SystemPath" -Module Atmosphere) {
 }
 
 <# Environment Variables #>
-if (${nvim} = Get-Command -Name "nvim" -CommandType Application -ErrorAction SilentlyContinue) {
+if (${nvim} = Get-Command -Name "nvim" -CommandType Application -ErrorAction SilentlyContinue -TotalCount 1) {
   Set-Item -Path Env:EDITOR -Value ${nvim}.Source
 }
 

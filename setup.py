@@ -61,7 +61,7 @@ def symlink (src, dst):
 #-----------------------------------------------------------------------------
 def gitsetup ():
     '''sets local files for git usage'''
-    try: call(['git', 'update-index', '--skip-worktree', '--', 'pwsh/Machine.ps1', 'git/machine'])
+    try: call(['git', 'update-index', '--skip-worktree', '--', 'pwsh/machine.ps1', 'git/machine'])
     except CalledProcessError as e: exit(str(e))
 
 
