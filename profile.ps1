@@ -5,6 +5,16 @@
 
 # Set the $HOME variable to make powershell recognize ~/ as $HOME
 
+<#
+.SYNOPSIS
+  returns True or False depennding on whether or not a given registry key
+  exists. (Uses get-itemproperty)
+#>
+function test-registry([string]$key) {
+  try { get-itemproperty $key -erroraction stop }
+  catch [Exception] { return $false }
+  return $true
+}
 
 <#
 .SYNOPSIS
@@ -16,24 +26,27 @@
   []:~\$ "C:\My\vim\installation\"
 #>
 function get-vimpath() {
-  $key = "hklm:\software\classes\applications\gvim.exe\shell\edit\command"
-  $command = (get-itemproperty $key).'(default)'
-  return "`"" + $command.Replace("`"", "").Split("%")[0].TrimEnd() + "`""
+  $key = "hklm:\software\vim\gvim"
+  return [String]::Format("`"{0}`"", (get-itemproperty $key).path)
 }
 
 <#
 .SYNOPSIS
   Gets the Python location, and sets its folder AND \Scripts
   to be on the system PATH. Default value is Python 3.2
+  This checks for both 32 and 64 bit python versions, but assumes that all
+  python versions are of the same bit (32 or 64)
 #>
-function set-python([float]$version=3.2) {
-  $key = "hklm:\software\python\pythoncore\{0}\installpath"
-  $key = [String]::Format($key, $version)
+function set-python([float]$ver=3.2) {
+  $root_pre = "hklm:\software\{0}"
+  $test = [String]::Format($root_pre, "python")
+  if (test-registry $test) { $root_pre = $test }
+  else { $root_pre = [String]::Format($root_pre, "wow6432node\python") }
+  $key = [String]::Format("{0}\pythoncore\{1}\installpath", $root_pre, $ver)
   $path = (get-itemproperty $key).'(default)'
 
   # Build the path out properly
-  $path = [String]::Format(";{0};{1}Scripts", $path, $path)
-  $env:PATH = $env:PATH + $exe_path
+  $env:PATH = $env:PATH + [String]::Format(";{0};{0}Scripts", $path)
 }
 
 <#
