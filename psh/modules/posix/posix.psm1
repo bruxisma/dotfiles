@@ -9,11 +9,8 @@
 function which([string]$exe) {
   if (!$exe.EndsWith('.exe')) { $exe = [String]::Format('{0}.exe', $exe) }
   $env:PATH.Split([IO.Path]::PathSeparator) | foreach-object {
-    $var = [String]::Format('{0}{1}{2}',
-                            $_,
-                            [IO.Path]::DirectorySeparatorChar,
-                            $exe)
-    if (test-path $var) { return $var }
+    $path = [IO.Path]::Combine($_, $exe)
+    if (test-path $path) { return $path }
   }
   return $null
 }

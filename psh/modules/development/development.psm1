@@ -11,8 +11,25 @@ function test-registry([string]$key) {
 
 <#
 .SYNOPSIS
+  Adds the given registry key's value to $env:PATH. This allows for
+  additional tools to be added to the path, without worrying about installers
+  clearing out the environment variables (Looking at you, NSIS).
+#>
+function add-registrypath(
+  [string]$name,
+  [string]$key='(default)',
+  [string]$append=''
+) {
+  if (!(test-registry $name)) { return } # TODO: Handle an error in this case
+  $name = (get-itemproperty $name).$key
+  if (!$name) { return } # TODO: See above
+  $env:PATH += [String]::Format(";{0}", [IO.Path]::Combine($name, $append))
+}
+
+<#
+.SYNOPSIS
   Gets the path of gvim via the windows registry.
-  Assumes the path vcan be found via hklm:\software\vim\gvim
+  Assumes the path can be found via hklm:\software\vim\gvim
   Returns the path as a quoted string.
 #>
 function get-vimpath() {

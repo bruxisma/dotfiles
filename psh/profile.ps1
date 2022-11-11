@@ -11,6 +11,8 @@ set-mingw
 set-msvc
 set-vars # Sets global constant values.
 
+add-registrypath 'hklm:software\wow6432node\kitware\cmake 2.8.11' -append bin
+add-registrypath hklm:software\sliksvn\install location
 
 # A little bit of cross-platform naming conventions
 set-alias less more
