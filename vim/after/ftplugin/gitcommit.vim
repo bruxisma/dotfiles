@@ -198,3 +198,6 @@ iabbrev :flag: 🚩
 
 iabbrev :animation: 💫
 iabbrev :dizzy: 💫
+
+iabbrev :wastebasket: 🗑
+iabbrev :deprecate: 🗑

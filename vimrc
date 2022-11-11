@@ -38,7 +38,6 @@ set autochdir
 
 set hidden
 
-
 " Plugins {{{ 
 call plug#begin('$HOME/.vim/bundle')
 
@@ -46,12 +45,11 @@ Plug 'Shougo/neosnippet.vim'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
-Plug 'joshdick/onedark.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-eunuch'
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
-Plug 'junegunn/fzf', { 'do': 'go build -o bin/' } | Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
 
 Plug 'plasticboy/vim-markdown'
@@ -68,6 +66,7 @@ Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'tpope/vim-liquid'
 Plug 'pboettch/vim-cmake-syntax'
 Plug 'pest-parser/pest.vim', { 'for': 'pest' }
+Plug 'earthly/earthly.vim', { 'branch': 'main' }
 "Plug '~/Desktop/vim-cmake' ", { 'for': 'cmake' }
 "Plug 'ixm-one/vim-cmake', { 'for': 'cmake' }
 call plug#end()
@@ -155,9 +154,6 @@ STATUS
 
 let g:lightline = eval(join(g:lightline, ' '))
 
-"imap <expr><tab> neosnippet#expandable_or_jumpable()
-"  \ ? "\<plug>(neosnippet_expand_or_jump)"
-"  \ : pumvisible() ? "\<c-n>" : "\<tab>"
 smap <expr><tab> neosnippet#expandable_or_jumpable()
   \ ? "\<plug>(neosnippet_expand_or_jump)"
   \ : "\<tab>"
@@ -165,6 +161,8 @@ imap <expr><TAB>
  \ pumvisible() ? "\<C-n>" :
  \ neosnippet#expandable_or_jumpable() ?
  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+if executable('fd') | inoremap <expr> <C-x><C-f> fzf#vim#complete#path('fd') | endif
 
 inoremap <C-c> <Esc>
 vnoremap <C-c> <Esc>
@@ -225,3 +223,10 @@ map <C-F11> <Plug>(vimrc-sort-dictionary)
 map <script> <Plug>(vimrc-syntax) :echo <SID>syntax()<CR>
 map <F10> <Plug>(vimrc-syntax)
 
+if executable('bat')
+  let s:fzf_buffer_preview = 'bat --color=always --style=numbers --pager=never {4}'
+  let s:fzf_buffer_options = #{ options: ['--preview', s:fzf_buffer_preview] }
+
+  command! -bang -nargs=? -complete=buffer Buffers 
+    \ call fzf#vim#buffers(<q-args>, s:fzf_buffer_options, <bang>0)
+endif

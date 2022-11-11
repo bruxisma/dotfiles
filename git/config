@@ -13,6 +13,9 @@
   autocrlf = input
   editor = gvim -f
   pager = delta --diff-so-fancy
+[fetch]
+  prune = true
+  pruneTags = true
 [rebase]
   autosquash = true
 [format]
