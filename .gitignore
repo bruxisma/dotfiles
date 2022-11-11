@@ -1,6 +1,7 @@
 # Files
 .DS_Store
 *.swp
+*.pyc
 *~
 .netrwhist
 tags
