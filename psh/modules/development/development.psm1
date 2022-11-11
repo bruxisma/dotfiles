@@ -41,7 +41,7 @@ function set-python([float]$version=3.2) {
   $path = (get-itemproperty $key).'(default)'
 
   # Builds the path out properly
-  $env:PATH += [String]::Format("{0};{0}Scripts;", $path)
+  $env:PATH += [String]::Format(";{0};{0}Scripts;", $path)
 }
 
 <#
