@@ -30,12 +30,8 @@ NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'altercation/vim-colors-solarized'
-"NeoBundle 'zhaocai/GoldenView.Vim'
-"NeoBundle 'SirVer/ultisnips'
-"NeoBundle 'octol/vim-cpp-enhanced-highlight'
 "NeoBundle 'scrooloose/syntastic'
-"NeoBundle 'gregsexton/gitv'
-"NeoBundle 'bling/vim-airline'
+NeoBundle 'gregsexton/gitv'
 
 " library support bundles
 NeoBundle 'beyondmarc/opengl.vim' " OpenGL
