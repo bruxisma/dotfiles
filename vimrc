@@ -13,9 +13,19 @@ call neobundle#rc(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
+"NeoBundle 'Shougo/neocomplcache.vim'
+
+"NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'tpope/vim-fugitive'
+
+NeoBundle 'zhaocai/GoldenView.Vim'
+NeoBundle 'SirVer/ultisnips'
+"NeoBundle 'octol/vim-cpp-enhanced-highlight'
+"NeoBundle 'scrooloose/syntastic'
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'bling/vim-airline'
 
 filetype plugin indent on
 syntax on
@@ -42,6 +52,9 @@ endif
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
+
+" Ultisnips
+let g:UltiSnipsUsePythonVersion = 3
 
 " Fixes *some* C++ support :)
 let c_no_curly_error = 1
