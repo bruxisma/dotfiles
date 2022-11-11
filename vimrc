@@ -17,7 +17,10 @@ set ttyfast
 set visualbell
 set ruler
 
-set colorcolumn=110
+" colorcolumn is broken in linux right now :/
+if has('mac') || has('win32')
+    set colorcolumn=110
+endif
 
 set backspace=indent,eol,start
 
@@ -37,6 +40,11 @@ nnoremap <leader>w :update<CR>
 nnoremap <leader>vs <C-w>v<C-w>l
 " Open a new horizontal split and switch to it.
 nnoremap <leader>hs <C-w>s<C-w>j
+
+"Clang complete settings
+"Runs the completion command
+let clang_complete_copen=1
+let clang_snippets=1
 
 " First Person Shooter Movement keys
 "nnoremap w k

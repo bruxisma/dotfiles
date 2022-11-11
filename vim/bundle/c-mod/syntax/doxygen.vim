@@ -1,0 +1,1 @@
+syn keyword doxygenOther contained details nextgroup=doxygenSpecialMultilineDesc

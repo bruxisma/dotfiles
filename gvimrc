@@ -15,6 +15,9 @@ call flux#set('kadesh', 'vaygr')
 set gfn=Consolas:h12
 
 set guioptions-=T
+
+"set statusline=%{fugitive#statusline()}
+
 if has('mac')
     set gfn=Consolas:h12
 elseif has('win32')
