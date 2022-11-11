@@ -41,6 +41,6 @@ nnoremap <C-l> <C-w>l
 
 " flux mapping
 nnoremap <leader>flux :call flux#update()<CR>
-
+nnoremap <leader>swi  :call flux#switch()<CR>
 " pathogen mappings
 nnoremap <leader>help :call pathogen#helptags()<CR>
