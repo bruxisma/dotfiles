@@ -1,16 +1,35 @@
 set nocompatible
 
-" Allows custom aliases for user commands, can also 'overwrite' builtins
+" Functions {{{
+" LightlineReadonly {{{
+function! LightlineReadonly()
+  return &readonly ? "\ue0a2" : ''
+endfunction
+
+" }}}
+" LightlineFugitive {{{
+function! LightlineFugitive()
+  if exists('*fugitive#head')
+    let branch = fugitive#head()
+    return branch !=# '' ? "\ue0a0 " . branch : '' 
+  endif
+  return ''
+endfunction
+
+" }}}
+" AliasCommand {{{
 function! AliasCommand (abbreviation, expansion, ...)
+  " Allows custom aliases for user commands, can also 'overwrite' builtins
   execute 'cabbrev ' . a:abbreviation . ' <c-r>=
     \ getcmdpos() == 1 &&  getcmdtype() == ":"
     \ ? "' . a:expansion . '"
     \ : "' . a:abbreviation . '"
     \<cr>'
 endfunction
-
-" toggle between number and relativenumber
-function! RelativeNumberToggle ()
+" }}}
+" ToggleRelativeNumber {{{
+function! ToggleRelativeNumber ()
+  " toggle between number and relativenumber
   if (&relativenumber == 1)
     set norelativenumber
     set number
@@ -18,21 +37,28 @@ function! RelativeNumberToggle ()
     set relativenumber
   endif
 endfunction
+" }}}
+" }}}
 
-"set directory=$XDG_CACHE_HOME/vim,~/,$TEMP
-"set backupdir=$XDG_CACHE_HOME/vim,~/,$TEMP
-"set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+" XDG Support {{{
+set directory=$XDG_CACHE_HOME/vim,$TEMP,~/
+set backupdir=$XDG_CACHE_HOME/vim,$TEMP,~/
+set viminfo+=n$TEMP/viminfo
 "set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 "let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+" }}}
 
+" Feature Checks {{{
 let s:multibyte = has('multi_byte')
 let s:gui = has('gui_running')
 
 let s:windows = has('win32') || has('win64')
 let s:osx = has('mac')
 
-if s:windows | set rtp^=$HOME/.vim | endif
+if s:windows | set rtp^=$HOME/.vim | set rtp+=$HOME/.vim/after | endif
+"}}}
 
+" Plugins {{{
 call plug#begin('~/.vim/bundle')
 
 Plug 'Shougo/unite.vim'
@@ -44,9 +70,11 @@ Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'gregsexton/gitv'
+Plug 'dracula/vim'
 Plug 'sjl/gundo.vim'
 
 " language support bundles
+Plug 'jparise/vim-graphql'              " GraphQL
 Plug 'octol/vim-cpp-enhanced-highlight' " C++
 Plug 'pboettch/vim-cmake-syntax'        " CMake
 Plug 'HerringtonDarkholme/yats.vim'     " TypeScript
@@ -59,8 +87,9 @@ Plug 'stephpy/vim-yaml'                 " YAML (fix)
 Plug 'cespare/vim-toml'                 " Toml
 
 call plug#end()
+" }}}
 
-" options
+" Vim Options {{{
 if executable('rg') | set grepprg=rg\ --vimgrep | endif
 if s:multibyte | set fileencodings=ucs-bom,utf-8,latin1 | endif
 if s:multibyte | setglobal fileencoding=utf-8 | endif
@@ -92,12 +121,14 @@ set ttyfast    " don't think this has ever been an issue
 set hidden     " prefer buffers over tabs
 set number     " line numbers
 set ruler      " line and column
+" }}}
 
-" commands
+" Commands {{{
 command! -nargs=+ AliasCommand call AliasCommand(<f-args>)
-command! RelativeNumberToggle call RelativeNumberToggle()
+command! ToggleRelativeNumber call ToggleRelativeNumber()
+" }}}
 
-" Aliases
+" Aliases {{{
 Alias reload source<space>$MYVIMRC " builtin
 
 Alias files Unite<space>file " unite.vim
@@ -106,7 +137,7 @@ Alias unite Unite            " unite.vim
 
 Alias unlink Unlink " eunuch
 Alias chmod Chmod   " eunuch
-Alias rm Remove     " eunuch
+Alias rm Delete     " eunuch
 Alias mv Move       " eunuch
 
 Alias checkout Gread " fugitive
@@ -126,7 +157,9 @@ Alias gundo GundoToggle " gundo
 Alias relative RelativeNumberToggle
 Alias gutter GitGutterLineHighlightsToggle
 
-" Variables
+" }}}
+
+" Plugin Variables {{{
 
 if s:multibyte && &termencoding == "" | let &termencoding = &encoding | endif
 let c_no_curly_error = 1 " Fixes C++ highlighting issues
@@ -150,11 +183,9 @@ let g:gitgutter_avoid_cmd_prompt_on_windows = 0               " gitgutter
 " otherwise >:(
 let g:load_doxygen_syntax=1
 
-" TODO: Move elsewhere
-
 " lightline.vim
 let g:lightline = {
-  \ 'colorscheme': 'solarized',
+  \ 'colorscheme': 'Dracula',
   \ 'active' : {
   \   'left': [
   \     ['mode', 'paste'],
@@ -170,22 +201,12 @@ let g:lightline = {
 	\ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
   \ }
 
-function! LightlineReadonly()
-  return &readonly ? "\ue0a2" : ''
-endfunction
-
-function! LightlineFugitive()
-  if exists('*fugitive#head')
-    let branch = fugitive#head()
-    return branch !=# '' ? "\ue0a0 " . branch : '' 
-  endif
-  return ''
-endfunction
-
 " call last set of functions here
 call unite#filters#matcher_default#use(['matcher_fuzzy']) " unite.vim
 
-" Bindings
+" }}}
+
+" Bindings {{{
 imap <expr><tab> neosnippet#expandable_or_jumpable()
   \ ? "\<plug>(neosnippet_expand_or_jump)"
   \ : pumvisible() ? "\<c-n>" : "\<tab>"
@@ -221,6 +242,8 @@ nnoremap <leader>u :GundoToggle<cr>
 nnoremap <F5> :silent make<cr>
 nnoremap <F4> :cclose<cr>
 
+" }}}
+
 " match chevrons in C++ files
 autocmd FileType cpp set mps+=<:>
 
@@ -228,4 +251,4 @@ autocmd FileType cpp set mps+=<:>
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-colorscheme solarized
+colorscheme dracula
