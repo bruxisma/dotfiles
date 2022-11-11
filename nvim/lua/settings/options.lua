@@ -51,3 +51,20 @@ end
 if fn.executable("pwsh") then
   -- TODO: Fill this out correctly for pwsh $SHELL usage
 end
+
+if os.getenv("WT_SESSION") then
+  local osc52 = require('osc52')
+  osc52.setup {}
+  local function paste()
+    return {
+      vim.fn.split(vim.fn.getreg(''), '\n'),
+      vim.fn.getregtype(''),
+    }
+  end
+  local function copy(lines, _) ocs52.copy(table.concat(lines, '\n')) end
+  option.clipboard = {
+    name = 'osc52',
+    copy = {['+'] = copy, ['*'] = copy},
+    paste = {['+'] = paste, ['*'] = paste},
+  }
+end

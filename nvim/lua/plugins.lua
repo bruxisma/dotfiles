@@ -21,6 +21,7 @@ local bootstrapped = bootstrap()
 return require("packer").startup {
   function(use)
     use { "ellisonleao/gruvbox.nvim" }
+    use { "ojroques/nvim-osc52" }
     use { "neovim/nvim-lspconfig" }
     use { "rcarriga/nvim-notify" }
 
