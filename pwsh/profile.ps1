@@ -89,7 +89,7 @@ if ($IsWindows) {
 }
 
 if ($IsMacOS) {
-  ${script:Paths}.Add("/usr/local/share/dotnet")
+  ${script:Paths} += @("/usr/local/share/dotnet")
 }
 
 Set-Item -Path Env:PATH -Value $(${script:Paths} -join ${script:Separator})
