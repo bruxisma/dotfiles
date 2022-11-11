@@ -58,6 +58,7 @@ history = 'log --graph --decorate --pretty=oneline --abbrev-commit --all'
 shelve = 'stash save --include-untracked'
 ignore = '!f(){ echo $1 >> .gitignore; }; f'
 fixup = 'commit --fixup'
+head = 'rev-list --max-count=1 --abbrev-commit HEAD'
 save = 'stash save'
 last = 'log --graph --decorate --pretty=oneline --abbrev-commit --numstat -1'
 this = '!git init && git add . && git commit -m "Initial Commit"'
@@ -153,6 +154,7 @@ if __name__ == '__main__':
     gitalias('shelve', shelve)
     gitalias('ignore', ignore)
     gitalias('fixup', fixup)
+    gitalias('head', head)
     gitalias('save', save)
     gitalias('last', last)
     gitalias('this', this)
