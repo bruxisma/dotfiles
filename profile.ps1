@@ -53,7 +53,7 @@ function set-python() {
 .PARAMETER $type
   The compiler suite to use. (either x86 or amd64)
 .EXAMPLE
-  [@]:~\$ msvc 9
+  [@]:~\$ set-msvc 9
 .NOTES
   Parts of this function are taken from stack overflow and Lee Holmes.
 #>
@@ -71,7 +71,7 @@ function set-msvc([int]$version=10, [string]$type='x86') {
 # This obviously modifies the prompt (I would like to change the tab completion
 # to use forward slashes but oh well :/)
 function prompt {
-  write-host ('[' + [environment]::UserName + '@' +
+  write-host ('[' + [environment]::UserName.ToLower() + '@' +
               [environment]::MachineName.ToLower() + ']:' +
               (pwd).Path.Replace($HOME, '~').Replace('\', '/') +'$') -NoNewline
   return ' '
