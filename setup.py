@@ -108,6 +108,8 @@ def symlink (src, dst):
   except OSError as e: exit('Could not symlink {}: {}'.format(item, e))
 
 def gitsetup ():
+  gitclear('alias')
+
   gitconfig('user', 'name', 'Isabella Muerte')
 
   gitconfig('push', 'default', 'simple')
@@ -119,7 +121,7 @@ def gitsetup ():
 
   gitconfig('log', 'date', 'iso')
 
-  gitclear('alias')
+  gitconfig('rebase', 'autosquash', 'true')
 
   gitalias(aliases=aliases)
   gitalias(branches='branch -a')
@@ -136,7 +138,7 @@ def gitsetup ():
 
   gitalias(squash='commit --squash')
   gitalias(fixup='commit --fixup')
-  gitalias(cram='rebase -i --autosquash')
+  gitalias(cram='rebase -i')
 
   gitalias(current='rev-parse --abbrev-ref @')
   gitalias(history='!git commits --all')
