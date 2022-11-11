@@ -60,5 +60,13 @@ function Update-CargoTools {
   if (-not (Get-Command "cargo" -ErrorAction SilentlyContinue)) { return }
   cargo install --list `
   | Where-Object { $_ -match '^\S' } `
-  | Foreach-Object { cargo install "$($_ -replace '^(\S+).*$', '$1')" }
+  | ForEach-Object { cargo install "$($_ -replace '^(\S+).*$', '$1')" 2>&1 }
+  | Select-String -Pattern @("Installing","Ignored","Replaced")
+  | ForEach-Object {
+    switch -regex ($_) {
+      '^\s+Installing' { "$_" -replace '^\s+Installing (.*)', '✨ $1'; Break; }
+      '^\s+Ignored' { "$_" -replace '.*`(.+)`.*', '✅ $1'; Break; }
+      '^\s+Replaced' { "$_" -replace '.*` with `([^`]+).*$', '✅ $1'; Break; }
+    }
+  }
 }

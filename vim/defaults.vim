@@ -24,17 +24,19 @@ set packpath^=$HOME/.vim
 
 if !$XDG_CONFIG_HOME && !has('unix') | let $XDG_CONFIG_HOME = $APPDATA | endif
 if !$XDG_CACHE_HOME && !has('unix') | let $XDG_CACHE_HOME = $LOCALAPPDATA | endif
+if !$XDG_STATE_HOME && !has('unix') | let $XDG_STATE_HOME = $LOCALAPPDATA | endif
 if !$XDG_DATA_HOME && !has('unix') | let $XDG_DATA_HOME = $LOCALAPPDATA | endif
 
 if !$XDG_CONFIG_HOME | let $XDG_CONFIG_HOME = expand('$HOME/.config') | endif
 if !$XDG_CACHE_HOME | let $XDG_CACHE_HOME = expand('$HOME/.cache') | endif
+if !$XDG_STATE_HOME | let $XDG_STATE_HOME = expand('$HOME/.local/state') | endif
 if !$XDG_DATA_HOME | let $XDG_DATA_HOME = expand('$HOME/.local/share') | endif
 
-set viminfofile=$XDG_CACHE_HOME/vim/viminfo
+set viminfofile=$XDG_STATE_HOME/vim/viminfo
 
-set backupdir=$XDG_CACHE_HOME/vim/backup
-set directory=$XDG_CACHE_HOME/vim/swap
-set undodir=$XDG_CACHE_HOME/vim/undo
+set backupdir=$XDG_STATE_HOME/vim/backup
+set directory=$XDG_STATE_HOME/vim/swap
+set undodir=$XDG_STATE_HOME/vim/undo
 set viewdir=$XDG_DATA_HOME/vim/view
 
 call mkdir(&backupdir, 'p', 0700)
