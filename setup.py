@@ -12,17 +12,22 @@
 #-----------------------------------------------------------------------------
 from __future__ import print_function
 
-from functools import partial
-
-from sys import platform
-from sys import exit
-
 from subprocess import CalledProcessError
 from subprocess import check_call as call
+
+from functools import partial
+
+from argparse import ArgumentDefaultsHelpFormatter
+from argparse import ArgumentParser
+
 from os.path import expanduser as expand
 from os.path import islink
 from os.path import isdir
 from os.path import join
+
+from sys import platform
+from sys import exit
+
 from os import symlink as symbolic_link
 from os import mkdir as make_directory
 from os import getcwd
@@ -48,6 +53,8 @@ aliases = ' | '.join((r'!git config --list',
   r'column -t -s "#"'))
 unstage = 'reset HEAD'
 changes = 'status -s'
+remotes = '!git remote -v | column -t'
+current = 'rev-parse --abbrev-ref @'
 history = 'log --graph --decorate --pretty=oneline --abbrev-commit --all'
 shelve = 'stash save --include-untracked'
 ignore = '!f(){ echo $1 >> .gitignore; }; f'
@@ -109,35 +116,55 @@ def symlink (src, dst):
 # Entry Point
 #-----------------------------------------------------------------------------
 if __name__ == '__main__':
-  gitconfig('user', 'name', 'Isabella Muerte')
+  parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
+  group = parser.add_mutually_exclusive_group()
+  argument = partial(group.add_argument, action='store_true')
 
-  gitconfig('push', 'default', 'simple')
+  argument('--git', help='gitconfig only')
+  argument('--sym', help='symlink only')
 
-  gitconfig('core', 'autocrlf', 'input')
-  gitconfig('core', 'editor', 'gvim -f')
+  # if no options are specified, all options are run
+  args = vars(parser.parse_args())
+  if not any(args.values()): args = dict.fromkeys(args, True)
 
-  gitconfig('log', 'date', 'iso')
+  git = args['git']
+  sym = args['sym']
 
-  gitconfig('alias', 'unshelve', unshelve)
-  gitconfig('alias', 'aliases', aliases)
-  gitconfig('alias', 'unstage', unstage)
-  gitconfig('alias', 'changes', changes)
-  gitconfig('alias', 'history', history)
-  gitconfig('alias', 'shelve', shelve)
-  gitconfig('alias', 'ignore', ignore)
-  gitconfig('alias', 'fixup', fixup)
-  gitconfig('alias', 'save', save)
-  gitconfig('alias', 'last', last)
-  gitconfig('alias', 'this', this)
-  gitconfig('alias', 'find', find)
-  gitconfig('alias', 'root', root)
-  gitconfig('alias', 'undo', undo)
-  gitconfig('alias', 'mar', mar)
-  gitconfig('alias', 'st', st)
+  if git:
+    gitalias = partial(gitconfig, 'alias')
 
-  if posix: mkdir('~/.config')
+    gitconfig('user', 'name', 'Isabella Muerte')
 
-  symlink('gvimrc', '{}gvimrc'.format(front))
-  symlink('vimrc', '{}vimrc'.format(front))
-  symlink('vim', '{}vim'.format(front))
-  symlink(shell, shell_target)
+    gitconfig('push', 'default', 'simple')
+
+    gitconfig('core', 'autocrlf', 'input')
+    gitconfig('core', 'editor', 'gvim -f')
+
+    gitconfig('log', 'date', 'iso')
+
+    gitalias('unshelve', unshelve)
+    gitalias('aliases', aliases)
+    gitalias('unstage', unstage)
+    gitalias('changes', changes)
+    gitalias('remotes', remotes)
+    gitalias('current', current)
+    gitalias('history', history)
+    gitalias('shelve', shelve)
+    gitalias('ignore', ignore)
+    gitalias('fixup', fixup)
+    gitalias('save', save)
+    gitalias('last', last)
+    gitalias('this', this)
+    gitalias('find', find)
+    gitalias('root', root)
+    gitalias('undo', undo)
+    gitalias('mar', mar)
+    gitalias('st', st)
+
+  if sym:
+    if posix: mkdir('~/.config')
+
+    symlink('gvimrc', '{}gvimrc'.format(front))
+    symlink('vimrc', '{}vimrc'.format(front))
+    symlink('vim', '{}vim'.format(front))
+    symlink(shell, shell_target)
