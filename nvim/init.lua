@@ -20,6 +20,8 @@ global.is_kornshell = 0
 global.is_posix = 1
 global.sh_fold_enabled = 3
 
+global.copilot_filetypes = { sshconfig = false }
+
 
 -- Leftover from orginal vimrc. Will remain until it can be replaced.
 vim.cmd [[

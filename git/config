@@ -10,6 +10,7 @@
 [color]
   ui = auto
 [core]
+  fsmonitor = true
   autocrlf = input
   editor = nvim
   pager = delta --diff-so-fancy

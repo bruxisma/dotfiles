@@ -1,0 +1,31 @@
+snippet function
+	function (${1})
+	${0}
+	endfunction()
+
+snippet macro
+	macro(${1})
+		${0}
+	endmacro()
+
+snippet if
+	if (${1})
+		${0}
+	endif()
+
+snippet foreach
+	foreach (${1})
+		${0}
+	endforeach()
+
+snippet while
+	while (${1})
+		${0}
+	endwhile()
+
+snippet parse
+	cmake_parge_arguments(${1})
+
+snippet once
+	include_guard(GLOBAL)
+	${0}
