@@ -4,8 +4,6 @@
 *.pyc
 *~
 
-fish_history
-fishd.*
 .netrwhist
 tags
 
