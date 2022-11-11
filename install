@@ -2,21 +2,20 @@
 # Installs the dotfiles via symlinks
 
 import subprocess
-import shutil
 import sys
 import os
 
 file_list = ['zshrc', 'vimrc', 'gvimrc', 'vim', 'gitignore']
 
 if __name__ == '__main__':
-  # Windows support is sooo hackish :X
-  # Also need to manually place profile.ps1 in $HOME/Documents/WindowsPowershell
+  # It's a good thing that windows has a a symlink-like feature now...
   if sys.platform == 'win32':
     for file_name in file_list:
       command_list = ['mklink']
       if os.path.isdir(file_name): command_list.append('/D')
       if 'git' in file_name: link = '.{0}'.format(file_name)
-      if 'vim' in file_name and not os.path.isdir(file_name): link = '_{0}'.format(file_name)
+      if 'vim' in file_name and not os.path.isdir(file_name):
+        link = '_{0}'.format(file_name)
       if file_name == 'vim': link = 'vimfiles'
       link = os.path.expanduser('~\\{0}'.format(link))
       if os.path.exists(link):
@@ -25,7 +24,9 @@ if __name__ == '__main__':
         command_list.append(link)
         command_list.append('{0}\\{1}'.format(os.getcwd(), file_name))
         os.system(' '.join(command_list))
-        sys.exit(0)
+    pws_dir = os.path.expanduser('~/Documents/WindowsPowershell')
+    pws = 'mklink {0}/profile.ps1 {1}/profile.ps1'.format(pws_dir, os.getcwd())
+    os.system(pws.replace('\\', '/'))
   for file_name in file_list:
     command_list = ['ln']
     args_string = list('-')
