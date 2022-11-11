@@ -5,6 +5,7 @@ if ($IsLinux) { Import-Module -Force (Join-Path $PSScriptRoot Linux.ps1) }
 Import-Module -Force (Join-Path $PSScriptRoot Machine.ps1) -Scope Global
 Import-Module -Force (Join-Path $PSScriptRoot Support.ps1) -Scope Local
 Import-Module -Force (Join-Path $PSScriptRoot rustup.ps1) -Scope Global
+Import-Module -Force (Join-Path $PSScriptRoot ssh.ps1) -Scope Global
 
 $readline = Import-PowerShellDataFile (Join-Path $PSScriptRoot readline.psd1)
 Set-PSReadlineOption @readline

@@ -22,7 +22,7 @@ elseif s:windows
   silent set guioptions+=!
   silent! set rop=type:directx,gamma:1.0,contrast:0.5,level:0.5,geom:1,renmode:5,taamode:1
 else
-  set guifont=Fira\ Code\ Retina\ 16
+  set guifont=Delugia\ Nerd\ Font\ 12
 endif
 
 " Because of habit D:
