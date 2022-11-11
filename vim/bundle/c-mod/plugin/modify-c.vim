@@ -3,7 +3,7 @@
 " later)
 
 function! EditCSourceFile()
-    " I only ever use these in C
+    " I only ever use these in C and C++
     set tabstop=2
     set shiftwidth=2
     set softtabstop=2
@@ -14,4 +14,7 @@ function! EditCSourceFile()
 
 endfunction
 
+au BufRead,BufNewFile *.cpp call EditCSourceFile()
+au BufRead,BufNewFile *.hpp call EditCSourceFile()
 au BufRead,BufNewFile *.c call EditCSourceFile()
+au BufRead,BufNewFile *.h call EditCSourceFile()
