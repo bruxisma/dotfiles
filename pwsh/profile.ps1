@@ -216,7 +216,7 @@ function Update-File {
 }
 
 function Edit-LocalProfile {
-  Edit-File $(Join-Path $PSScriptRoot Machine.ps1)
+  Edit-File $(Join-Path $PSScriptRoot machine.ps1)
 }
 
 function Edit-Profile {
@@ -226,8 +226,8 @@ function Edit-Profile {
 function Update-LocalProfile {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  if ($PSCmdlet.ShouldProcess("${PSScriptRoot}/Machine.ps1")) {
-    . $PSScriptRoot/Machine.ps1
+  if ($PSCmdlet.ShouldProcess("${PSScriptRoot}/machine.ps1")) {
+    . $PSScriptRoot/machine.ps1
   }
 }
 
