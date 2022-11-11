@@ -17,6 +17,10 @@ set ttyfast
 set visualbell
 set ruler
 
+" Code folding!
+vnoremap <leader>z zf
+nnoremap <leader>z za
+
 " colorcolumn is broken in linux right now :/
 if has('mac') || has('win32')
     set colorcolumn=80
@@ -29,7 +33,6 @@ au BufRead,BufNewFile *.md set filetype=markdown
 nnoremap / /\v
 vnoremap / /\v
 
-vnoremap <leader>z :fold
 
 let mapleader = ","
 
@@ -74,8 +77,9 @@ endif
 " NERDTree
 nnoremap <leader>m :NERDTreeToggle<CR>
 
-" Customg color scheme
-colorscheme kadesh
+" Custom color scheme
+"colorscheme kadesh
+colorscheme xoria256
 
 " pathogen mappings
 nnoremap <leader>help :call pathogen#helptags()<CR>
