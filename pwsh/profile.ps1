@@ -28,5 +28,9 @@ Set-PSReadlineOption -Colors @{
 }
 
 function Prompt {
-  "[$(Get-UserName)@$(Get-HostName)]:$(Get-PromptPath)$ "
+  $ESC = [char]27
+  $GREEN = "$ESC[32m"
+  $CYAN = "$ESC[36m"
+  $RESET = "$ESC[0m"
+  "${GREEN}[$(Get-UserName)@$(Get-HostName)]${RESET}:${CYAN}$(Get-PromptPath)${RESET}$ "
 }
