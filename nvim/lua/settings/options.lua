@@ -42,5 +42,14 @@ if fn.executable("rg") then
   option.grepprg = [[rg --vimgrep --no-heading --smart-case]]
 end
 
--- For some reason this doesn't work if written in raw lua
-vim.cmd([[set listchars=tab:»\ ,extends:▶,precedes:◀,nbsp:␣,trail:·]])
+if fn.executable("pwsh") then
+  -- TODO: Fill this out correctly for pwsh $SHELL usage
+end
+
+option.listchars = {
+  precedes = "◀",
+  extends = "▶",
+  nbsp = "␣",
+  trail = "·",
+  tab = "» ",
+}

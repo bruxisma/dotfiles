@@ -3,6 +3,7 @@ require("settings.keymaps")
 require("settings.autocmd")
 require("settings.abbrev")
 
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   local options = { noremap = true, silent = true, buffer = bufnr }
@@ -67,14 +68,24 @@ treesitter.setup {
 }
 
 -- nvim-lspconfig
-require("lspconfig").clangd.setup { on_attach = on_attach }
-require("lspconfig").gopls.setup { on_attach = on_attach }
+require("lspconfig").clangd.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+require("lspconfig").gopls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
 -- rust-tools.nvim
 require("rust-tools").setup {
   server = {
+    capabilities = capabilities,
     on_attach = on_attach,
   },
 }
+
 -- ray-x/go.nvim
 require("nvim-dap-virtual-text").setup {}
 require("go").setup { lsp_gofumpt = true }
@@ -89,25 +100,5 @@ require("telescope").load_extension("gh")
 
 require("todo-comments").setup {}
 
--- completion
-require("snippy").setup {
-  mappings = {
-    is = {
-      ["<Tab>"] = "expand_or_advance",
-      ["<S-Tab>"] = "previous",
-    },
-  },
-}
-require("cmp").setup {
-  snippet = {
-    expand = function(args)
-      require("snippy").expand_snippet(args.body)
-    end,
-  },
-  mapping = require("cmp").mapping.preset.insert {
-    ["<CR>"] = require("cmp").mapping.confirm { select = true },
-  },
-  sources = require("cmp").config.sources {
-    { name = "snippy" },
-  },
-}
+-- completions
+require("completions")

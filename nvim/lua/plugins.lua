@@ -17,16 +17,6 @@ local function bootstrap()
   return false
 end
 
-local function setup(name)
-  return function()
-    local exists, module = pcall(require, name)
-    if not exists then
-      return
-    end
-    pcall(module, "setup", {})
-  end
-end
-
 local bootstrapped = bootstrap()
 return require("packer").startup {
   function(use)
@@ -47,6 +37,7 @@ return require("packer").startup {
       "nvim-treesitter/nvim-treesitter",
       requires = {
         { "nvim-treesitter/nvim-treesitter-context", after = "nvim-treesitter" },
+        { "nvim-treesitter/nvim-treesitter-refactor" },
         { "IndianBoy42/tree-sitter-just" },
         {
           "nvim-treesitter/playground",--[[, cmd = "TSPlaygroundToggle" ]]
@@ -115,16 +106,25 @@ return require("packer").startup {
       --event = "InsertEnter",
       requires = {
         { "dcampos/cmp-snippy", requires = "dcampos/nvim-snippy" },
-        -- { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
-        -- { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-        -- { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-        -- { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-        -- { "hrsh7th/cmp-path", after = "nvim-cmp" },
-        -- { "lukas-reineke/cmp-under-comparator" },
+        -- { "hrsh7th/cmp-nvim-lsp-signature-help" },
+        -- { "hrsh7th/cmp-nvim-lua" },
         { "hrsh7th/cmp-nvim-lsp" },
+        -- { "hrsh7th/cmp-cmdline" },
+        -- { "hrsh7th/cmp-buffer" },
+        -- { "hrsh7th/cmp-path" },
+        -- { "lukas-reineke/cmp-under-comparator" },
         { "onsails/lspkind.nvim" },
       },
     }
+
+    -- evaluating
+    -- { "windwp/nvim-autopairs" }
+    -- { "hkupty/iron.nvim" }
+    -- { "danymat/neogen" }
+    -- { "ray-x/lsp_signature.nvim" }
+    -- { "p00f/clangd_extensions.nvim" }
+    -- { "ellisonleao/gruvbox.nvim" }
+    -- { "nvim-lualine/lualine.nvim" }
 
     if bootstrapped then
       require("packer").sync()
