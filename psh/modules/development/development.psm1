@@ -58,7 +58,7 @@ function set-python([float]$version=3.2) {
   Parts of this function are taken from stack overflow and Lee Holmes.
   The default values are VS2010 and the amd64 toolchain.
 #>
-function set-msvc([int]$version=10, [string]$type="amd64") {
+function set-msvc([int]$version=10, [string]$type="x86") {
   $env_var = [String]::Format("VS{0}0COMNTOOLS", $version)
   $tools = [Environment]::GetEnvironmentVariable($env_var, "Machine")
   $path = "..\..\vc\vcvarsall.bat"
@@ -85,7 +85,7 @@ out a great deal, I'm sure
 
 use `set-variable <varname> -option Constant -value <value>`
 #>
-function prompt {
+function set-prompt {
   write-host ('[' + [Environment]::UserName.ToLower() +
               '@' + [Environment]::MachineName.ToLower() +
               ']:' + (pwd).Path.Replace($HOME, '~').Replace('\', '/') +
