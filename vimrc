@@ -34,13 +34,10 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/neosnippet.vim'
-"NeoBundle 'Shougo/neocomplete.vim'
 
-"NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'altercation/vim-colors-solarized'
-"NeoBundle 'scrooloose/syntastic'
 NeoBundle 'gregsexton/gitv'
 
 " library support bundles
@@ -48,11 +45,11 @@ NeoBundle 'beyondmarc/opengl.vim' " OpenGL
 
 " language support bundles
 NeoBundle 'slurps-mad-rips/cxx-syntax.vim'  " C11 and C++11+
-NeoBundle 'kongo2002/fsharp-vim'        " F#
-NeoBundle 'PProvost/vim-ps1'            " Windows Powershell
-NeoBundle 'tikhomirov/vim-glsl'         " GLSL
-NeoBundle 'fatih/vim-go'                " golang
-NeoBundle 'leafgarland/typescript-vim'  " typescript
+NeoBundle 'kongo2002/fsharp-vim'            " F#
+NeoBundle 'PProvost/vim-ps1'                " Windows Powershell
+NeoBundle 'tikhomirov/vim-glsl'             " GLSL
+NeoBundle 'fatih/vim-go'                    " golang
+NeoBundle 'leafgarland/typescript-vim'      " typescript
 
 filetype plugin indent on
 syntax on
@@ -74,6 +71,7 @@ set ruler
 set backspace=indent,eol,start
 set hlsearch
 set noswapfile " disable all .swp files
+set colorcolumn=80
 
 set cino=N-s " c++ specific indent option
 
@@ -96,9 +94,6 @@ Alias ls Unite<Space>buffer " replace ls with Unite buffer
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
-" needs some tweaking to remove the filer if it's currently available.
-"nnoremap <leader>m :VimFiler -buffer-name=explorer -split -simple 
-"-winwidth=35 -toggle -no-quit<CR>
 
 " neosnippet
 let g:neosnippet#snippets_directory='~/.vim/snippets'
@@ -120,13 +115,14 @@ nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>hs <C-w>s<C-w>j
 
 " solarized
-let g:solarized_hitrail=1
 if has('gui_running')
+  let g:solarized_hitrail=1
+  colorscheme solarized
   set background=light
 else
   set background=dark
+  colorscheme default
 endif
-colorscheme solarized
 
 " match chevrons in C++ files
 autocmd FileType cpp set mps+=<:>
