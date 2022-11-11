@@ -7,6 +7,7 @@ Set-Alias open Start-Process -Scope Global
 Update-Path 'C:\MinGW\bin'
 Update-Path $env:EDITOR
 Update-Path 'C:\Program Files (x86)\GitHub CLI'
+Update-Path ${env:GOPATH}\bin
 
 Add-WindowsPSModulePath
 
