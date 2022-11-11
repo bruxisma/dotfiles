@@ -16,10 +16,8 @@ set gfn=Consolas:h12
 
 set guioptions-=T
 
-if has('mac')
-  set gfn=Consolas:h12
-elseif has('win32')
-  set gfn=Consolas:h10:cANSI
+if has('mac') || has('win32')
+  set gfn=Inconsolata:h10
 else
-  set gfn=Consolas\ 10
+  set gfn=Inconsolata\ 10
 endif
