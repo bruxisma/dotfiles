@@ -72,17 +72,10 @@ else
   nnoremap <leader>c :ConqueTermSplit zsh<CR>
 endif
 
-" First Person Shooter Movement keys
-"nnoremap w k
-"nnoremap s j
-"nnoremap d l
-"nnoremap a h
-
 " NERDTree
 nnoremap <leader>m :NERDTreeToggle<CR>
 
 " Custom color scheme
-"colorscheme kadesh
 colorscheme xoria256
 
 " pathogen mappings
