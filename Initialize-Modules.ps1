@@ -5,7 +5,6 @@ $modules = @(
   "Microsoft.PowerShell.SecretManagement"
   "Microsoft.PowerShell.SecretStore"
   "Microsoft.PowerShell.Crescendo"
-  "oh-my-posh"
   "Atmosphere"
   "PSScriptAnalyzer"
 )
