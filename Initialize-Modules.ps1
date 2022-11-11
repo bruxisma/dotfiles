@@ -12,6 +12,6 @@ $modules = @(
 
 foreach ($module in $modules) {
   if ($PSCmdlet.ShouldProcess($module, "Install-Module")) {
-    Import-Module $module
+    Install-Module $module
   }
 }
