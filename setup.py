@@ -13,7 +13,7 @@ from glob import glob
 import sys
 import os
 
-dotfile_list = glob('*rc')
+dotfile_list = glob('*rc') + ['zshenv']
 dir_list = ['vim']
 
 def symlink(iterable, func, directory=False):
