@@ -6,6 +6,9 @@ autocmd VimEnter * wincmd p
 inoremap <C-s> <ESC>
 nnoremap <C-s> i
 
+" increase the size of course
+set lines=54 columns=210
+
 set gfn=Consolas:h12
 set guioptions-=T
 if has('win32')

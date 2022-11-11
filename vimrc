@@ -17,6 +17,8 @@ set ttyfast
 set visualbell
 set ruler
 
+au BufNewFile,BufRead *.md set filetype=markdown
+
 nnoremap / /\v
 vnoremap / /\v
 
