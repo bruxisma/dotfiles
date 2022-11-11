@@ -4,9 +4,6 @@ using namespace System.IO
 
 <# Bootstrap #>
 [Console]::OutputEncoding = [Encoding]::UTF8
-if (-not (Get-Module -Name oh-my-posh)) {
-  Import-Module oh-my-posh -Force -Global
-}
 
 function script:Import-Completions {
   [CmdletBinding()]
@@ -74,10 +71,6 @@ Set-Alias reload Update-Profile
 Set-Alias which Get-Command
 Set-Alias edit Edit-File
 Set-Alias info Get-Help
-
-if (Get-Command -Name "Update-SystemPath" -Module Atmosphere) {
-  Update-SystemPath ${env:POSH_PATH}
-}
 
 <# Environment Variables #>
 if (${nvim} = Get-Command -Name "nvim" -CommandType Application -ErrorAction SilentlyContinue -TotalCount 1) {
