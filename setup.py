@@ -51,7 +51,7 @@ if __name__ == '__main__':
     symlink(dotfile_list,
         lambda x: '{}{}'.format('.' if sys.platform != 'win32' else '_', x))
     symlink(dir_list,
-        lambda x: ('{}files' if sys.platform == 'win32' else '.{}').format(x),
+        lambda x: ('.{}').format(x),
         directory=True)
     # Small quick symlink to setup terminal colors for hybrid color scheme.
     if sys.platform == 'linux':

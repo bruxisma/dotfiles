@@ -1,7 +1,3 @@
-" We should only have NERDTree open for GUI.
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
-
 " increase the size of course
 set lines=54 columns=210
 

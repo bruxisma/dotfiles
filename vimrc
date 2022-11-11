@@ -1,8 +1,27 @@
-call pathogen#infect()
+set nocompatible
+filetype off
+
+if has('win32') || has('win64')
+  set rtp^=$HOME/.vim
+endif
+
+if has('vim_starting')
+  set rtp+=$HOME/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+
 filetype plugin indent on
 syntax on
 
-set nocompatible
+NeoBundleCheck
+
 set number
 set tabstop=2
 set shiftwidth=2
@@ -21,6 +40,9 @@ if !has('mac')
   set t_Co=256
 endif
 
+" vimfiler
+let g:vimfiler_as_default_explorer = 1
+
 " Fixes *some* C++ support :)
 let c_no_curly_error = 1
 let mapleader = ","
@@ -31,10 +53,6 @@ endif
 vnoremap <leader>z zf
 vnoremap / /\v
 
-" NERDTree
-nnoremap <leader>m :NERDTreeToggle<CR>
-" pathogen mappings
-nnoremap <leader>help :call pathogen#helptags()<CR>
 " simplify saving
 nnoremap <leader>w :update<CR>
 nnoremap <leader>z za
