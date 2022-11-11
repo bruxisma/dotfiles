@@ -52,11 +52,11 @@ nnoremap <leader>hs <C-w>s<C-w>j
 "Runs the completion command
 "However windows does not work properly with clang right now
 if has('win32')
-    let clang_complete_auto=0
-    let clang_hl_errors=0
+  let clang_complete_auto=0
+  let clang_hl_errors=0
 else
-    let clang_complete_copen=1
-    let clang_snippets=1
+  let clang_complete_copen=1
+  "let clang_snippets=1
 endif
 
 " Conque settings
