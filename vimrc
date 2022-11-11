@@ -52,6 +52,7 @@ NeoBundle 'kongo2002/fsharp-vim'        " F#
 NeoBundle 'PProvost/vim-ps1'            " Windows Powershell
 NeoBundle 'tikhomirov/vim-glsl'         " GLSL
 NeoBundle 'fatih/vim-go'                " golang
+NeoBundle 'leafgarland/typescript-vim'  " typescript
 
 filetype plugin indent on
 syntax on
