@@ -38,6 +38,7 @@ NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'gregsexton/gitv'
 
 " library support bundles
@@ -45,11 +46,14 @@ NeoBundle 'beyondmarc/opengl.vim' " OpenGL
 
 " language support bundles
 NeoBundle 'slurps-mad-rips/cxx-syntax.vim'  " C11 and C++11+
+NeoBundle 'slurps-mad-rips/cmake.vim'       " CMake
 NeoBundle 'kongo2002/fsharp-vim'            " F#
 NeoBundle 'PProvost/vim-ps1'                " Windows Powershell
 NeoBundle 'tikhomirov/vim-glsl'             " GLSL
 NeoBundle 'fatih/vim-go'                    " golang
 NeoBundle 'leafgarland/typescript-vim'      " typescript
+NeoBundle 'rust-lang/rust.vim'              " rust
+NeoBundle 'pangloss/vim-javascript'         " JS
 
 filetype plugin indent on
 syntax on
@@ -88,9 +92,40 @@ endfunction
 command! -nargs=+ AliasCommand call AliasCommand(<f-args>)
 AliasCommand alias AliasCommand
 
+" solarized
+if has('gui_running')
+  let g:solarized_hitrail=1
+  colorscheme solarized
+  set background=light
+else
+  set background=dark
+  colorscheme default
+endif
+
 " unite.vim
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 Alias ls Unite<Space>buffer " replace ls with Unite buffer
+
+" lightline.vim
+let g:lightline = {
+  \ 'colorscheme': 'solarized_light',
+  \ 'active' : {
+  \   'left': [
+  \     ['mode', 'paste'],
+  \     ['fugitive', 'readonly', 'filename', 'modified']
+  \   ]
+  \ },
+  \ 'component' : {
+  \   'fugitive' : '%{exists("*fugitive#head")?fugitive#head():""}'
+  \ },
+  \ 'component_visible_condition' : {
+  \   'fugitive' : '(exists("*fugitive#head()") && ""!=fugitive#head())'
+  \ }
+  \ }
+set laststatus=2
+
+" rust
+let g:rust_recommended_style = 0
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
@@ -113,16 +148,6 @@ nnoremap / /\v
 " Open a new vertical or horizontal split respectively split and switch to it.
 nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>hs <C-w>s<C-w>j
-
-" solarized
-if has('gui_running')
-  let g:solarized_hitrail=1
-  colorscheme solarized
-  set background=light
-else
-  set background=dark
-  colorscheme default
-endif
 
 " match chevrons in C++ files
 autocmd FileType cpp set mps+=<:>
