@@ -6,13 +6,13 @@ Set-EnvironmentVariable GNUPGHOME (Join-Path $env:LOCALAPPDATA gnupg)
 Set-Alias touch Touch-Item -Scope Global
 Set-Alias open Start-Process -Scope Global
 
-Update-Path 'C:\MinGW\bin'
+Update-SystemPath 'C:\MinGW\bin'
 
-Update-Path "${env:ProgramFiles(x86)}\GitHub CLI"
-Update-Path "${env:ProgramFiles(x86)}\GnuPG\bin"
-Update-Path "${env:ProgramFiles}\Yubico\YubiKey Manager"
-Update-Path ${env:GOPATH}\bin
-Update-Path ${env:EDITOR}
+Update-SystemPath "${env:ProgramFiles(x86)}\GitHub CLI"
+Update-SystemPath "${env:ProgramFiles(x86)}\GnuPG\bin"
+Update-SystemPath "${env:ProgramFiles}\Yubico\YubiKey Manager"
+Update-SystemPath ${env:GOPATH}\bin
+Update-SystemPath $(Split-Path -Parent ${env:EDITOR})
 
 Add-WindowsPSModulePath
 

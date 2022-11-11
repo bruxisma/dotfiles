@@ -7,3 +7,4 @@ aliases:
     search: 'api -X GET search/repositories -f q=''$1'' --template ''{{range .items}}{{ .full_name | color "white" }}: {{ .description }}{{"\n"}}{{ end }}'''
     open: '!gh pr create --title "$(git show --no-patch --format=%s)" --body "$(git show --no-patch --format=%b | sd --string-mode `git show --no-patch ''--format=%(trailers:only)''` \" \")"'
     dependabot: 'pr comment --body "@dependabot $1"'
+    update-branch: "!gh api --silent --method PUT --preview lydian \"repos/{owner}/{repo}/pulls/$(gh pr view --json number --jq .number)/update-branch\" --field expected_head_sha=$(gh pr view --json commits --jq '.commits[-1].oid')"
