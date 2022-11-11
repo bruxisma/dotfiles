@@ -61,7 +61,7 @@ Additional utilities in my toolbox include the following:
  - [flarectl](#)
  - [task](https://taskfile.dev)
  - [dlv](#)
- - [fzf](#)
+ - [fzf](https://github.com/junegunn/fzf)
 
 **NOTE**: An automatic packaging solution for all these tools to create a
 repository/metapackage/installer for all these tools will be put into a
