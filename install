@@ -24,10 +24,10 @@ if __name__ == '__main__':
       if os.path.exists(link):
         try: os.remove(link)
         except OSError: pass
-        command_list.append(link)
-        command_list.append('{0}\\{1}'.format(os.getcwd(), file_name))
-        print(' '.join(command_list))
-        os.system(' '.join(command_list))
+      command_list.append(link)
+      command_list.append('{0}\\{1}'.format(os.getcwd(), file_name))
+      print(' '.join(command_list))
+      os.system(' '.join(command_list))
     pws_dir = os.path.expanduser('~/Documents/WindowsPowershell')
     if not os.path.exists(pws_dir):
       try: os.makedirs(pws_dir)
