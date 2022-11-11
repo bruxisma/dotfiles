@@ -7,6 +7,9 @@
 # Needs to be run as administrator to create symlinks on Windows.
 # When run from PowerShell, use 'su' which works as one might expect it to.
 
+#-----------------------------------------------------------------------------
+# Imports
+#-----------------------------------------------------------------------------
 from __future__ import print_function
 
 from functools import partial
@@ -20,12 +23,47 @@ from os.path import expanduser as expand
 from os.path import islink
 from os.path import isdir
 from os.path import join
-from os import symlink
+from os import symlink as symbolic_link
+from os import mkdir as make_directory
 from os import getcwd
 from os import remove
 
+#-----------------------------------------------------------------------------
+# Globals
+#-----------------------------------------------------------------------------
 windows = platform == 'win32'
+posix = not windows
 
+front = '_' if windows else '.'
+head = 'Documents' if windows else '.config'
+tail = 'WindowsPowershell' if windows else 'fish'
+shell_target = join(head, tail)
+shell = 'psh' if windows else 'fish'
+
+unshelve = 'stash pop'
+aliases = ' | '.join((r'!git config --list',
+  r'grep "alias\."',
+  r'sed -e "s/alias\.\([^=]*\)=\(.*\)/\1#\2/" -e "s/aliases#\(.*\)//"',
+  r'sort',
+  r'column -t -s "#"'))
+unstage = 'reset HEAD'
+changes = 'status -s'
+history = 'log --graph --decorate --pretty=oneline --abbrev-commit --all'
+shelve = 'stash save --include-untracked'
+ignore = '!f(){ echo $1 >> .gitignore; }; f'
+fixup = 'commit -m fixup'
+save = 'stash save'
+last = 'log --graph --decorate --pretty=oneline --abbrev-commit --numstat -1'
+this = '!git init && git add . && git commit -m "Initial Commit"'
+find = '!git ls-files | grep -i'
+root = 'rev-parse --show-toplevel'
+undo = 'reset --soft @~1'
+mar = 'checkout --'
+st = 'status'
+
+#-----------------------------------------------------------------------------
+# Functions
+#-----------------------------------------------------------------------------
 def gitconfig (section, variable, value):
   '''Given a *section*, *variable*, and *value*, adds the *variable* to the
   global .gitconfig with *value*. This is done instead of adding a .gitconfig
@@ -36,6 +74,17 @@ def gitconfig (section, variable, value):
   cmd = ['git', 'config', '--global', '{}.{}'.format(section, variable), value]
   try: call(cmd)
   except CalledProcessError as e: exit(str(e))
+
+def mkdir (path):
+  '''Creates a directory *path*, after performing file path expansion. Does
+  nothing if *path* already exists.
+  
+  Exits with an error message if it cannot create the directory
+  '''
+  path = expand(path)
+  if isdir(path): return
+  try: make_directory(path)
+  except OSError as e: exit(str(e))
 
 def symlink (src, dst):
   '''Given a *src* and a *dst*, creates a symlink fro *src* to *dst*.
@@ -51,40 +100,15 @@ def symlink (src, dst):
     try: remove(link)
     except OSError as e:
       exit('Could not remove old symlink {}: {}'.format(link, e))
-  linker = partial(symlink, item, link)
-  if windows:
-    linker = partial(linker, target_is_directory=isdir(item))
+  linker = partial(symbolic_link, item, link)
+  if windows: linker = partial(linker, target_is_directory=isdir(item))
   try: linker()
   except OSError as e: exit('Could not symlink {}: {}'.format(item, e))
 
+#-----------------------------------------------------------------------------
+# Entry Point
+#-----------------------------------------------------------------------------
 if __name__ == '__main__':
-  front = '_' if windows else '.'
-  head = 'Documents' if windows else '.config'
-  tail = 'WindowsPowershell' if windows else 'fish'
-  shell_target = join(head, tail)
-  shell = 'psh' if windows else 'fish'
-
-  unshelve = 'stash pop'
-  aliases = ' | '.join((r'!git config --list',
-    r'grep "alias\."',
-    r'sed -e "s/alias\.\([^=]*\)=\(.*\)/\1#\2/" -e "s/aliases#\(.*\)//"',
-    r'sort',
-    r'column -t -s "#"'))
-  unstage = 'reset HEAD'
-  changes = 'status -s'
-  history = 'log --graph --decorate --pretty=oneline --abbrev-commit --all'
-  shelve = 'stash save --include-untracked'
-  ignore = '!f(){ echo $1 >> .gitignore; }; f'
-  fixup = 'commit -m fixup'
-  save = 'stash save'
-  last = 'log --graph --decorate --pretty=oneline --abbrev-commit --numstat -1'
-  this = '!git init && git add . && git commit -m "Initial Commit"'
-  find = '!git ls-files | grep -i'
-  root = 'rev-parse --show-toplevel'
-  undo = 'reset --soft @~1'
-  mar = 'checkout --'
-  st = 'status'
-
   gitconfig('user', 'name', 'Isabella Muerte')
 
   gitconfig('push', 'default', 'simple')
@@ -110,6 +134,8 @@ if __name__ == '__main__':
   gitconfig('alias', 'undo', undo)
   gitconfig('alias', 'mar', mar)
   gitconfig('alias', 'st', st)
+
+  if posix: mkdir('~/.config')
 
   symlink('gvimrc', '{}gvimrc'.format(front))
   symlink('vimrc', '{}vimrc'.format(front))
