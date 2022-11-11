@@ -14,7 +14,6 @@ import sys
 import os
 
 dotfile_list = glob('*rc')
-ps_list = glob('*.ps1')
 dir_list = ['vim']
 
 def symlink(iterable, func, directory=False):
@@ -29,8 +28,9 @@ def symlink(iterable, func, directory=False):
     '''
     for item in iterable:
         link = os.path.expanduser(os.path.join('~', func(item)))
+        item = os.path.join(os.getcwd(), item)
         print('{} -> {}'.format(item, link))
-        if not directory and os.path.exists(link)
+        if not directory and os.path.exists(link):
             try: os.remove(link)
             except OSError as e:
                 print('Could not remove old symlink {}: {}'.format(link, e))
@@ -48,12 +48,10 @@ if __name__ == '__main__':
     symlink(dotfile_list,
         lambda x: '{}{}'.format('.' if sys.platform != 'win32' else '_', x))
     symlink(dir_list,
-        lambda x: ('{}files' if sys.platform != 'win32' else '.{}').format(x),
+        lambda x: ('{}files' if sys.platform == 'win32' else '.{}').format(x),
         directory=True)
     # Powershell stuff is last, since it is _only_ for windows
     if sys.platform == 'win32':
-        temp = os.path.join('~', 'Documents', 'WindowsPowershell')
-        path = os.path.expanduser(temp)
-        os.makedirs(path, exist_ok=True)
-        symlink(ps_list,
-            lambda x: os.path.join('Documents', 'WindowsPowershell', x))
+        symlink(['psh'],
+            lambda x: os.path.join('Documents', 'WindowsPowershell'),
+            directory=True)
