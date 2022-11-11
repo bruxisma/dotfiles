@@ -1,13 +1,14 @@
-" increase the size of course
-set lines=54 columns=180
-set colorcolumn=80
+let s:windows = has('win32') || has('win64')
+let s:osx = has('mac')
 
-set guioptions-=T " Remove all those icons I never use
+set guioptions-=T   " Remove all those icons I never use
 set guioptions=aegm " But keep the stuff I do!
+set columns=180     " increase number of columns
+set lines=54        " increase number of vertical lines
 
-if has('mac')
+if s:osx
   set guifont=Office\ Code\ Pro:h13
-elseif has('win32') || has('win64')
+elseif s:windows
   silent set guifont=Consolas:h12:b:cANSI
   " Its about time someone made gvim use Direct2D :D
   silent set renderoptions=type:directx,
@@ -18,9 +19,5 @@ elseif has('win32') || has('win64')
       \taamode:1,
       \level:0.5
 else
-  set gfn=Source\ Code\ Pro\ 10
+  set guifont=Source\ Code\ Pro\ 10
 endif
-
-" insert mode
-inoremap <C-s> <ESC>
-nnoremap <C-s> i
