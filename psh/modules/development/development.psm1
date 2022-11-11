@@ -41,7 +41,7 @@ function set-python([float]$version=3.2) {
   $path = (get-itemproperty $key).'(default)'
 
   # Builds the path out properly
-  $env:PATH += [String]::Format(";{0};{0}Scripts;", $path)
+  $env:PATH += [String]::Format(";{0};{0}Scripts", $path)
 }
 
 <#
@@ -56,9 +56,9 @@ function set-python([float]$version=3.2) {
   [@]:~/$ set-msvc 10 x86
 .NOTES
   Parts of this function are taken from stack overflow and Lee Holmes.
-  The default values are VS2010 and the amd64 toolchain.
+  The default values are VS2012 and the amd64 toolchain.
 #>
-function set-msvc([int]$version=10, [string]$type="x86") {
+function set-msvc([int]$version=11, [string]$type="x86") {
   $env_var = [String]::Format("VS{0}0COMNTOOLS", $version)
   $tools = [Environment]::GetEnvironmentVariable($env_var, "Machine")
   $path = "..\..\vc\vcvarsall.bat"
@@ -67,6 +67,16 @@ function set-msvc([int]$version=10, [string]$type="x86") {
     $key, $value = $_.Split('=')
     set-item -path env:$key -value $value
   }
+}
+
+<#
+.SYNOPSIS
+  Will set the mingw runtime to be on the system path.
+.EXAMPLE
+ [@]:~/$ set-mingw
+#>
+function set-mingw () {
+  $env:PATH += ";C:\MinGW\bin"
 }
 
 <#

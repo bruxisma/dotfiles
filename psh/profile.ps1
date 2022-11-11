@@ -7,6 +7,7 @@ $env:EDITOR = get-vimpath
 
 set-location $HOME
 set-python
+set-mingw
 set-msvc
 set-vars # Sets global constant values.
 
