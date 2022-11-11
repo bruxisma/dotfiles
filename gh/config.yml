@@ -1,0 +1,6 @@
+git_prootocol: https
+editor:
+prompt: enabled
+pager:
+aliases:
+ search: 'api -X GET search/repositories -f q=''$1'' --template ''{{range .items}}{{ .full_name | color "white" }}: {{ .description }}{{"\n"}}{{ end }}'''
