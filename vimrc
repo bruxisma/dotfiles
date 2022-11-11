@@ -98,7 +98,7 @@ command! -nargs=+ AliasCommand call AliasCommand(<f-args>)
 command! RelativeNumberToggle call RelativeNumberToggle()
 
 " Aliases
-Alias reload source<space>% " builtin
+Alias reload source<space>$MYVIMRC " builtin
 
 Alias files Unite<space>file " unite.vim
 Alias ls Unite<space>buffer  " unite.vim
@@ -135,7 +135,9 @@ let mapleader = "," " Almost everyone does this
 " global plugin options
 let g:neosnippet#snippets_directory=expand('~/.vim/snippets') " neosnippet
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }       " neosnippet
+let g:vimfiler_force_overwrite_statusline = 0                 " vimfiler
 let g:vimfiler_as_default_explorer = 1                        " vimfiler
+let g:unite_force_overwrite_statusline = 0                    " unite
 let g:cpp_class_scope_highlight = 1                           " cxx
 let g:rust_recommended_style = 0                              " rust
 let g:opencl_overwrite_lisp = 1                               " opencl
@@ -148,6 +150,8 @@ let g:gitgutter_avoid_cmd_prompt_on_windows = 0               " gitgutter
 " otherwise >:(
 let g:load_doxygen_syntax=1
 
+" TODO: Move elsewhere
+
 " lightline.vim
 let g:lightline = {
   \ 'colorscheme': 'solarized',
@@ -157,13 +161,26 @@ let g:lightline = {
   \     ['fugitive', 'readonly', 'filename', 'modified']
   \   ]
   \ },
-  \ 'component' : {
-  \   'fugitive' : '%{exists("*fugitive#head")?fugitive#head():""}'
+  \ 'component' : { 'lineinfo': "\ue0a1 %3l:%-2v" },
+  \ 'component_function' : {
+  \ 'readonly' : 'LightlineReadonly',
+  \   'fugitive' : 'LightlineFugitive'
   \ },
-  \ 'component_visible_condition' : {
-  \   'fugitive' : '(exists("*fugitive#head()") && ""!=fugitive#head())'
+  \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+	\ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
   \ }
-  \ }
+
+function! LightlineReadonly()
+  return &readonly ? "\ue0a2" : ''
+endfunction
+
+function! LightlineFugitive()
+  if exists('*fugitive#head')
+    let branch = fugitive#head()
+    return branch !=# '' ? "\ue0a0 " . branch : '' 
+  endif
+  return ''
+endfunction
 
 " call last set of functions here
 call unite#filters#matcher_default#use(['matcher_fuzzy']) " unite.vim
