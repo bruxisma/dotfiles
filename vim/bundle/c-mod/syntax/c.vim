@@ -126,6 +126,94 @@ syntax keyword std_function offsetof
 " stdio.h
 syntax keyword std_error gets
 
+syntax keyword std_function fclose
+syntax keyword std_function fopen
+syntax keyword std_function freopen
+syntax keyword std_function remove
+syntax keyword std_function rename
+syntax keyword std_function rewind
+syntax keyword std_function tmpfile
+syntax keyword std_function clearerr
+syntax keyword std_function feof
+syntax keyword std_function ferror
+syntax keyword std_function fflush
+syntax keyword std_function fgetpos
+syntax keyword std_function fgetc
+syntax keyword std_function fgets
+syntax keyword std_function fputc
+syntax keyword std_function fputs
+syntax keyword std_function ftell
+syntax keyword std_function fseek
+syntax keyword std_function fsetpos
+syntax keyword std_function fread
+syntax keyword std_function fwrite
+syntax keyword std_function getc
+syntax keyword std_function getchar
+syntax keyword std_function printf
+syntax keyword std_function vprintf
+syntax keyword std_function fprintf
+syntax keyword std_function vfprintf
+syntax keyword std_function sprintf
+syntax keyword std_function snprintf
+syntax keyword std_function vsprintf
+syntax keyword std_function vnsprintf
+syntax keyword std_function perror
+syntax keyword std_function putc
+syntax keyword std_function putchar
+syntax keyword std_function scanf
+syntax keyword std_function vscanf
+syntax keyword std_function fscanf
+syntax keyword std_function vfscanf
+syntax keyword std_function sscanf
+syntax keyword std_function vsscanf
+syntax keyword std_function setbuf
+syntax keyword std_function setvbuf
+syntax keyword std_function tmpnam
+syntax keyword std_function ungetc
+syntax keyword std_function puts
+
+" stdlib.h
+syntax keyword std_function atof
+syntax keyword std_function atoi
+syntax keyword std_function atol
+syntax keyword std_function strtod
+syntax keyword std_function strol
+syntax keyword std_function strtoul
+syntax keyword std_function strtoll
+syntax keyword std_function strtoull
+
+syntax keyword std_function rand
+syntax keyword std_function random
+syntax keyword std_function srand
+syntax keyword std_function srandom
+
+syntax keyword std_function malloc
+syntax keyword std_function calloc
+syntax keyword std_function realloc
+syntax keyword std_function free
+
+syntax keyword std_function abort
+syntax keyword std_function atexit
+syntax keyword std_function getenv
+syntax keyword std_function system
+
+syntax keyword std_function bsearch
+syntax keyword std_function max
+syntax keyword std_function min
+syntax keyword std_function qsort
+
+syntax keyword std_function abs
+syntax keyword std_function fabs
+syntax keyword std_function labs
+syntax keyword std_function div
+syntax keyword std_function ldiv
+
+syntax keyword std_function mblen
+syntax keyword std_function mbtowc
+syntax keyword std_function mbstowcs
+syntax keyword std_function wctomb
+syntax keyword std_function wcstombs
+
 " string.h
 syntax keyword std_function memcpy
 syntax keyword std_function memchr
@@ -161,6 +249,48 @@ syntax keyword ext_function strtok_r
 syntax keyword ext_function strsignal
 syntax keyword ext_function strerror_r
 
+" time.h
+syntax keyword std_function asctime
+syntax keyword std_function clock
+syntax keyword std_function ctime
+syntax keyword std_function difftime
+syntax keyword std_function gmtime
+syntax keyword std_function gmtime_r
+syntax keyword std_function localtime
+syntax keyword std_function mktime
+syntax keyword std_function time
+syntax keyword std_function strftime
+syntax keyword std_function strptime
+syntax keyword std_function timegm
+
+syntax keyword ext_function asctime_r
+syntax keyword ext_function ctime_r
+
+" wchar.h
+syntax keyword std_function wcscmp
+syntax keyword std_function wcsncmp
+syntax keyword std_function wcscasecmp
+syntax keyword std_function wcsncasecmp
+
+" wctype.h
+syntax keyword std_function iswalnum
+syntax keyword std_function iswalpha
+syntax keyword std_function iswblank
+syntax keyword std_function iswcntrl
+syntax keyword std_function iswctype
+syntax keyword std_function iswdigit
+syntax keyword std_function iswgraph
+syntax keyword std_function iswlower
+syntax keyword std_function iswprint
+syntax keyword std_function iswpunct
+syntax keyword std_function iswspace
+syntax keyword std_function iswupper
+syntax keyword std_function iswxdigit
+syntax keyword std_function towlower
+syntax keyword std_function towupper
+syntax keyword std_function towctrans
+
+" link word here
 hi def link ext_conditional Conditional
 hi def link ext_constant Constant
 hi def link ext_function Function

@@ -39,7 +39,7 @@ hi Todo         guifg=#a00000 guibg=#BAD579 gui=italic,bold
 hi Constant     guifg=#a07040               gui=none
 hi String       guifg=#4070a0               gui=italic
 hi Identifier   guifg=#5b3674               gui=none
-hi Function     guifg=#06287e               gui=none
+hi Function     guifg=#2628ae               gui=none
 hi Type         guifg=#e5a00d               gui=none
 hi Statement    guifg=#6694b6               gui=bold
 hi Keyword      guifg=#6694b6               gui=none
