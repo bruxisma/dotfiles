@@ -8,6 +8,7 @@ iabbrev :build: 🛠
 
 iabbrev :ambulance: 🚑
 iabbrev :critical: 🚑
+iabbrev :hotfix:
 
 iabbrev :sparkles: ✨
 iabbrev :feature: ✨

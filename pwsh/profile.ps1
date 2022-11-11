@@ -2,6 +2,7 @@ if (-not $IsWindows) { Import-Module -Force (Join-Path $PSScriptRoot Posix.ps1) 
 if ($IsWindows) { Import-Module -Force (Join-Path $PSScriptRoot Windows.ps1) }
 if ($IsMacOS) { Import-Module -Force (Join-Path $PSScriptRoot MacOS.ps1) }
 if ($IsLinux) { Import-Module -Force (Join-Path $PSScriptRoot Linux.ps1) }
+
 Import-Module -Force (Join-Path $PSScriptRoot Machine.ps1) -Scope Global
 Import-Module -Force (Join-Path $PSScriptRoot Support.ps1) -Scope Local
 Import-Module -Force (Join-Path $PSScriptRoot rustup.ps1) -Scope Global
