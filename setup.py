@@ -24,7 +24,7 @@ from sys import platform, exit
 
 from os import symlink as symbolic_link
 from os import mkdir as make_directory
-from os import unlink, remove, getcwd
+from os import unlink, remove, getcwd, path
 
 #-----------------------------------------------------------------------------
 # Classes
@@ -96,7 +96,7 @@ def symlink (src, dst):
     link = expand(join('~', dst))
     item = join(getcwd(), src)
     print('{} -> {}'.format(item, link))
-    if exists(item):
+    if path.islink(item):
         try: unlink(item)
         except OSError as e:
             exit('Could not remove old symlink {}: {}'.format(link, e))

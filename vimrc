@@ -64,11 +64,6 @@ call plug#end()
 if s:multibyte | set fileencodings=ucs-bom,utf-8,latin1 | endif
 if s:multibyte | setglobal fileencoding=utf-8 | endif
 if s:multibyte | set encoding=utf-8 | endif
-" XXX: This will chang when I switch to powershell everywhere
-if &shell =~# 'cmd.exe$'
-  set shell=powershell
-  set shellcmdflag=-command
-endif
 if &shell =~# 'fish$' | set shell=sh | endif
 set fileformats=unix,dos
 set backspace=indent,eol,start
