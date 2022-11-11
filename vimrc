@@ -63,10 +63,31 @@ set backspace=indent,eol,start
 
 set cino=N-s " c++ specific indent option
 
+let mapleader = "," " Using comma for leader is pretty useful, I think
+
+" Allows custom aliases for user commands
+function! AliasCommand (abbreviation, expansion, ...)
+  execute 'cabbrev ' . a:abbreviation . ' <c-r>=
+    \ getcmdpos() == 1 &&  getcmdtype() == ":"
+    \ ? "' . a:expansion . '"
+    \ : "' . a:abbreviation . '"
+    \<CR>'
+endfunction
+command! -nargs=+ AliasCommand call AliasCommand(<f-args>)
+AliasCommand alias AliasCommand
+
+" unite.vim
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+Alias ls Unite<Space>buffer " replace ls with Unite buffer
+
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
+" needs some tweaking to remove the filer if it's currently available.
+"nnoremap <leader>m :VimFiler -buffer-name=explorer -split -simple 
+"-winwidth=35 -toggle -no-quit<CR>
 
 " neosnippet
+let g:neosnippet#snippets_directory='~/.vim/snippets'
 imap <expr><TAB> neosnippet#expandable_or_jumpable()
   \ ? "\<Plug>(neosnippet_expand_or_jump)"
   \ : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -74,11 +95,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable()
   \ ? "\<Plug>(neosnippet_expand_or_jump)"
   \ : "\<TAB>"
 
-let g:neosnippet#snippets_directory='~/.vim/snippets'
-
 let c_no_curly_error = 1 " Fixes *some* C++ support (from 7.3)
-
-let mapleader = "," " Using comma for leader is pretty useful, I think
 
 " Use perl/python style regex for searches
 vnoremap / /\v
@@ -89,6 +106,7 @@ nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>hs <C-w>s<C-w>j
 
 " solarized
+let g:solarized_hitrail=1
 if has('gui_running')
   set background=light
 else
