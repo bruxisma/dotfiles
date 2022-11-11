@@ -90,10 +90,6 @@ local function plugins(use)
     },
   }
   use "ray-x/go.nvim"
-  use {
-    "ray-x/navigator.lua",
-    requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-  }
 
   use 'hrsh7th/nvim-cmp'
 
@@ -181,16 +177,15 @@ treesitter.setup {
   },
 }
 
--- nvim-lspconfig
+---- nvim-lspconfig
 require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").gopls.setup {}
--- rust-tools.nvim
+---- rust-tools.nvim
 require("rust-tools").setup {}
--- ray-x/go.nvim
+---- ray-x/go.nvim
 require("nvim-dap-virtual-text").setup {}
 require("go").setup {lsp_gofumpt = true}
-require("navigator").setup {}
-
+--
 require("telescope").setup {}
 
 require("telescope").load_extension("packer")
