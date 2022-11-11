@@ -6,8 +6,11 @@ local keymap = vim.keymap
 local global = vim.g
 local set = vim.opt
 
-set.mouse = "a"
+vim.notify = require("notify")
+
+set.termguicolors = true
 set.guifont = "Delugia:h10"
+set.mouse = "a"
 
 vim.cmd.colorscheme("gruvbox")
 

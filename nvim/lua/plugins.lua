@@ -33,6 +33,7 @@ return require("packer").startup {
     use { "gruvbox-community/gruvbox" } -- replace with gruvbox.nvim
     use { "nvim-lua/popup.nvim" }
     use { "neovim/nvim-lspconfig" }
+    use { "rcarriga/nvim-notify" }
 
     -- non-lua plugins
     use { "tpope/vim-eunuch" } -- TODO: check if this can be replaced with telescope-file-browser
@@ -97,7 +98,7 @@ return require("packer").startup {
 
     -- LSP
     use { "simrat39/rust-tools.nvim" }
-    use { "folke/neodev.nvim", after = "hrsh7th/nvim-cmp" }
+    use { "folke/neodev.nvim", requires = { "hrsh7th/nvim-cmp" } }
     use { "ray-x/go.nvim" }
 
     -- DAP
@@ -111,8 +112,17 @@ return require("packer").startup {
     -- completions
     use {
       "hrsh7th/nvim-cmp",
+      --event = "InsertEnter",
       requires = {
         { "dcampos/cmp-snippy", requires = "dcampos/nvim-snippy" },
+        -- { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
+        -- { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+        -- { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
+        -- { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+        -- { "hrsh7th/cmp-path", after = "nvim-cmp" },
+        -- { "lukas-reineke/cmp-under-comparator" },
+        { "hrsh7th/cmp-nvim-lsp" },
+        { "onsails/lspkind.nvim" },
       },
     }
 
