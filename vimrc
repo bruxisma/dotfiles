@@ -12,7 +12,7 @@ set expandtab
 set autoindent
 set hidden
 set nomodeline
-
+set autochdir
 set ttyfast
 set visualbell
 set ruler
@@ -22,7 +22,6 @@ vnoremap / /\v
 
 " Auto plugins
 autocmd VimEnter * MiniBufExplorer
-autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 call flux#set('kadesh', 'vaygr')
 
@@ -49,7 +48,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " NERDTree
-nnoremap <leader>q :NERDTreeToggle<CR>
+nnoremap <leader>m :NERDTreeToggle<CR>
 
 " flux mapping
 nnoremap <leader>flux :call flux#update()<CR>
