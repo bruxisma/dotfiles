@@ -1,0 +1,17 @@
+snippet once
+	#ifndef ${1}
+	#define ${1}
+	
+	${0}
+	
+	#endif /* ${1} */
+
+snippet ns
+	namespace ${1} {
+	${0}
+	} /* namespace ${1} */
+
+snippet nns
+	namespace {
+	${0}
+	} /* nameless namespace */

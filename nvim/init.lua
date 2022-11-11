@@ -9,9 +9,8 @@ local set = vim.opt
 set.mouse = "a"
 set.guifont = "Delugia:h10"
 
-keymap.set('i', "<Tab>", [[copilot#Accept("\<Tab>")]], {
+keymap.set('i', "<Tab>", [[snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : copilot#Accept("\<Tab>")]], {
   silent = true,
-  script = true,
   expr = true
 })
 

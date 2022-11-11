@@ -59,12 +59,19 @@ treesitter.setup {
   },
 }
 
----- nvim-lspconfig
+-- nvim-lspconfig
 require("lspconfig").rust_analyzer.setup {}
-require("lspconfig").gopls.setup {}
----- rust-tools.nvim
+require("lspconfig").gopls.setup {
+  on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    local options = { noremap = true, silent = true, buffer = bufnr }
+    -- override C-] to jump to definitions
+    vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, options)
+  end,
+}
+-- rust-tools.nvim
 require("rust-tools").setup {}
----- ray-x/go.nvim
+-- ray-x/go.nvim
 require("nvim-dap-virtual-text").setup {}
 require("go").setup {lsp_gofumpt = true}
 --
@@ -75,3 +82,19 @@ require("telescope").setup {}
 require("telescope").load_extension("packer")
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("gh")
+
+-- completion
+require('snippy').setup{}
+require("cmp").setup {
+  snippet = {
+    expand = function(args)
+      require('snippy').expand_snippet(args.body)
+    end
+  },
+  mapping = require("cmp").mapping.preset.insert({
+    ['<CR>'] = require("cmp").mapping.confirm({select = true}),
+  }),
+  sources = require('cmp').config.sources({
+    { name = 'snippy' },
+  })
+}

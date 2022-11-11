@@ -12,10 +12,33 @@ local function telescope(use)
   }}
 end
 
+local function completion(use)
+  use { "hrsh7th/nvim-cmp" }
+  use { "dcampos/cmp-snippy", requires = "dcampos/nvim-snippy" }
+end
+
 local function languages(use)
   use { "simrat39/rust-tools.nvim", requires = "neovim/nvim-lspconfig" }
   use { "ray-x/go.nvim" }
   use { "IndianBoy42/tree-sitter-just", requires = "nvim-treesitter/nvim-treesitter" }
+end
+
+local function treesitter(use)
+  use { "nvim-treesitter/nvim-treesitter", run = function()
+    if vim.fn.exists(':TSUpdate') == 2 then
+      vim.cmd [[:TSUpdate]]
+    end
+  end}
+  use { "nvim-treesitter/nvim-treesitter-context", requires = {
+    "nvim-treesitter/nvim-treesitter",
+  }}
+end
+
+local function debugger(use)
+  use { "theHamsta/nvim-dap-virtual-text", requires = {
+    "nvim-treesitter/nvim-treesitter",
+    "mfussenegger/nvim-dap",
+  }}
 end
 
 -- Older, pure vim, plugins
@@ -29,11 +52,6 @@ end
 return function(use)
   use { "wbthomason/packer.nvim" }
   use { "gruvbox-community/gruvbox" }
-  use { "nvim-treesitter/nvim-treesitter", run = function()
-    if vim.fn.exists(':TSUpdate') == 2 then
-      vim.cmd [[:TSUpdate]]
-    end
-  end}
   use { "nvim-lua/plenary.nvim" }
   use { "nvim-lua/popup.nvim" }
   use { "github/copilot.vim" }
@@ -42,13 +60,11 @@ return function(use)
     "kyazdani42/nvim-web-devicons",
     "folke/lsp-colors.nvim",
   }}
-  use { "hrsh7th/nvim-cmp" }
-  use { "theHamsta/nvim-dap-virtual-text", requires = {
-    "nvim-treesitter/nvim-treesitter",
-    "mfussenegger/nvim-dap",
-  }}
 
+  treesitter(use)
+  completion(use)
   telescope(use)
   languages(use)
+  debugger(use)
   classic(use)
 end
