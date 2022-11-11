@@ -1,21 +1,22 @@
-(normal_command
-  (argument) @symbol
-     (#match? @symbol "^CMAKE_\\h+$"))
+;; extends
 
-(normal_command
-  (argument) @symbol
-    (#any-of? @builtin
-      "PROJECT_BINARY_DIR"
-      "PROJECT_DESCRIPTION"
-      "PROJECT_HOMEPAGE_URL"
-      "PROJECT_IS_TOP_LEVEL"
-      "PROJECT_NAME"
-      "PROJECT_SOURCE_DIR"
-      "PROJECT_VERSION"
-      "PROJECT_VERSION_MAJOR"
-      "PROJECT_VERSION_MINOR"
-      "PROJECT_VERSION_PATCH"
-      "PROJECT_VERSION_TWEAK"))
+([(variable) (argument)] @symbol (#match? @symbol "^CMAKE_\\h+$"))
+(variable) @constant
+
+;(normal_command
+;  (argument) @symbol
+;    (#any-of? @builtin
+;      "PROJECT_BINARY_DIR"
+;      "PROJECT_DESCRIPTION"
+;      "PROJECT_HOMEPAGE_URL"
+;      "PROJECT_IS_TOP_LEVEL"
+;      "PROJECT_NAME"
+;      "PROJECT_SOURCE_DIR"
+;      "PROJECT_VERSION"
+;      "PROJECT_VERSION_MAJOR"
+;      "PROJECT_VERSION_MINOR"
+;      "PROJECT_VERSION_PATCH"
+;      "PROJECT_VERSION_TWEAK"))
 
 (normal_command
   (argument) @symbol
