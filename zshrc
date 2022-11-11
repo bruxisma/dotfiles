@@ -15,9 +15,9 @@ find-text() {
 
 # alias section -- Contains *some* platform specific code
 if [[ "`uname`" == "Linux" ]]; then
-  alias ls="ls --color"
+  alias ls='ls --color'
 else
-  alias ls="ls -G"
+  alias ls='ls -G'
 fi
 
 # Platform specific code
