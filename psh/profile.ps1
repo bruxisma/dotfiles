@@ -23,7 +23,10 @@ $window.BackgroundColor = "black"
 clear-host
 
 function prompt {
-  $path = (pwd).Path.Replace($HOME, '~').Replace('\', '/')
+  $root = (pwd).Path
+  $drive = $root.LastIndexOf(':') + 1
+  $user = $HOME.SubString($drive)
+  $path = $root.SubString($drive).Replace($user, '~').Replace('\', '/')
 
   [String]::Format('[{0}@{1}]:{2}$', $username, $machinename, $path) |
   write-host -nonewline
