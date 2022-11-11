@@ -1,8 +1,8 @@
-filetype off
-call pathogen#runtime_append_all_bundles()
+set rtp+=$GOROOT/misc/vim " If only it were pathogen compliant :v
+call pathogen#infect()
 filetype plugin indent on
-
 syntax on
+
 set nocompatible
 set number
 set tabstop=2
