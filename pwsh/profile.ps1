@@ -23,19 +23,31 @@ function script:Import-Completions {
   }
 }
 
-# XDG
-Set-Item -Path Env:XDG_CONFIG_HOME -Value "${HOME}/.config"
-Set-Item -Path Env:XDG_CACHE_HOME -Value "${HOME}/.cache"
-Set-Item -Path Env:XDG_STATE_HOME -Value "${HOME}/.local/state"
-Set-Item -Path Env:XDG_DATA_HOME -Value "${HOME}/.local/share"
+function script:Import-Source {
+  [CmdletBinding()]
+  param(
+    [Parameter(Position=0, Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [String]$Path)
+  if (Test-Path -LiteralPath ${Path}) {
+    . ${Path}
+  }
+}
+
+# Explicitly set XDG fallback values
+${env:XDG_CONFIG_HOME} ??= "${HOME}/.config"
+${env:XDG_CACHE_HOME} ??= "${HOME}/.cache"
+${env:XDG_STATE_HOME} ??= "${HOME}/.local/share/state"
+${env:XDG_DATA_HOME} ??= "${HOME}/.local/share"
+
+# Import local profile *first*
+Import-Module $(Join-Path $PSScriptRoot Machine.ps1) -Force -Global
 
 <# Script Local Variables #>
 Set-Variable -Scope Script -Name OhMyPoshConfig -Value (Join-Path ${env:XDG_CONFIG_HOME} oh-my-posh config.yml)
 Set-Variable -Scope Script -Name ReadlineConfig -Value (Import-PowerShellDataFile "${PSScriptRoot}/readline.psd1")
 Set-Variable -Scope Script -Name Separator -Value ([Path]::PathSeparator)
 Set-Variable -Scope Script -Name Paths -Value ([List[String]]::new((${env:PATH} -split ${script:Separator})))
-
-Import-Module (Join-Path $PSScriptRoot Machine.ps1) -Force -Global
 
 Import-Completions gh completion --shell powershell
 Import-Completions just --completions powershell

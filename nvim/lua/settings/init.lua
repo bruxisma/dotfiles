@@ -79,6 +79,12 @@ local function plugins(use)
     },
   }
   use "ray-x/go.nvim"
+  use {
+    "IndianBoy42/tree-sitter-just",
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  }
 
   use 'hrsh7th/nvim-cmp'
 
@@ -187,11 +193,14 @@ require("rust-tools").setup {}
 require("nvim-dap-virtual-text").setup {}
 require("go").setup {lsp_gofumpt = true}
 --
+require("tree-sitter-just").setup {}
+--
 require("telescope").setup {}
 
 require("telescope").load_extension("packer")
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("gh")
+--
 
 vim.api.nvim_exec([[
 augroup golang
