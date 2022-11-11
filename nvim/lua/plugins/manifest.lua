@@ -44,6 +44,18 @@ local function debugger(use)
   }}
 end
 
+local function trouble(use)
+  use { "folke/trouble.nvim", requires = {
+    "kyazdani42/nvim-web-devicons",
+    "folke/lsp-colors.nvim",
+  }}
+  use {
+    "folke/todo-comments.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function() require('todo-comments').setup{} end,
+  }
+end
+
 -- Older, pure vim, plugins
 local function classic(use)
   use "tpope/vim-eunuch"
@@ -57,17 +69,14 @@ return function(use)
   use { "gruvbox-community/gruvbox" }
   use { "nvim-lua/plenary.nvim" }
   use { "nvim-lua/popup.nvim" }
-  use { "github/copilot.vim" }
+  --use { "github/copilot.vim" }
   use { "neovim/nvim-lspconfig" }
-  use { "folke/trouble.nvim", requires = {
-    "kyazdani42/nvim-web-devicons",
-    "folke/lsp-colors.nvim",
-  }}
 
   treesitter(use)
   completion(use)
   telescope(use)
   languages(use)
   debugger(use)
+  trouble(use)
   classic(use)
 end

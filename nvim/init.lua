@@ -9,11 +9,6 @@ local set = vim.opt
 set.mouse = "a"
 set.guifont = "Delugia:h10"
 
-keymap.set('i', "<Tab>", [[snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : copilot#Accept("\<Tab>")]], {
-  silent = true,
-  expr = true
-})
-
 vim.cmd [[colorscheme gruvbox]]
 
 global.is_kornshell = 0
@@ -45,6 +40,8 @@ cnoreabbrev <expr> chmod <SID>command("chmod", "Chmod")
 cnoreabbrev <expr> find <SID>command("find", "Files<Space>$HOME/Desktop")
 cnoreabbrev <expr> rm <SID>command("rm", "Delete")
 cnoreabbrev <expr> ls <SID>command("ls", "Telescope<Space>buffers")
+
+cnoreabbrev <expr> todo <SID>command("todo", "TodoTrouble")
 
 cnoreabbrev <expr> json <SID>command("json", "%!jq<Space>.")
 

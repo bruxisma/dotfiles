@@ -84,8 +84,17 @@ require("telescope").load_extension("packer")
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("gh")
 
+require("todo-comments").setup {}
+
 -- completion
-require('snippy').setup{}
+require('snippy').setup{
+  mappings = {
+    is = {
+      ['<Tab>'] = 'expand_or_advance',
+      ['<S-Tab>'] = 'previous',
+    },
+  },
+}
 require("cmp").setup {
   snippet = {
     expand = function(args)

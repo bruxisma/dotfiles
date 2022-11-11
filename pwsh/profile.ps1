@@ -21,12 +21,12 @@ function script:Import-Completions {
 }
 
 function script:Import-Source {
-  [CmdletBinding()]
+  [CmdletBinding(SupportsShouldProcess)]
   param(
     [Parameter(Position=0, Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [String]$Path)
-  if (Test-Path -LiteralPath ${Path}) {
+  if ($PSCmdlet.ShouldProcess(${Path})) {
     . ${Path}
   }
 }
@@ -42,9 +42,9 @@ Import-Module $(Join-Path $PSScriptRoot machine.ps1) -Force -Global
 
 <# Script Local Variables #>
 Set-Variable -Scope Script -Name OhMyPoshConfig -Value (Join-Path ${env:XDG_CONFIG_HOME} oh-my-posh config.yml)
-Set-Variable -Scope Script -Name ReadlineConfig -Value (Import-PowerShellDataFile "${PSScriptRoot}/readline.psd1")
-Set-Variable -Scope Script -Name Separator -Value ([Path]::PathSeparator)
-Set-Variable -Scope Script -Name Paths -Value ([List[String]]::new((${env:PATH} -split ${script:Separator})))
+Set-Variable -Scope Private -Name ReadlineConfig -Value (Import-PowerShellDataFile "${PSScriptRoot}/readline.psd1")
+Set-Variable -Scope Private -Name Separator -Value ([Path]::PathSeparator)
+Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH} -split ${private:Separator})))
 
 Import-Completions gh completion --shell powershell
 Import-Completions just --completions powershell
@@ -54,7 +54,7 @@ Import-Completions hugo completion powershell
 Import-Completions op completion powershell
 
 if (${pack} = Get-Command -Name "pack" -CommandType Application -ErrorAction SilentlyContinue) {
-  . $(& ${pack} completion --shell powershell)
+  Import-Source $(& ${pack} completion --shell powershell)
 }
 
 <# Aliases #>
@@ -77,13 +77,13 @@ if (${nvim} = Get-Command -Name "nvim" -CommandType Application -ErrorAction Sil
   Set-Item -Path Env:EDITOR -Value ${nvim}.Source
 }
 
-${script:Paths} += @(
+${private:Paths} += @(
   Join-Path ${HOME} .local bin
   Join-Path ${HOME} .cargo bin
 )
 
 if ($IsWindows) {
-  ${script:Paths} += @(
+  ${private:Paths} += @(
     Join-Path C: MinGW bin
     Join-Path ${env:LOCALAPPDATA} Microsoft WindowsApps
     Join-Path ${env:ProgramFiles(x86)} GnuPG bin
@@ -94,10 +94,10 @@ if ($IsWindows) {
 }
 
 if ($IsMacOS) {
-  ${script:Paths} += @("/usr/local/share/dotnet")
+  ${private:Paths} += @("/usr/local/share/dotnet")
 }
 
-Set-Item -Path Env:PATH -Value $(${script:Paths} -join ${script:Separator})
+Set-Item -Path Env:PATH -Value $(${private:Paths} -join ${private:Separator})
 
 <# XDG Tooling Fixes #>
 # Run once to set env var for user on Windows. Sets it globally, so we don't
@@ -129,6 +129,7 @@ Set-Item -Path Env:GNUPGHOME -Value $(Join-Path ${env:XDG_DATA_HOME} gnupg)
 
 <# General Values #>
 Set-Item -Path Env:CMAKE_GENERATOR -Value Ninja
+Set-Item -PATH Env:NINJA_STATUS -Value "%e [%f/%t]"
 Set-Item -Path Env:DOCKER_BUILDKIT -Value 1
 Set-Item -Path Env:DOTNET_NOLOGO -Value "true"
 Set-Item -Path Env:FZF_DEFAULT_COMMAND -Value "fd --type f"
@@ -140,12 +141,14 @@ if ($IsWindows) {
   Start-Service ssh-agent
 }
 
+Import-Source $(Join-Path $PSScriptRoot ssh.ps1)
+
 <# Terminal Settings #>
+Set-PSReadlineOption @private:ReadlineConfig
+
 Set-PSReadlineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
 Set-PSReadlineKeyHandler -Chord Ctrl+a -Function BeginningOfLine
 Set-PSReadlineKeyHandler -Chord Ctrl+e -Function EndOfLine
-
-Set-PSReadlineOption @script:ReadlineConfig
 
 if ((Get-Command oh-my-posh) -and (Test-Path -LiteralPath "${script:OhMyPoshConfig}")) {
   oh-my-posh init pwsh --config "${script:OhMyPoshConfig}" | Invoke-Expression
