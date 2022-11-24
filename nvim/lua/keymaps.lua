@@ -1,11 +1,3 @@
-local function command(cmd)
-  return string.format(":%s<CR>", cmd)
-end
-
-local function clear()
-  vim.fn.setreg("/", "")
-end
-
 vim.keymap.set({ "i", "v" }, "<C-c>", "<Esc>", {
   desc = "Cancel insert mode",
   noremap = true,
@@ -41,7 +33,7 @@ vim.keymap.set("n", "]f", vim.cmd.lnext, {
   noremap = true,
 })
 
-vim.keymap.set("n", "<Leader><Space>", clear, {
+vim.keymap.set("n", "<Leader><Space>", function() vim.fn.setreg("/", "") end, {
   desc = "Clear 'hlsearch'",
   silent = true,
   noremap = true,

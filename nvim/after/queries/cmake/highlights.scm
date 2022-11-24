@@ -34,6 +34,12 @@
   . (argument) @number)
 
 (normal_command
+  (identifier) @function.builtin (#match? @function.builtin "\\c^project$"))
+
+(normal_command
+  (identifier) @function.builtin (#match? @function.builtin "\\c^find_package$"))
+
+(normal_command
   (identifier) @function.builtin
     (#match? @function.builtin "\\c^include$") . (argument) @include)
 

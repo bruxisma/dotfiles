@@ -12,8 +12,6 @@ function script:Read-SSHConfig {
 Register-ArgumentCompleter -CommandName 'ssh', 'scp' -Native -ScriptBlock {
   param($wordToComplete)
 
-  $wordToComplete = "proxy"
-
   $hosts = Read-SSHConfig -Path "${HOME}/.ssh/config" &&
            Select-String -Path "${HOME}/.ssh/config" -Pattern '^Include (.+)$'
            | ForEach-Object { Read-SSHConfig -Path $_.Matches.Groups[1].Value }

@@ -1,16 +1,23 @@
 require("plugins")
-require("settings")
-require("gitmoji")
 
-local keymap = vim.keymap
-local global = vim.g
-local set = vim.opt
+require("completions")
+require("options")
+require("keymaps")
+require("autocmd")
+require("lsp")
+require("dbg")
+require("ts")
 
 vim.notify = require("notify")
 
-set.termguicolors = true
-set.guifont = "Delugia:h10"
-set.mouse = "a"
+require("telescope").setup {}
+
+require("telescope").load_extension("packer")
+require("telescope").load_extension("fzf")
+require("telescope").load_extension("gh")
+
+require("todo-comments").setup {}
+require("gitmoji")
 
 require("gruvbox").setup {
   invert_selection = true,
@@ -18,13 +25,7 @@ require("gruvbox").setup {
 }
 vim.cmd.colorscheme("gruvbox")
 
-global.is_kornshell = 0
-global.is_posix = 1
-global.sh_fold_enabled = 3
-
-global.copilot_filetypes = { sshconfig = false }
-
--- Leftover from orginal vimrc. Will remain until it can be replaced.
+-- Leftover from orginal vimrc. Will remain until it can be *fully* replaced.
 vim.cmd([[
 function! s:command(name, ...)
   return getcmdtype() == ':' && getcmdline() =~# '^' .. a:name
