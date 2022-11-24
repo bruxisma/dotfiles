@@ -20,6 +20,7 @@ end
 local bootstrapped = bootstrap()
 return require("packer").startup {
   function(use)
+    use { "wbthomason/packer.nvim", opt = false }
     use { "ellisonleao/gruvbox.nvim" }
     use { "ojroques/nvim-osc52" }
     use { "neovim/nvim-lspconfig" }
@@ -27,7 +28,7 @@ return require("packer").startup {
 
     -- non-lua plugins
     use { "tpope/vim-eunuch" } -- TODO: check if this can be replaced with telescope-file-browser
-    use { "bruxisma/gitmoji.vim" } -- TODO: Rewrite in vim
+    use { "bruxisma/gitmoji.vim" } -- TODO: Rewrite in lua
     use { "airblade/vim-gitgutter" } -- TODO: Replace with gitsigns.nvim
     -- TODO: Replace with some other statusline plugin
     use { "shinchu/lightline-gruvbox.vim", requires = "itchyny/lightline.vim" }
@@ -39,11 +40,12 @@ return require("packer").startup {
         { "nvim-treesitter/nvim-treesitter-context", after = "nvim-treesitter" },
         { "nvim-treesitter/nvim-treesitter-refactor" },
         { "IndianBoy42/tree-sitter-just" },
-        {
-          "nvim-treesitter/playground",--[[, cmd = "TSPlaygroundToggle" ]]
-        },
+        { "nvim-treesitter/playground" },
       },
-      run = vim.cmd.TSUpdate,
+      run = function()
+        local update = require("nvim-treesitter.install").update { with_sync = true }
+        update()
+      end,
     }
 
     -- searching
@@ -57,6 +59,7 @@ return require("packer").startup {
         { "nvim-telescope/telescope-file-browser.nvim" },
         { "nvim-telescope/telescope-dap.nvim", requires = { "mfussenegger/nvim-dap" } },
         { "nvim-telescope/telescope-packer.nvim", requires = { "wbthomason/packer.nvim" } },
+        -- { "nvim-telescope/telescope-ui-select.nvim" },
         {
           "nvim-telescope/telescope-fzf-native.nvim",
           run = { "cmake --preset ninja", "cmake --build build --target install" },
@@ -64,7 +67,6 @@ return require("packer").startup {
       },
       config = function()
         local telescope = require("telescope")
-        -- TODO: Investigate non-default extension settings
         telescope.setup {}
         telescope.load_extension("file_browser")
         telescope.load_extension("packer")
@@ -91,6 +93,7 @@ return require("packer").startup {
     use { "simrat39/rust-tools.nvim" }
     use { "folke/neodev.nvim", requires = { "hrsh7th/nvim-cmp" } }
     use { "ray-x/go.nvim" }
+    use { "jose-elias-alvarez/null-ls.nvim", requires = {"nvim-lua/plenary.nvim" }}
 
     -- DAP
     use {
@@ -130,7 +133,7 @@ return require("packer").startup {
     end
   end,
   config = {
-    compile_path = fn.stdpath("cache") .. "packer.nvim/compiler.lua",
+    compile_path = fn.stdpath("cache") .. "/packer.nvim/plugin/compiled.lua",
     display = {
       error_sym = "❌",
       done_sym = "✅",

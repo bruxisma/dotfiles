@@ -87,7 +87,6 @@ def symsetup ():
 # Install-Module -Name Microsoft.PowerShell.SecretManagement -Repository PSGallery 
 # Install-Module -Name Microsoft.PowerShell.SecretStore -Repository PSGallery
 # (Still Experimenting) Install-Module -Name Microsoft.PowerShell.Crescendo -Repository PSGallery
-# (Work Machines Only) Install-Module -Name GoogleCloud -Repository PSGallery
 # (Windows Machines Only) Install-Module -Name VCVars -Repository PSGallery
 # Install-Module -Name Atmosphere -Repository PSGallery
 

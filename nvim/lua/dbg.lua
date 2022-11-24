@@ -1,1 +1,1 @@
-require("nvim-dap-virtual-text").setup {}
+-- Intended for dap configurations

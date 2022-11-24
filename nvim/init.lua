@@ -1,3 +1,4 @@
+vim.opt.runtimepath:append(vim.fn.stdpath("cache") .. "/packer.nvim")
 require("plugins")
 
 require("completions")
@@ -10,13 +11,6 @@ require("ts")
 
 vim.notify = require("notify")
 
-require("telescope").setup {}
-
-require("telescope").load_extension("packer")
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("gh")
-
-require("todo-comments").setup {}
 require("gitmoji")
 
 require("gruvbox").setup {

@@ -1,4 +1,5 @@
 local lspconfig = require("lspconfig")
+local null_ls = require("null-ls")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local poetry = {}
 
@@ -54,6 +55,8 @@ lspconfig.pyright.setup {
     cfg.cmd = { "poetry", "run", "pyright-langserver", "--stdio" }
   end,
 }
+
+null_ls.setup {}
 
 require("rust-tools").setup {
   server = {
