@@ -21,7 +21,7 @@ require("gitmoji")
 
 require("gruvbox").setup {
   invert_selection = true,
-  contrast = "hard"
+  contrast = "hard",
 }
 vim.cmd.colorscheme("gruvbox")
 

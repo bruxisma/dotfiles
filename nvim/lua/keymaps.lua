@@ -33,7 +33,9 @@ vim.keymap.set("n", "]f", vim.cmd.lnext, {
   noremap = true,
 })
 
-vim.keymap.set("n", "<Leader><Space>", function() vim.fn.setreg("/", "") end, {
+vim.keymap.set("n", "<Leader><Space>", function()
+  vim.fn.setreg("/", "")
+end, {
   desc = "Clear 'hlsearch'",
   silent = true,
   noremap = true,

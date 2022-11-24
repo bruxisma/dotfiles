@@ -6,20 +6,20 @@ local function OSC52()
     return nil
   end
   local osc52 = require("osc52")
-  osc52.setup{}
+  osc52.setup {}
   local function paste()
     return {
-      fn.split(fn.getreg(''), '\n'),
-      fn.getregtype(''),
+      fn.split(fn.getreg(""), "\n"),
+      fn.getregtype(""),
     }
   end
   local function copy(lines, _)
-    osc52.copy(table.concat(lines, '\n'))
+    osc52.copy(table.concat(lines, "\n"))
   end
   return {
-    name = 'osc52',
-    copy = {['+'] = copy, ['*'] = copy},
-    paste = {['+'] = paste, ['*'] = paste},
+    name = "osc52",
+    copy = { ["+"] = copy, ["*"] = copy },
+    paste = { ["+"] = paste, ["*"] = paste },
   }
 end
 
@@ -78,7 +78,7 @@ if fn.executable("pwsh") then
   -- TODO: Fill this out correctly for pwsh $SHELL usage
 end
 
-global.mapleader = ','
+global.mapleader = ","
 global.clipboard = OSC52()
 
 global.is_kornshell = 0
