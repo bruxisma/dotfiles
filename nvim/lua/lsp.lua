@@ -6,7 +6,7 @@ local poetry = {}
 -- TODO: Consider just moving this into a separate file so we can have a proper
 -- constructor, and the root path is installed into said object.
 function poetry:is_installed(path)
-  local options = { path = root, type = "file", limit = 2 }
+  local options = { path = path, type = "file", limit = 2 }
   -- both files must exist or else `poetry install` was never run
   return #vim.fs.find({ "poetry.lock", "pyproject.toml" }, options) == 2
 end
