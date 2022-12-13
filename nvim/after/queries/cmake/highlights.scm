@@ -43,6 +43,13 @@
   (identifier) @function.builtin
     (#match? @function.builtin "\\c^include$") . (argument) @include)
 
+(normal_command
+  (identifier) @function.builtin
+    (#match? @function.builtin "\\c^add_subdirectory$") . (argument) @include)
+
+(normal_command (identifier) @function.builtin (#match? @function.builtin "\\c^add_subdirectory$")
+  (argument) @constant.builtin (#any-of? @constant.builtin "EXCLUDE_FROM_ALL" "SYSTEM"))
+
 (normal_command (identifier) @function.builtin (#match? @function.builtin "\\c^include$")
   (argument) @constant.builtin (#eq? @constant.builtin "RESULT_VARIABLE") . (argument))
 
