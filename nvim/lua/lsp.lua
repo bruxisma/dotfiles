@@ -32,13 +32,16 @@ local function on_attach(client, buffer)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, options)
 end
 
+require("mason").setup {}
+require("mason-lspconfig").setup {}
+
 lspconfig.clangd.setup {
   capabilities = capabilities,
   on_attach = on_attach,
 }
 
 lspconfig.gopls.setup {
-  capabilities = capabilites,
+  capabilities = capabilities,
   on_attach = on_attach,
 }
 
@@ -56,12 +59,32 @@ lspconfig.pyright.setup {
   end,
 }
 
-null_ls.setup {}
+lspconfig.sumneko_lua.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+      diagnostics = { globals = { "vim" } },
+    },
+  },
+}
+
+null_ls.setup {
+  sources = {
+    null_ls.builtins.formatting.stylua,
+  },
+}
 
 require("rust-tools").setup {
   server = {
     capabilities = capabilities,
     on_attach = on_attach,
+    settings = {
+      ["rust-analyzer"] = {
+        inlayHints = { locationLinks = false },
+      },
+    },
   },
 }
 

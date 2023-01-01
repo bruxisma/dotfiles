@@ -86,7 +86,6 @@ if ($IsWindows) {
   ${private:Paths} += @(
     Join-Path C: MinGW bin
     Join-Path ${env:LOCALAPPDATA} Microsoft WindowsApps
-    Join-Path ${env:ProgramFiles(x86)} GnuPG bin
     Join-Path ${env:ProgramFiles(x86)} "GitHub CLI"
     Join-Path ${env:ProgramFiles} Yubico "Yubikey Manager"
     Split-Path -Parent ${env:EDITOR}
@@ -137,7 +136,6 @@ Set-Item -Path Env:LESSCHARSET -Value "utf-8"
 
 <# Platform Specific Settings #>
 if ($IsWindows) {
-  Add-WindowsPSModulePath
   Start-Service ssh-agent
 }
 

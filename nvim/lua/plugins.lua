@@ -23,8 +23,15 @@ return require("packer").startup {
     use { "wbthomason/packer.nvim", opt = false }
     use { "ellisonleao/gruvbox.nvim" }
     use { "ojroques/nvim-osc52" }
-    use { "neovim/nvim-lspconfig" }
     use { "rcarriga/nvim-notify" }
+
+    use {
+      "williamboman/mason-lspconfig.nvim",
+      requires = {
+        "williamboman/mason.nvim",
+        "neovim/nvim-lspconfig",
+      },
+    }
 
     -- non-lua plugins
     use { "tpope/vim-eunuch" } -- TODO: check if this can be replaced with telescope-file-browser
@@ -93,7 +100,7 @@ return require("packer").startup {
     use { "simrat39/rust-tools.nvim" }
     use { "folke/neodev.nvim", requires = { "hrsh7th/nvim-cmp" } }
     use { "ray-x/go.nvim" }
-    use { "jose-elias-alvarez/null-ls.nvim", requires = {"nvim-lua/plenary.nvim" }}
+    use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } }
 
     -- DAP
     use {
