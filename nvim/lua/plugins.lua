@@ -86,6 +86,7 @@ return require("packer").startup {
     -- diagnostics
     use {
       "folke/trouble.nvim",
+      tag = "v1.0.0",
       requires = { "kyazdani42/nvim-web-devicons", "folke/lsp-colors.nvim" },
     }
     use {

@@ -21,40 +21,28 @@ from sys import platform, exit
 import sys
 import os
 
+from pathlib import Path
+
 #-----------------------------------------------------------------------------
 # Globals
 #-----------------------------------------------------------------------------
 windows = sys.platform == 'win32'
 posix = not windows
 
-head = 'Documents' if windows else '.config'
-shell_target = join(head, 'powershell')
+CONFIG_HOME = Path(os.environ.get('XDG_CONFIG_HOME', '~/.config')).expanduser()
+APPDATA = Path(os.environ.get('APPDATA', '~/.config')).expanduser()
+
+head = '~/Documents' if windows else CONFIG_HOME
+shell_target = Path(head).expanduser().joinpath('powershell')
 shell = 'pwsh'
 
-head = os.environ['APPDATA'] if windows else '.config'
-gh_target = join(head, 'GitHub CLI' if windows else 'gh')
+def symlink_to(src, dst):
+    src = Path.cwd().joinpath(src)
+    dst = Path(dst).expanduser()
+    dst.unlink(missing_ok=True)
+    print(f'{src} -> {dst}')
+    dst.symlink_to(src, target_is_directory=src.is_dir())
 
-#-----------------------------------------------------------------------------
-# Functions
-#-----------------------------------------------------------------------------
-def symlink (src, dst):
-    '''Given a *src* and a *dst*, creates a symlink from *src* to *dst*.
-    If the given *dst* already exists it will attempt to remove the old symlink
-    and create a new one.
-
-    Exits with an error message if any symlink fails
-    '''
-    link = os.path.expanduser(join('~', dst))
-    item = join(os.getcwd(), src)
-    print('{} -> {}'.format(item, link))
-    if islink(link):
-        try: os.unlink(link)
-        except OSError as e:
-            exit('Could not remove old symlink {}: {}'.format(link, e))
-    linker = partial(os.symlink, item, link)
-    if windows: linker = partial(linker, target_is_directory=isdir(item))
-    try: linker()
-    except OSError as e: exit('Could not symlink {}: {}'.format(item, e))
 
 #-----------------------------------------------------------------------------
 # Setup
@@ -64,31 +52,22 @@ def gitsetup ():
     try: call(['git', 'update-index', '--skip-worktree', '--', 'pwsh/machine.ps1', 'git/machine'])
     except CalledProcessError as e: exit(str(e))
 
-
 def symsetup ():
     '''creates configuration symlinks'''
-    os.makedirs(os.path.expanduser('~/.config'), mode=0o755, exist_ok=True)
-    roaming = join('AppData', 'Roaming') if windows else '.config'
+    CONFIG_HOME.mkdir(mode=0o755, exist_ok=True)
 
-    symlink('gvimrc', '.gvimrc')
-    symlink('vimrc', '.vimrc')
-    symlink('vim', '.vim')
+    symlink_to('nvim', CONFIG_HOME.joinpath('nvim'))
+    symlink_to('git', CONFIG_HOME.joinpath('git'))
+    symlink_to('lsd', APPDATA.joinpath('lsd'))
+    symlink_to('oh-my-posh', CONFIG_HOME.joinpath('oh-my-posh'))
 
-    symlink('nvim', join('.config', 'nvim'))
-    symlink('git', join('.config', 'git'))
-    symlink('lsd', join(roaming, 'lsd'))
-    symlink('oh-my-posh', join('.config', 'oh-my-posh'))
+    symlink_to('pwsh', shell_target)
+    symlink_to('gh', CONFIG_HOME.joinpath('gh'))
 
-    symlink(shell, shell_target)
-    symlink('gh', gh_target)
+    # TODO: need to figure out if fragments can represent the entire settings.json file, or *just* profiles.
+    #symlink('wt/fragments', f'{os.environ["LOCALAPPDATA"]}\Microsoft\Windows Terminal\Fragments')
+    #symlink('wt/settings.json', ...) # The path to the Windows Terminal settings file is not the best
 
-
-# TODO: Move this file to powershell (without custom settings)
-# Install-Module -Name Microsoft.PowerShell.SecretManagement -Repository PSGallery 
-# Install-Module -Name Microsoft.PowerShell.SecretStore -Repository PSGallery
-# (Still Experimenting) Install-Module -Name Microsoft.PowerShell.Crescendo -Repository PSGallery
-# (Windows Machines Only) Install-Module -Name VCVars -Repository PSGallery
-# Install-Module -Name Atmosphere -Repository PSGallery
 
 #-----------------------------------------------------------------------------
 # Entry Point
