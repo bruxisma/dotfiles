@@ -1,3 +1,6 @@
+require("mason").setup {}
+require("mason-lspconfig").setup {}
+
 local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -32,9 +35,6 @@ local function on_attach(client, buffer)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, options)
 end
 
-require("mason").setup {}
-require("mason-lspconfig").setup {}
-
 lspconfig.clangd.setup {
   capabilities = capabilities,
   on_attach = on_attach,
@@ -59,7 +59,7 @@ lspconfig.pyright.setup {
   end,
 }
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
