@@ -48,19 +48,19 @@ set ignorecase smartcase
 set incsearch hlsearch
 set expandtab smarttab
 
-set updatetime=2000
 set autoindent
-
 set autochdir
-
 set hidden
 
+set background=light
 if has('gui')
   set guioptions=afgm
+  set guifont=
   set columns=120
   set lines=40
   if has('mac') | set macligatures | endif
   if has('win32')
+    silent! set guifont=Delugia:h12:cANSI:qDRAFT
     silent! set guioptions+=!
     silent! set renderoptions=type:directx
     silent! set renderoptions+=gamma:1.0 ",contrast:0.5,level:0.5,
@@ -109,15 +109,9 @@ nnoremap <Leader>hs <C-W>s<C-W>j
 " clear hlsearch
 nnoremap <Leader><Space> :silent! call setreg('/', '')<CR>
 
-nnoremap <Leader>g :GitGutterLineHighlightsToggle<CR>
-nnoremap <Leader>u :MundoToggle<CR>
-
 " This is useful for those languages where I do things
 nnoremap <F5> :silent make<CR>
 nnoremap <F4> :cclose<CR>
-
-nmap <C-PageDown> <Plug>(GitGutterNextHunk)
-nmap <C-PageUp> <Plug>(GitGutterPrevHunk)
 
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
@@ -130,11 +124,6 @@ autocmd BufNewFile,BufRead CMakeLists.txt setlocal matchpairs+=<:>
 let g:cpp_class_scope_highlight = 1
 let g:cpp_concepts_highlight = 1
 let g:load_doxygen_syntax = 1
-let g:rust_recommended_style = 0
-let g:go_fmt_command = "gofmt"
-
-" javascript
-let g:javascript_plugin_jsdoc = 1
 
 " sh.vim
 let g:is_kornshell = 0
@@ -146,4 +135,4 @@ let g:netrw_winsize = 30
 let g:netrw_banner = 0
 let g:netrw_menu = 0
 
-colorscheme default
+colorscheme peachpuff
