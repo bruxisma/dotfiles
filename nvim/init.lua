@@ -52,4 +52,5 @@ cnoreabbrev <expr> grep <SID>command("grep", "silent<Space>grep")
 cnoreabbrev <expr> st <SID>command("st", "GFiles?")
 
 cnoreabbrev <expr> fmt <SID>command("fmt", "lua vim.lsp.buf.format()")
+cnoreabbrev <expr> fix <SID>command("fix", "lua vim.lsp.buf.code_action()")
 ]])
