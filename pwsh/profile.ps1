@@ -133,6 +133,7 @@ Set-Item -Path Env:DOCKER_BUILDKIT -Value 1
 Set-Item -Path Env:DOTNET_NOLOGO -Value "true"
 Set-Item -Path Env:FZF_DEFAULT_COMMAND -Value "fd --type f"
 Set-Item -Path Env:LESSCHARSET -Value "utf-8"
+Set-Item -Path Env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL -Value "sparse"
 
 <# Platform Specific Settings #>
 if ($IsWindows) {
