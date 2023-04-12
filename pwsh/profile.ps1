@@ -140,6 +140,7 @@ if ($IsWindows) {
   Start-Service ssh-agent
 }
 
+Import-Source $(Join-Path $PSScriptRoot cmake.ps1)
 Import-Source $(Join-Path $PSScriptRoot ssh.ps1)
 
 <# Terminal Settings #>
