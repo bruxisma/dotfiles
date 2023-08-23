@@ -10,7 +10,7 @@ return {
   {
     "ojroques/nvim-osc52",
     name = "osc52",
-    config = require("osc52"),
+    config = require("clipboard"),
   },
   {
     "rcarriga/nvim-notify",

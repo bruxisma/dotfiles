@@ -1,9 +1,10 @@
 local global = vim.g;
-return function(plugin)
+return function(config)
   -- Only activate if we are using SSH
   if not os.getenv("SSH_TTY") or not os.getenv("SSH_CLIENT") then
     return
   end
+  local plugin = require(config.name)
   plugin.setup {}
   local function paste()
     return {
@@ -19,5 +20,4 @@ return function(plugin)
     copy = { ["+"] = copy, ["*"] = copy },
     paste = { ["+"] = paste, ["*"] = paste },
   }
-
 end
