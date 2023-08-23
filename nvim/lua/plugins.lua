@@ -9,7 +9,7 @@ return {
   },
   {
     "ojroques/nvim-osc52",
-    name = "osc52",
+    name = "ssh-clipboard",
     config = require("clipboard"),
   },
   {
