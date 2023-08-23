@@ -1,10 +1,10 @@
 local global = vim.g;
-return function(config)
+return function()
   -- Only activate if we are using SSH
   if not os.getenv("SSH_TTY") or not os.getenv("SSH_CLIENT") then
     return
   end
-  local plugin = require(config.name)
+  local plugin = require("osc52")
   plugin.setup {}
   local function paste()
     return {

@@ -188,4 +188,7 @@ return {
   -- { "ray-x/lsp_signature.nvim" }
   -- { "p00f/clangd_extensions.nvim" }
   -- { "nvim-lualine/lualine.nvim" }
+  -- { folke/noice.nvim }
+  -- { folke/neodev.nvim }
+  -- { folke/which-key.nvim }
 }
