@@ -59,6 +59,7 @@ return function()
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
+    before_init = require("neodev.lsp").before_init,
     settings = {
       Lua = {
         workspace = { library = vim.api.nvim_get_runtime_file("", true) },

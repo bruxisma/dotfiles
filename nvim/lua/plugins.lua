@@ -1,5 +1,13 @@
 -- This is just the plugin specifications, with a few helper functions
 -- Complex configurations are stored in files that we call `require` on.
+local function modified()
+  if vim.bo.modified then
+    return ''
+  elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+    return ''
+  end
+  return ''
+end
 
 return {
   {
@@ -7,10 +15,12 @@ return {
     name = "gruvbox",
     opts = { contrast = "hard", invert_selection = true },
   },
+  "bruxisma/gitmoji.vim", -- TODO: Rewrite in lua
   {
     "ojroques/nvim-osc52",
     name = "ssh-clipboard",
     config = require("clipboard"),
+    event = "VeryLazy",
   },
   {
     "rcarriga/nvim-notify",
@@ -20,7 +30,35 @@ return {
     end,
     dependencies = { "nvim-telescope/telescope.nvim" },
   },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
+    opts = {
+      signs = {
+        changedelete = { text = "" },
+        delete = { text = "" },
+        change = { text = "" },
+        add = { text = "" },
+      },
+    },
+  },
+  -- Something more in this style would be nice.
+  -- https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/evil_lualine.lua
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    opts = {
+      theme = "gruvbox",
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "branch", "diff", "diagnostics", { "filename", file_status = false }, { modified } },
+        lualine_c = {},
+      }
+    },
+    dependencies = { "nvim-web-devicons" },
+  },
 
+  -- Language Server Protocol
   {
     "neovim/nvim-lspconfig",
     config = require("lsp"),
@@ -29,7 +67,6 @@ return {
       "cmp-nvim-lsp",
     },
   },
-  -- Mason LSP Manager
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
@@ -45,24 +82,22 @@ return {
   },
 
   -- non-lua plugins
-  "tpope/vim-eunuch", -- TODO: check if this can be replaced with telescope-file-browser
-  "bruxisma/gitmoji.vim", -- TODO: Rewrite in lua
-  "airblade/vim-gitgutter", -- TODO: Replace with gitsigns.nvim
-  -- TODO: Replace with some other statusline plugin, such as lualine
-  { "shinchu/lightline-gruvbox.vim", dependencies = "itchyny/lightline.vim" },
-
+  "tpope/vim-eunuch", -- TODO: evaluate using chrisgrieser/nvim-genghis as a replacement
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     opts = require("treesitter"),
     main = "nvim-treesitter.configs",
+    init = function()
+      require("nvim-treesitter.install").compilers = { "clang" }
+    end,
     build = function()
       require("nvim-treesitter.install").update { with_sync = true }
     end,
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre" },
-      { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
+      { "nvim-treesitter/playground",              cmd = "TSPlaygroundToggle" },
       "nvim-treesitter/nvim-treesitter-refactor",
       "IndianBoy42/tree-sitter-just",
     },
@@ -107,59 +142,41 @@ return {
   {
     "folke/trouble.nvim",
     tag = "stable",
+    event = "VeryLazy",
     dependencies = { "kyazdani42/nvim-web-devicons", "folke/lsp-colors.nvim" },
     cmd = { "Trouble", "TroubleToggle" },
   },
   {
     "folke/todo-comments.nvim",
+    event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("todo-comments").setup {}
+    end,
   },
   -- completions
   {
-    "hrsh7th/nvim-cmp",
-    config = function()
-      local snippy = require("snippy")
-      local cmp = require("cmp")
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            snippy.expand_snippet(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert {
-          ["<CR>"] = cmp.mapping.confirm { select = true },
-        },
-        sources = cmp.config.sources {
-          { name = "nvim_lsp" },
-          { name = "snippy" },
-        },
-      }
-    end,
-    opts = {},
-
-    dependencies = {
-      {
-        "dcampos/cmp-snippy",
-        dependencies = {
-          "dcampos/nvim-snippy",
-          opts = {
-            mappings = {
-              is = {
-                ["<Tab>"] = "expand_or_advance",
-                ["<S-Tab>"] = "previous",
-              },
-            },
-          },
+    "dcampos/nvim-snippy",
+    opts = {
+      mappings = {
+        is = {
+          ["<Tab>"] = "expand_or_advance",
+          ["<S-Tab>"] = "previous",
         },
       },
-      -- { "hrsh7th/cmp-nvim-lsp-signature-help" },
-      { "hrsh7th/cmp-nvim-lua" },
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-cmdline" },
-      -- { "hrsh7th/cmp-buffer" },
-      -- { "hrsh7th/cmp-path" },
-      -- { "lukas-reineke/cmp-under-comparator" },
-      { "onsails/lspkind.nvim" },
+    },
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    config = require("completions"),
+    opts = {},
+    dependencies = {
+      { "dcampos/cmp-snippy",   dependencies = { "nvim-snippy" } },
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-omni",
+      "hrsh7th/cmp-nvim-lsp",
+      { "onsails/lspkind.nvim", lazy = true },
     },
   },
   -- LSP
@@ -174,21 +191,13 @@ return {
     end,
   },
   --{ "simrat39/rust-tools.nvim" },
-  --{ "folke/neodev.nvim", dependencies = { "hrsh7th/nvim-cmp" } },
-  { "ray-x/go.nvim", opts = { lsp_gofumpt = true } },
+  { "folke/neodev.nvim",              opts = { lspconfig = false } },
+  { "ray-x/go.nvim",                  opts = { lsp_gofumpt = true } },
 
   -- DAP
-  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+  { "rcarriga/nvim-dap-ui",           dependencies = { "mfussenegger/nvim-dap" } },
   { "theHamsta/nvim-dap-virtual-text" },
 
-  -- to be evaluated
-  -- { "windwp/nvim-autopairs" }
-  -- { "hkupty/iron.nvim" }
-  -- { "danymat/neogen" }
-  -- { "ray-x/lsp_signature.nvim" }
   -- { "p00f/clangd_extensions.nvim" }
-  -- { "nvim-lualine/lualine.nvim" }
-  -- { folke/noice.nvim }
-  -- { folke/neodev.nvim }
   -- { folke/which-key.nvim }
 }

@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
 version: 2
 console_title_template: "{{.PWD}} on {{ lower .HostName }}"
+shell_integration: true
 final_space: true
-osc99: true
 # based on gruvbox dark palette
 palette:
   bg:0: "#1d2021"
@@ -42,15 +42,15 @@ blocks:
           display_host: false
         style: diamond
         template: >-
-          {{if .SSHSession }} {{end}}
-          {{lower .UserName}}{{lower .HostName}} 
+          {{if .SSHSession }} 󰌘{{end}}
+          {{lower .UserName}}󰁥{{lower .HostName}} 
         trailing_diamond: 
         type: session
       - background: p:bg:orange
         foreground: p:bg:main
         leading_diamond: <transparent,background></>
         properties:
-          folder_icon: 
+          folder_icon: 
           folder_separator_icon: "  "
           home_icon: 
           style: mixed
@@ -73,14 +73,16 @@ blocks:
         properties:
           fetch_status: true
           fetch_upstream_icon: true
-          github_icon: 
+          github_icon: 
         style: diamond
         template: >-
-          {{if .UpstreamURL}} {{url .UpstreamIcon .UpstreamURL}}{{end}}
-          {{.HEAD}}
-          {{.BranchStatus}}
-          {{if .Working.Changed}} {{.Working.String}}{{end}}
-          {{if .Staging.Changed}} {{.Staging.String}}{{end}}
+          {{ if .UpstreamURL}} {{url .UpstreamIcon .UpstreamURL }}{{ end }}
+          {{ .HEAD }}
+          {{ if .BranchStatus }}{{ .BranchStatus }}{{ end -}}
+          {{ if .Working.Changed }}  {{ .Working.String }}{{ end }}
+          {{ if and (.Working.Changed) (.Staging.Changed) }}󰇙{{ end }}
+          {{ if .Staging.Changed -}}  {{ .Staging.String }}{{ end }}
+          {{ if gt .StashCount 0 }} 󰧯 {{ .StashCount }}{{ end }}
         trailing_diamond: 
         type: git
       - background: p:bg:purple
@@ -94,12 +96,12 @@ blocks:
         type: root
       - background: p:bg:blue
         background_templates:
-          - "{{if gt .Code 0}}p:bg:red{{end}}"
+          - "{{if ne .Code 0}}p:bg:red{{end}}"
         foreground: p:fg:main
         leading_diamond: <transparent,background></>
         properties:
           always_enabled: true
         style: diamond
-        template: " {{if gt .Code 0}}{{else}}{{end}} "
+        template: " {{if eq .Code 0}}{{else}} {{ reason .Code }}{{end}} "
         trailing_diamond: 
-        type: exit
+        type: status

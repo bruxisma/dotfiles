@@ -60,7 +60,7 @@ if has('gui')
   set lines=40
   if has('mac') | set macligatures | endif
   if has('win32')
-    silent! set guifont=Delugia:h12:cANSI:qDRAFT
+    silent! set guifont=CaskaydiaCove_NFM:h12:cANSI:qDRAFT
     silent! set guioptions+=!
     silent! set renderoptions=type:directx
     silent! set renderoptions+=gamma:1.0 ",contrast:0.5,level:0.5,
