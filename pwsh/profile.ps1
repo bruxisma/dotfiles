@@ -116,6 +116,7 @@ Set-Item -Path Env:NUGET_PLUGINS_CACHE_PATH -Value $(Join-Path ${env:XDG_CACHE_H
 Set-Item -Path Env:NUGET_HTTP_CACHE_PATH -Value $(Join-Path ${env:XDG_CACHE_HOME} nuget v3-cache)
 Set-Item -Path Env:NUGET_PACKAGES -Value $(Join-Path ${env:XDG_DATA_HOME} nuget packages)
 
+Set-Item -Path Env:GOAMD64 -Value "v3"
 Set-Item -Path Env:GOPATH -Value $(Join-Path ${HOME} .local share go)
 Set-Item -Path Env:GOBIN -Value $(Join-Path ${HOME} .local bin)
 
@@ -141,6 +142,7 @@ if ($IsWindows) {
 }
 
 Import-Source $(Join-Path $PSScriptRoot cmake.ps1)
+Import-Source $(Join-Path $PSScriptRoot task.ps1)
 Import-Source $(Join-Path $PSScriptRoot ssh.ps1)
 
 <# Terminal Settings #>
