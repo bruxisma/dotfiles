@@ -54,25 +54,3 @@ end
 if fn.executable("pwsh") then
   -- TODO: Fill this out correctly for pwsh $SHELL usage
 end
-
--- TODO: Replace with lualine or similar 🤔
-vim.cmd([[
-  let g:lightline =<< trim STATUS
-    #{
-        colorscheme: 'gruvbox',
-        active: #{
-          left: [
-            ['mode', 'paste'],
-            ['readonly', 'filename', 'modified']
-          ]
-        },
-        component : #{ lineinfo: "\ue0a1 %3l:%-2v" },
-        component_function : #{
-          readonly: 'LightlineReadonly',
-        },
-        separator: #{ left: "\ue0b0", right: "\ue0b2" },
-        subseparator: #{ left: "\ue0b1", right: "\ue0b3" }
-     }
-  STATUS
-  let g:lightline = eval(join(g:lightline))
-]])
