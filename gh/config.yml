@@ -2,8 +2,3 @@ git_prootocol: https
 editor: nvim
 prompt: enabled
 pager: delta
-aliases:
-    clone: 'repo clone "$1"'
-    search: 'api -X GET search/repositories -f q=''$1'' --template ''{{range .items}}{{ .full_name | color "white" }}: {{ .description }}{{"\n"}}{{ end }}'''
-    dependabot: 'pr comment --body "@dependabot $1"'
-    open: '!gh pr create --title $(git show --no-patch --format=%s) --body "$(git show --no-patch --format=%b | git interpret-trailers --if-exists replace --trailer Signed-off-by --trim-empty)"'
