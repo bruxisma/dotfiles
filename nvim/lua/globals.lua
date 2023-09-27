@@ -1,5 +1,6 @@
 local global = vim.g
 
+global.editorconfig = false
 global.mapleader = ","
 global.is_kornshell = 0
 global.is_posix = 1
