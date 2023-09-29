@@ -39,7 +39,7 @@ option.listchars = {
 }
 
 option.termguicolors = true
-option.guifont = "CaskaydiaCove_NFM:h12"
+option.guifont = "CaskaydiaCove NFM:h12"
 option.mouse = "a"
 
 if fn.has("+diff") then
