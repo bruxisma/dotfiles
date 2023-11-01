@@ -15,7 +15,12 @@ return {
     name = "gruvbox",
     opts = { contrast = "hard", invert_selection = true },
   },
-  "bruxisma/gitmoji.vim", -- TODO: Rewrite in lua
+  {
+    "stevearc/dressing.nvim",
+    opts = {}
+  },
+  -- TODO: Rewrite in lua
+  {"bruxisma/gitmoji.vim"},
   {
     "ojroques/nvim-osc52",
     name = "ssh-clipboard",
