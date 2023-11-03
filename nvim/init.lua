@@ -31,6 +31,7 @@ cnoreabbrev <expr> unstage <SID>command("unstage", "lua package.loaded.gitsigns.
 cnoreabbrev <expr> stage <SID>command("stage", "lua package.loaded.gitsigns.stage_hunk()")
 cnoreabbrev <expr> fmt <SID>command("fmt", "lua vim.lsp.buf.format()")
 cnoreabbrev <expr> fix <SID>command("fix", "lua vim.lsp.buf.code_action()")
+cnoreabbrev <expr> rename <SID>command("rename", "lua vim.lsp.buf.rename()")
 
 cnoreabbrev <expr> reload <SID>command("reload", "source<Space>$MYVIMRC")
 cnoreabbrev <expr> chmod <SID>command("chmod", "Chmod")
