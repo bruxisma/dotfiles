@@ -140,6 +140,18 @@ return {
       extensions = {
         file_browser = { hijack_netrw = true },
       },
+      pickers = {
+        buffers = {
+          mappings = {
+            i = {
+              ["<C-d>"] = "delete_buffer"
+            },
+            n = {
+              ["d"] = "delete_buffer"
+            }
+          }
+        }
+      }
     },
   },
 
@@ -186,7 +198,7 @@ return {
   },
   -- LSP
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local null_ls = require("null-ls")
