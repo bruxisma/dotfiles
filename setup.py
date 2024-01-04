@@ -65,6 +65,9 @@ def symsetup ():
     symlink_to('gh', CONFIG_HOME.joinpath('gh'))
     symlink_to('erdtree', CONFIG_HOME.joinpath('erdtree'))
 
+    if sys.platform == 'win32':
+        symlink_to("wt/Fragments", f'{os.environ["LOCALAPPDATA"]}/Microsoft/Windows Terminal/Fragments')
+
     # TODO: need to figure out if fragments can represent the entire settings.json file, or *just* profiles.
     #symlink('wt/fragments', f'{os.environ["LOCALAPPDATA"]}\Microsoft\Windows Terminal\Fragments')
     #symlink('wt/settings.json', ...) # The path to the Windows Terminal settings file is not the best

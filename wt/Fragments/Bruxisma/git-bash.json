@@ -1,0 +1,11 @@
+{
+  "profiles": [
+    {
+      "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+      "name": "Git Bash",
+      "commandline": "%ProgramFiles%\\Git\\bin\\bash.exe -il",
+      "icon": "%ProgramFiles%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+      "startingDirectory": "%USERPROFILE%\\Desktop"
+    }
+  ]
+}
