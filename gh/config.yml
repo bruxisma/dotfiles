@@ -1,4 +1,5 @@
-git_prootocol: https
+git_protocol: https
 editor: nvim
 prompt: enabled
 pager: delta
+version: "1"
