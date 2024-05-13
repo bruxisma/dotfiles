@@ -32,10 +32,10 @@ function script:Import-Source {
 }
 
 # Explicitly set XDG fallback values
-${env:XDG_CONFIG_HOME} ??= "${HOME}/.config"
-${env:XDG_CACHE_HOME} ??= "${HOME}/.cache"
-${env:XDG_STATE_HOME} ??= "${HOME}/.local/share/state"
-${env:XDG_DATA_HOME} ??= "${HOME}/.local/share"
+${env:XDG_CONFIG_HOME} ??= $(Join-Path ${HOME} ".config")
+${env:XDG_CACHE_HOME} ??= $(Join-Path ${HOME} ".cache")
+${env:XDG_STATE_HOME} ??= $(Join-Path ${HOME} ".local" "share" "state")
+${env:XDG_DATA_HOME} ??= $(Join-Path ${HOME} ".local" "share")
 
 # Import local profile *first*
 Import-Module $(Join-Path $PSScriptRoot machine.ps1) -Force -Global

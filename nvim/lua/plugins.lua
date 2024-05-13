@@ -188,7 +188,7 @@ return {
     config = require("completions"),
     opts = {},
     dependencies = {
-      { "dcampos/cmp-snippy",   dependencies = { "nvim-snippy" } },
+      { "dcampos/cmp-snippy", dependencies = { "nvim-snippy" } },
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-omni",
