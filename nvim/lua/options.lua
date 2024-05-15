@@ -52,5 +52,10 @@ if fn.executable("rg") then
 end
 
 if fn.executable("pwsh") then
-  -- TODO: Fill this out correctly for pwsh $SHELL usage
+  option.shell = "pwsh"
+  option.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+  option.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit ${LastExitCode}"
+  option.shellpipe = "2>&1 | Tee-Object -Encoding UTF8 %s; exit ${LastExitCode}"
+  option.shellquote = ""
+  option.shellxquote = ""
 end

@@ -21,6 +21,7 @@ return {
   },
   -- TODO: Rewrite in lua
   {"bruxisma/gitmoji.vim"},
+  -- NOTE: This won't be needed under 0.10
   {
     "ojroques/nvim-osc52",
     name = "ssh-clipboard",
@@ -210,6 +211,12 @@ return {
   --{ "simrat39/rust-tools.nvim" },
   { "folke/neodev.nvim",              opts = { lspconfig = false } },
   { "ray-x/go.nvim",                  opts = { lsp_gofumpt = true } },
+  {
+    "MeanderingProgrammer/markdown.nvim",
+    name = "render-markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = true,
+  },
 
   -- DAP
   { "rcarriga/nvim-dap-ui",           dependencies = { "mfussenegger/nvim-dap" } },

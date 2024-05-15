@@ -57,6 +57,7 @@ if (${pack} = Get-Command -Name "pack" -CommandType Application -ErrorAction Sil
   Import-Source $(& ${pack} completion --shell powershell)
 }
 
+# TODO: Move to eza: https://github.com/eza-community/eza
 <# Aliases #>
 if (!$IsWIndows -and (Get-Command -Name "lsd" -CommandType Application -ErrorAction SilentlyContinue)) {
   Set-Alias ls lsd
