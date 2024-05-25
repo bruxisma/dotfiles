@@ -24,9 +24,7 @@ local function on_attach(client, buffer)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, options)
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, options)
 
-  -- diagnostics
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, options)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, options)
+  vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
 end
 
 return function()
@@ -68,16 +66,3 @@ return function()
     },
   }
 end
-
-
---require("rust-tools").setup {
---  server = {
---    capabilities = capabilities,
---    on_attach = on_attach,
---    settings = {
---      ["rust-analyzer"] = {
---        inlayHints = { locationLinks = false },
---      },
---    },
---  },
---}

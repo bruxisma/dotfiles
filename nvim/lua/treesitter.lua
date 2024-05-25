@@ -39,7 +39,7 @@ return {
     "zig",
   },
   highlight = {
-    additional_vim_regex_highlighting = { "dockerfile", "cmake", "make" },
+    additional_vim_regex_highlighting = { "dockerfile", "cmake", "make", },
     enable = true,
     disable = { "dockerfile" },
   },

@@ -21,13 +21,6 @@ return {
   },
   -- TODO: Rewrite in lua
   {"bruxisma/gitmoji.vim"},
-  -- NOTE: This won't be needed under 0.10
-  {
-    "ojroques/nvim-osc52",
-    name = "ssh-clipboard",
-    config = require("clipboard"),
-    event = "VeryLazy",
-  },
   {
     "rcarriga/nvim-notify",
     name = "notify",
@@ -103,9 +96,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre" },
-      { "nvim-treesitter/playground",              cmd = "TSPlaygroundToggle" },
       "nvim-treesitter/nvim-treesitter-refactor",
-      "IndianBoy42/tree-sitter-just",
     },
   },
 
@@ -204,11 +195,13 @@ return {
     config = function()
       local null_ls = require("null-ls")
       null_ls.setup {
-        sources = { null_ls.builtins.formatting.stylua },
+        sources = {
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.code_actions.gitsigns,
+        },
       }
     end,
   },
-  --{ "simrat39/rust-tools.nvim" },
   { "folke/neodev.nvim",              opts = { lspconfig = false } },
   { "ray-x/go.nvim",                  opts = { lsp_gofumpt = true } },
   {

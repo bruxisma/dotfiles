@@ -12,7 +12,9 @@ return function()
       format = lspkind.cmp_format {},
     },
     mapping = cmp.mapping.preset.insert {
-      ["<CR>"] = cmp.mapping.confirm { select = true },
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-e>"] = cmp.mapping.abort(),
+      ["<CR>"] = cmp.mapping.confirm { select = false },
     },
     sources = cmp.config.sources {
       { name = "nvim_lsp_signature_help" },

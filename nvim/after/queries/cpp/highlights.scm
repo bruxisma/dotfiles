@@ -1,5 +1,4 @@
 [
-; "eq"
  "not_eq"
 
  "compl"
@@ -8,9 +7,7 @@
  "not"
 
  "bitand"
-; "bitand_eq"
  "bitor"
-; "bitor_eq"
  "xor"
  "xor_eq"
 ] @operator

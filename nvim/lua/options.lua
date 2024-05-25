@@ -1,9 +1,11 @@
 local window, option, fn = vim.w, vim.opt, vim.fn
 
 window.termencoding = "utf-8"
-window.foldlevelstart = 10
-window.foldnextmax = 10
-window.foldenable = true
+
+option.foldlevelstart = 10
+option.foldenable = false
+option.foldmethod = "expr"
+option.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 option.colorcolumn = "80"
 option.virtualedit = "block"
@@ -38,7 +40,6 @@ option.listchars = {
   tab = "» ",
 }
 
-option.termguicolors = true
 option.guifont = "Cascadia Code NF:h12"
 option.mouse = "a"
 
