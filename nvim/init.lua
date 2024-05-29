@@ -39,4 +39,3 @@ alias("todo", "TodoTrouble")
 alias("json", "%!jq .")
 alias("lgrep", "silent", "lgrep")
 alias("grep", "silent", "grep")
-
