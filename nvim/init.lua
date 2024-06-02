@@ -25,6 +25,8 @@ alias("unstage", "lua", "package.loaded.gitsigns.reset_hunk()")
 alias("stage", "lua", "package.loaded.gitsigns.stage_hunk()")
 alias("blame", "lua", "package.loaded.gitsigns.blame_line { full = true }")
 
+alias("debug", "lua", "package.loaded.dapui.toggle()")
+
 alias("fix", "lua", "vim.lsp.buf.code_action()")
 alias("fmt", "lua", "vim.lsp.buf.format()")
 alias("rename", "lua vim.lsp.buf.rename()")

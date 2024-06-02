@@ -212,7 +212,12 @@ return {
   },
 
   -- DAP
-  { "rcarriga/nvim-dap-ui",           dependencies = { "mfussenegger/nvim-dap" } },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    main = "dapui",
+    config = true,
+  },
   { "theHamsta/nvim-dap-virtual-text" },
 
   -- { "p00f/clangd_extensions.nvim" }

@@ -48,8 +48,7 @@ if fn.has("+diff") then
 end
 
 if fn.executable("rg") then
-  option.grepformat:prepend("%f:%l%c:%m")
-  option.grepprg = [[rg --vimgrep --no-heading --smart-case]]
+  option.grepprg = [[rg --vimgrep --smart-case --unrestricted --unrestricted]]
 end
 
 if fn.executable("pwsh") then
