@@ -1,5 +1,14 @@
 local global = vim.g
 
+if os.getenv("SSH_TTY") and os.getenv("SSH_CLIENT") then
+  local clipboard = require("vim.ui.clipboard.osc52")
+  global.clipboard = {
+    name = "OSC 52",
+    paste = { ["+"] = clipboard.paste("+"), ["*"] = clipboard.paste("*") },
+    copy = { ["+"] = clipboard.copy("+"), ["*"] = clipboard.copy("*") },
+  }
+end
+
 global.editorconfig = false
 global.mapleader = ","
 global.is_kornshell = 0

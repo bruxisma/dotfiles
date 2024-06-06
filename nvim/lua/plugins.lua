@@ -31,6 +31,8 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    -- until https://github.com/lewis6991/gitsigns.nvim/issues/1027 is resolved
+    commit = "cdfcd9d39d23c46ae9a040de2c6a8b8bf868746e",
     event = "VeryLazy",
     opts = {
       signs = {
