@@ -2,6 +2,7 @@
 version: 2
 console_title_template: "{{.PWD}} on {{ lower .HostName }}"
 shell_integration: true
+auto_upgrade: true
 final_space: true
 # based on gruvbox dark palette
 palette:
