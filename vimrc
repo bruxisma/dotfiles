@@ -135,4 +135,4 @@ let g:netrw_winsize = 30
 let g:netrw_banner = 0
 let g:netrw_menu = 0
 
-colorscheme peachpuff
+colorscheme zaibatsu

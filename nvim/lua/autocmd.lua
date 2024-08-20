@@ -14,6 +14,11 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   command = "setfiletype help",
 })
 
+vim.api.nvim_create_autocmd({ "BufNewFile", "Bufread" }, {
+  pattern = { "*.tofu" },
+  command = "setfiletype hcl"
+})
+
 -- I'm unsure if I need these anymore
 vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
   desc = "Automatically open quickfix on :make",
