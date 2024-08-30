@@ -79,6 +79,11 @@ return {
       },
     },
   },
+  {
+    "chrisgrieser/nvim-lsp-endhints",
+    event = "LspAttach",
+    opts = {},
+  },
 
   -- non-lua plugins
   "tpope/vim-eunuch", -- TODO: evaluate using chrisgrieser/nvim-genghis as a replacement
