@@ -27,7 +27,6 @@ return {
     init = function(plugin)
       vim.notify = require(plugin.name)
     end,
-    dependencies = { "nvim-telescope/telescope.nvim" },
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -109,6 +108,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
+    cmd = { "Telescope" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-symbols.nvim",
@@ -129,6 +129,7 @@ return {
       telescope.setup(opts)
       telescope.load_extension("file_browser")
       telescope.load_extension("ui-select")
+      telescope.load_extension("notify")
       telescope.load_extension("fzf")
       telescope.load_extension("dap")
       telescope.load_extension("gh")
