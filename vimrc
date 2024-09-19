@@ -23,10 +23,17 @@ set noswapfile
 set visualbell
 set number
 
+if executable('pwsh')
+  set shell=pwsh
+  set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned
+  set shellcmdflag+=\ -Command\ [Console]::InputEncoding=[System.Text.Encoding]::UTF8;
+endif
+
 if executable('rg') 
   set grepformat^=%f:%l%c:%m
-  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --unrestricted\ --unrestricted
 endif
+
 if !$WT_SESSION->empty() | set t_Co=256 | endif
 
 set listchars=tab:»\ ,extends:▶,precedes:◀,nbsp:␣,trail:·
@@ -60,7 +67,7 @@ if has('gui')
   set lines=40
   if has('mac') | set macligatures | endif
   if has('win32')
-    silent! set guifont=CaskaydiaCove_NFM:h12:cANSI:qDRAFT
+    silent! set guifont=Cascadia_Code_NF:h12:cANSI:qDRAFT
     silent! set guioptions+=!
     silent! set renderoptions=type:directx
     silent! set renderoptions+=gamma:1.0 ",contrast:0.5,level:0.5,
@@ -76,12 +83,9 @@ function! s:command(name, ...)
         \ : a:name
 endfunction 
 
-cnoreabbrev <expr> grc <SID>command("grc", "edit<Space>$MYGVIMRC")
 cnoreabbrev <expr> rc <SID>command("rc", "edit<Space>$MYVIMRC")
 
 cnoreabbrev <expr> reload <SID>command("reload", "source<Space>$MYVIMRC")
-
-cnoreabbrev <expr> json <SID>command("json", "%!jq<Space>.")
 
 cnoreabbrev <expr> lgrep <SID>command("lgrep", "silent<Space>lgrep")
 cnoreabbrev <expr> grep <SID>command("grep", "silent<Space>grep")
@@ -95,8 +99,19 @@ vnoremap <C-C> <Esc>
 vnoremap / /\v
 nnoremap / /\v
 
-nnoremap [f :lprevious<CR>
-nnoremap ]f :lnext<CR>
+nnoremap gw :silent<Space>grep<Space><cWORD><cr>
+
+" Navigate buffers
+nnoremap [b :bprev<CR>
+nnoremap ]b :bnext<CR>
+
+" Navigate loclist file
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
+
+" Navigate quickfix
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
 
 " Open a new vertical or horizontal split
 nnoremap <Leader>v :vsplit<CR>
@@ -113,6 +128,7 @@ nnoremap <Leader><Space> :silent! call setreg('/', '')<CR>
 nnoremap <F5> :silent make<CR>
 nnoremap <F4> :cclose<CR>
 
+" Open quickfix window automatically
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
