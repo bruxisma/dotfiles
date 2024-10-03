@@ -13,6 +13,12 @@ filetype("help", {
   vim.fs.normalize(vim.fs.joinpath(vim.fn.stdpath("data"), "lazy", "*", "doc", "*.txt")),
 })
 
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  desc = "Automatically resize the window splits when resizing the window",
+  command = "wincmd =",
+  pattern = "*",
+})
+
 -- I'm unsure if I need these anymore
 vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
   desc = "Automatically open quickfix on :make",

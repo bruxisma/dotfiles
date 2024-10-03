@@ -1,0 +1,93 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": 
+    [
+        {
+            "command": 
+            {
+                "action": "quakeMode"
+            },
+            "id": "quake",
+            "keys": "alt+`"
+        },
+        {
+            "command": "unbound",
+            "keys": "win+sc(41)"
+        }
+    ],
+    "alwaysShowNotificationIcon": true,
+    "centerOnLaunch": true,
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "disabledProfileSources": 
+    [
+        "Windows.Terminal.Azure",
+        "Windows.Powershell"
+    ],
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": 
+    {
+        "defaults": 
+        {
+            "adjustIndistinguishableColors": "never",
+            "antialiasingMode": "cleartype",
+            "bellStyle": "none",
+            "colorScheme": "Gruvbox Dark",
+            "cursorShape": "filledBox",
+            "experimental.retroTerminalEffect": false,
+            "font": 
+            {
+                "face": "Cascadia Mono NF",
+                "features": 
+                {
+                    "calt": 1,
+                    "ss01": 1,
+                    "ss20": 1
+                },
+                "size": 12
+            },
+            "intenseTextStyle": "bright",
+            "opacity": 80,
+            "useAcrylic": true
+        },
+        "list": 
+        [
+            {
+                "commandline": "%ProgramFiles%/PowerShell/7/pwsh.exe -NoLogo",
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{0b308980-87f3-5b4b-b341-c1f271633418}",
+                "hidden": true,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{8ab8e6f6-35c6-5b46-8419-3e1568105476}",
+                "hidden": true,
+                "name": "Podman Machine",
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "guid": "{acbafd15-cbbb-5bb3-8a61-bed446ff4b83}",
+                "hidden": false,
+                "name": "Ubuntu 24.04 LTS",
+                "source": "CanonicalGroupLimited.Ubuntu24.04LTS_79rhkp1fndgsc"
+            }
+        ]
+    },
+    "schemes": [],
+    "tabWidthMode": "equal",
+    "themes": [],
+    "useAcrylicInTabRow": false
+}

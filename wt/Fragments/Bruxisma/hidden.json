@@ -1,0 +1,32 @@
+{
+  "profiles": [
+    {
+      "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+      "hidden": true
+    },
+    {
+      "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+      "hidden": true
+    },
+    {
+      "guid": "{01628eef-1f02-5284-85fc-889778744878}",
+      "hidden": true
+    },
+    {
+      "guid": "{0b308980-87f3-5b4b-b341-c1f271633418}",
+      "hidden": true
+    },
+    {
+      "guid": "{8ab8e6f6-35c6-5b46-8419-3e1568105476}",
+      "hidden": true
+    },
+    {
+      "guid": "{963ff2f7-6aed-5ce3-9d91-90d99571f53a}",
+      "hidden": true
+    },
+    {
+      "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+      "hidden": true
+    }
+  ]
+}
