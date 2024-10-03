@@ -3,9 +3,6 @@
 # Assumes it is run as python setup.py
 
 # Errors out if it can't clean up previous symlinks, or directories.
-# TODO: This could be converted to a setup.ps1 file for powershell
-# This would then let us `source` the profile after symlinking
-
 #-----------------------------------------------------------------------------
 # Imports
 #-----------------------------------------------------------------------------
@@ -32,11 +29,14 @@ posix = not windows
 CONFIG_HOME = Path(os.environ.get('XDG_CONFIG_HOME', '~/.config')).expanduser()
 APPDATA = Path(os.environ.get('APPDATA', '~/.config')).expanduser()
 
+WT_LOCALSTATE = Path('Packages', 'Microsoft.WindowsTerminal_8wekyb3d8bbwe', 'LocalState')
+WT_FRAGMENTS = Path('Microsoft', 'Windows Terminal', 'Fragments')
+
 head = '~/Documents' if windows else CONFIG_HOME
 shell_target = Path(head).expanduser().joinpath('powershell')
 shell = 'pwsh'
 
-def symlink_to(src, dst):
+def symlink_to(src: str | Path, dst: str | Path):
     src = Path.cwd().joinpath(src)
     dst = Path(dst).expanduser()
     dst.unlink(missing_ok=True)
@@ -66,8 +66,8 @@ def symsetup ():
     symlink_to('erdtree', CONFIG_HOME.joinpath('erdtree'))
 
     if sys.platform == 'win32':
-        symlink_to("wt/settings.json", f'{os.environ["LOCALAPPDATA"]}/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json')
-        symlink_to("wt/Fragments", f'{os.environ["LOCALAPPDATA"]}/Microsoft/Windows Terminal/Fragments')
+        symlink_to("wt/settings.json", f'{os.environ["LOCALAPPDATA"]}/{WT_LOCALSTATE}/settings.json')
+        symlink_to("wt/Fragments", f'{os.environ["LOCALAPPDATA"]}/{WT_FRAGMENTS}')
 
 #-----------------------------------------------------------------------------
 # Entry Point
