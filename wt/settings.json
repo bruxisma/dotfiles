@@ -44,7 +44,9 @@
             "experimental.retroTerminalEffect": false,
             "font": 
             {
-                "face": "Cascadia Mono NF",
+                "axes": {},
+                "builtinGlyphs": false,
+                "face": "Cascadia Code NF",
                 "features": 
                 {
                     "calt": 1,
@@ -61,6 +63,10 @@
         [
             {
                 "commandline": "%ProgramFiles%/PowerShell/7/pwsh.exe -NoLogo",
+                "font": 
+                {
+                    "face": "Cascadia Code NF"
+                },
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
@@ -79,9 +85,9 @@
                 "source": "Windows.Terminal.Wsl"
             },
             {
-                "guid": "{acbafd15-cbbb-5bb3-8a61-bed446ff4b83}",
+                "guid": "{d8e96812-b789-5068-a5ae-10b2fb53e95f}",
                 "hidden": false,
-                "name": "Ubuntu 24.04 LTS",
+                "name": "Ubuntu 24.04.1 LTS",
                 "source": "CanonicalGroupLimited.Ubuntu24.04LTS_79rhkp1fndgsc"
             }
         ]

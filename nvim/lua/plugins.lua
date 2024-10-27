@@ -9,7 +9,16 @@ local function modified()
   return ''
 end
 
-return {
+local function load(name)
+  local ok, module = pcall(require, name)
+  if ok then return module
+  else return {}
+  end
+end
+
+local machine = load("machine")
+
+local plugins = {
   {
     "ellisonleao/gruvbox.nvim",
     name = "gruvbox",
@@ -229,3 +238,5 @@ return {
   -- { "p00f/clangd_extensions.nvim" }
   -- { folke/which-key.nvim }
 }
+
+return vim.tbl_extend("force", plugins, machine)
