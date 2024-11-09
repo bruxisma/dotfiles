@@ -101,7 +101,9 @@ local plugins = {
     opts = require("treesitter"),
     main = "nvim-treesitter.configs",
     init = function()
-      require("nvim-treesitter.install").compilers = { "clang" }
+      local install = require("nvim-treesitter.install")
+      install.compilers = { "clang" }
+      install.prefer_git = false
     end,
     build = function()
       require("nvim-treesitter.install").update { with_sync = true }
