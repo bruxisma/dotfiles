@@ -129,7 +129,7 @@ Set-Item -Path Env:PACK_HOME -Value $(Join-Path ${env:XDG_CONFIG_HOME} pack)
 Set-Item -Path Env:GNUPGHOME -Value $(Join-Path ${env:XDG_DATA_HOME} gnupg)
 
 <# General Values #>
-Set-Item -Path Env:CMAKE_GENERATOR -Value Ninja
+Set-Item -Path Env:CMAKE_GENERATOR -Value "Ninja Multi-Config"
 Set-Item -PATH Env:NINJA_STATUS -Value "%e [%f/%t] "
 Set-Item -Path Env:DOCKER_BUILDKIT -Value 1
 Set-Item -Path Env:DOTNET_NOLOGO -Value "true"
