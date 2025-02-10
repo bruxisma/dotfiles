@@ -58,7 +58,6 @@ def symsetup ():
 
     symlink_to('nvim', CONFIG_HOME.joinpath('nvim'))
     symlink_to('git', CONFIG_HOME.joinpath('git'))
-    symlink_to('lsd', APPDATA.joinpath('lsd'))
     symlink_to('oh-my-posh', CONFIG_HOME.joinpath('oh-my-posh'))
 
     symlink_to('pwsh', shell_target)
