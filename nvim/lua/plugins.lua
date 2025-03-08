@@ -2,18 +2,19 @@
 -- Complex configurations are stored in files that we call `require` on.
 local function modified()
   if vim.bo.modified then
-    return ''
+    return ""
   elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-    return ''
+    return ""
   end
-  return ''
+  return ""
 end
 
 local function load(name)
   local ok, module = pcall(require, name)
-  if ok then return module
-  else return {}
+  if not ok or type(module) ~= "table" then
+    return {}
   end
+  return module
 end
 
 local machine = load("machine")
@@ -26,10 +27,9 @@ local plugins = {
   },
   {
     "stevearc/dressing.nvim",
-    opts = {}
+    opts = {},
   },
-  -- TODO: Rewrite in lua
-  {"bruxisma/gitmoji.vim"},
+  { "bruxisma/gitmoji.vim", ft = { "gitcommit" } },
   {
     "rcarriga/nvim-notify",
     name = "notify",
@@ -58,9 +58,15 @@ local plugins = {
       theme = "gruvbox",
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", "diff", "diagnostics", { "filename", file_status = false }, { modified } },
+        lualine_b = {
+          "branch",
+          "diff",
+          "diagnostics",
+          { "filename", file_status = false },
+          { modified },
+        },
         lualine_c = {},
-      }
+      },
     },
     dependencies = { "nvim-web-devicons" },
   },
@@ -69,6 +75,7 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     config = require("lsp"),
+    ft = { "c", "cpp", "go", "python" },
     dependencies = {
       { "williamboman/mason-lspconfig.nvim", dependencies = "mason.nvim" },
       "cmp-nvim-lsp",
@@ -94,7 +101,8 @@ local plugins = {
   },
 
   -- non-lua plugins
-  "tpope/vim-eunuch", -- TODO: evaluate using chrisgrieser/nvim-genghis as a replacement
+  --  TODO: evaluate using chrisgrieser/nvim-genghis as a replacement
+  { "tpope/vim-eunuch", cmd = { "Mkdir", "Rename", "Delete" } },
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -123,10 +131,8 @@ local plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-symbols.nvim",
-      "nvim-telescope/telescope-github.nvim", --TODO: Set alias commaands
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
-      { "nvim-telescope/telescope-dap.nvim", dependencies = { "mfussenegger/nvim-dap" } },
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = function(plugin)
@@ -142,8 +148,6 @@ local plugins = {
       telescope.load_extension("ui-select")
       telescope.load_extension("notify")
       telescope.load_extension("fzf")
-      telescope.load_extension("dap")
-      telescope.load_extension("gh")
     end,
     opts = {
       extensions = {
@@ -153,14 +157,14 @@ local plugins = {
         buffers = {
           mappings = {
             i = {
-              ["<C-d>"] = "delete_buffer"
+              ["<C-d>"] = "delete_buffer",
             },
             n = {
-              ["d"] = "delete_buffer"
-            }
-          }
-        }
-      }
+              ["d"] = "delete_buffer",
+            },
+          },
+        },
+      },
     },
   },
 
@@ -168,7 +172,6 @@ local plugins = {
   {
     "folke/trouble.nvim",
     tag = "stable",
-    event = "VeryLazy",
     dependencies = { "kyazdani42/nvim-web-devicons", "folke/lsp-colors.nvim" },
     cmd = { "Trouble", "TroubleToggle" },
   },
@@ -176,9 +179,7 @@ local plugins = {
     "folke/todo-comments.nvim",
     event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("todo-comments").setup {}
-    end,
+    opts = {},
   },
   -- completions
   {
@@ -219,24 +220,14 @@ local plugins = {
       }
     end,
   },
-  { "folke/neodev.nvim",              opts = { lspconfig = false } },
-  { "ray-x/go.nvim",                  opts = { lsp_gofumpt = true } },
+  { "ray-x/go.nvim", ft = { "go" }, opts = { lsp_gofumpt = true } },
   {
     "MeanderingProgrammer/markdown.nvim",
     name = "render-markdown",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "markdown" },
     config = true,
   },
-
-  -- DAP
-  {
-    "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-    main = "dapui",
-    config = true,
-  },
-  { "theHamsta/nvim-dap-virtual-text" },
-
   -- { "p00f/clangd_extensions.nvim" }
   -- { folke/which-key.nvim }
 }
