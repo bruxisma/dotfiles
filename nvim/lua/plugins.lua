@@ -22,6 +22,7 @@ local machine = load("machine")
 local plugins = {
   {
     "ellisonleao/gruvbox.nvim",
+    priority = 1000,
     name = "gruvbox",
     opts = { contrast = "hard", invert_selection = true },
   },
@@ -232,4 +233,4 @@ local plugins = {
   -- { folke/which-key.nvim }
 }
 
-return vim.tbl_extend("force", plugins, machine)
+return vim.list_extend(plugins, machine)
