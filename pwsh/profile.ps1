@@ -52,15 +52,18 @@ Import-Completions just --completions powershell
 Import-Completions rustup completions powershell
 Import-Completions hugo completion powershell
 Import-Completions op completion powershell
+Import-Completions task --completion powershell
+
+# Custom Completions
+Import-Source $(Join-Path $PSScriptRoot completion.ps1)
 
 if (${pack} = Get-Command -Name "pack" -CommandType Application -ErrorAction SilentlyContinue) {
   Import-Source $(& ${pack} completion --shell powershell)
 }
 
-# TODO: Move to eza: https://github.com/eza-community/eza
 <# Aliases #>
-if (!$IsWIndows -and (Get-Command -Name "lsd" -CommandType Application -ErrorAction SilentlyContinue)) {
-  Set-Alias ls lsd
+if (!$IsWIndows -and (Get-Command -Name "eza" -CommandType Application -ErrorAction SilentlyContinue)) {
+  Set-Alias ls eza
 }
 
 if ($IsWindows) {
@@ -141,10 +144,6 @@ Set-Item -Path Env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL -Value "sparse"
 if ($IsWindows) {
   Start-Service ssh-agent
 }
-
-Import-Source $(Join-Path $PSScriptRoot cmake.ps1)
-Import-Source $(Join-Path $PSScriptRoot task.ps1)
-Import-Source $(Join-Path $PSScriptRoot ssh.ps1)
 
 <# Terminal Settings #>
 Set-PSReadlineOption @private:ReadlineConfig
