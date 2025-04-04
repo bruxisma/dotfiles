@@ -6,8 +6,8 @@ if vim.tbl_isempty(vim.fs.find(".git", { path = lazypath, type = "directory" }))
     "git",
     "clone",
     "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim",
     "--branch=stable",
+    "https://github.com/folke/lazy.nvim",
     lazypath,
   }
 end

@@ -5,19 +5,16 @@ using namespace System.IO
 <# Bootstrap #>
 [Console]::OutputEncoding = [Encoding]::UTF8
 
-function script:Import-Completions {
+function script:Test-Executable {
   [CmdletBinding()]
   param(
-    [Parameter(Position=0, Mandatory=$true)]
+    [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
-    [String]$Command,
-    [Parameter(Position=1, ValueFromRemainingArguments)]
-    [String[]]$Arguments)
+    [String]$Command)
 
-  if (-not (Get-Command ${Command} -ErrorAction SilentlyContinue)) { return }
-  if (Test-Path -LiteralPath $(Get-Command ${Command}).Source) {
-    & ${Command} ${Arguments} | Out-String | Invoke-Expression
-  }
+  $Application = Get-Command -Name ${Command} -Type Application -ErrorAction SilentlyContinue
+  if (-not ${Application}) { return $false }
+  Test-Path -LiteralPath ${Application}.Source -PathType Leaf
 }
 
 function script:Import-Source {
@@ -46,13 +43,14 @@ Set-Variable -Scope Private -Name ReadlineConfig -Value (Import-PowerShellDataFi
 Set-Variable -Scope Private -Name Separator -Value ([Path]::PathSeparator)
 Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH} -split ${private:Separator})))
 
-Import-Completions gh completion --shell powershell
-Import-Completions just --completions powershell
+if (Test-Executable gh) { gh completion --shell powershell | Out-String | Invoke-Expression }
+if (Test-Executable just) { just --completions powershell | Out-String | Invoke-Expression }
 
-Import-Completions rustup completions powershell
-Import-Completions hugo completion powershell
-Import-Completions op completion powershell
-Import-Completions task --completion powershell
+if (Test-Executable rustup) { rustup completions powershell | Out-String | Invoke-Expression }
+if (Test-Executable rclone) { rclone completion powershell | Out-String | Invoke-Expression }
+if (Test-Executable task) { task --completion powershell | Out-String | Invoke-Expression }
+if (Test-Executable hugo) { hugo completion powershell | Out-String | Invoke-Expression }
+if (Test-Executable op) { op completion powershell | Out-String | Invoke-Expression }
 
 # Custom Completions
 Import-Source $(Join-Path $PSScriptRoot completion.ps1)

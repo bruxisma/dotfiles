@@ -27,9 +27,9 @@ alias("blame", "lua", "package.loaded.gitsigns.blame_line { full = true }")
 
 alias("debug", "lua", "package.loaded.dapui.toggle()")
 
+alias("rename", "lua", "vim.lsp.buf.rename()")
 alias("act", "lua", "vim.lsp.buf.code_action()")
 alias("fmt", "lua", "vim.lsp.buf.format()")
-alias("rename", "lua vim.lsp.buf.rename()")
 
 alias("files", "Telescope file_browser")
 alias("ls", "Telescope buffers")
