@@ -1,0 +1,14 @@
+{
+  "#pragma once": {
+    "prefix": ["once"],
+    "body": ["#pragma once", "${0}"]
+  },
+  "#include": {
+    "prefix": ["inc", "include"],
+    "body": ["#include <${1}>", "${0}"]
+  },
+  "struct": {
+    "prefix": ["struct"],
+    "body": ["struct ${1:name} {", "  ${0}", "};"]
+  },
+}

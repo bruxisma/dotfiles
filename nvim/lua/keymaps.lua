@@ -8,6 +8,12 @@ local function popup(popupKey, insertKey)
   end
 end
 
+local function snippet(filter)
+  return function()
+    vim.snippet.active(filter)
+  end
+end
+
 vim.keymap.set({ insert, visual }, "<C-c>", "<Esc>", {
   desc = "Cancel insert mode",
   noremap = true,

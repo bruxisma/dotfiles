@@ -1,0 +1,42 @@
+{
+  "function": {
+    "prefix": ["func", "function"],
+    "body": ["function (${1:name})", "  ${0}", "endfunction"]
+  },
+  "macro": {
+    "prefix": ["macro"],
+    "body": ["macro (${1:name})", "  ${0}", "endmacro"],
+  },
+  "if": {
+    "prefix": ["if"],
+    "body": ["if (${1:name})", "  ${0}", "endif"],
+  },
+  "foreach": {
+    "prefix": ["foreach"],
+    "body": ["foreach (${1:item} IN LISTS ${1:list})", "  ${0}", "endforeach"],
+  },
+  "while": {
+    "prefix": ["while"],
+    "body": ["while (${1:name})", "  ${0}", "endwhile"],
+  },
+  "block": {
+    "prefix": ["block"],
+    "body": ["block (SCOPE_FOR ${1:VARIABLES})", "  ${0}", "endblock"],
+  },
+  "include_guard(GLOBAL)": {
+    "prefix": ["once"],
+    "body": ["include_guard(GLOBAL)", "$0"]
+  },
+  "include()": {
+    "prefix": ["inc", "include"],
+    "body": ["include(${1:default})", "${0}"]
+  },
+  "cmake_minimum_required(VERSION)": {
+    "prefix": ["version", "required"],
+    "body": ["cmake_minimum_required(VERSION ${1})", "${0}"]
+  },
+  "message()": {
+    "prefix": ["print"],
+    "body": ["message(${1|STATUS,VERBOSE,NOTICE,DEBUG,TRACE} \"${2}\")${0}"]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "nameless namespace": {
+    "prefix": ["nns"],
+    "body": ["namespace {", "${0}", "} /* nameless namespace */"]
+  },
+  "namespace": {
+    "prefix": ["ns"],
+    "body": ["namespace ${1:name} {", "${0}", "}"]
+  }
+}

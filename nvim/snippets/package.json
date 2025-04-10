@@ -1,0 +1,10 @@
+{
+  "name": "personal",
+  "contributes": {
+    "snippets": [
+      { "language": "cmake", "path": "./cmake.json" },
+      { "language": ["c", "cpp"], "path": "./c.json" }
+      { "language": "cpp", "path": "./cpp.json" },
+    ]
+  }
+}

@@ -12,7 +12,7 @@ function script:Test-Executable {
     [ValidateNotNullOrEmpty()]
     [String]$Command)
 
-  $Application = Get-Command -Name ${Command} -Type Application -ErrorAction SilentlyContinue
+  $Application = Get-Command -Name ${Command} -Type Application -ErrorAction SilentlyContinue -TotalCount 1
   if (-not ${Application}) { return $false }
   Test-Path -LiteralPath ${Application}.Source -PathType Leaf
 }

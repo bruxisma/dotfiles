@@ -19,6 +19,7 @@ end
 
 local machine = load("machine")
 
+-- TODO: move to blink.cmp for speed purposes
 local plugins = {
   {
     "ellisonleao/gruvbox.nvim",
@@ -71,28 +72,12 @@ local plugins = {
     },
     dependencies = { "nvim-web-devicons" },
   },
-
-  -- Language Server Protocol
-  {
-    "neovim/nvim-lspconfig",
-    config = require("lsp"),
-    ft = { "c", "cpp", "go", "python" },
-    dependencies = {
-      { "williamboman/mason-lspconfig.nvim", dependencies = "mason.nvim" },
-      "cmp-nvim-lsp",
-    },
-  },
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
     build = ":MasonUpdate",
     opts = {
-      ui = {
-        icons = {
-          package_uninstalled = "○",
-          package_installed = "●",
-        },
-      },
+      ui = { icons = { package_uninstalled = "○", package_installed = "●" } },
     },
   },
   {
@@ -229,8 +214,6 @@ local plugins = {
     ft = { "markdown" },
     config = true,
   },
-  -- { "p00f/clangd_extensions.nvim" }
-  -- { folke/which-key.nvim }
 }
 
 return vim.list_extend(plugins, machine)
