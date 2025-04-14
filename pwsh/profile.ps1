@@ -43,21 +43,8 @@ Set-Variable -Scope Private -Name ReadlineConfig -Value (Import-PowerShellDataFi
 Set-Variable -Scope Private -Name Separator -Value ([Path]::PathSeparator)
 Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH} -split ${private:Separator})))
 
-if (Test-Executable gh) { gh completion --shell powershell | Out-String | Invoke-Expression }
-if (Test-Executable just) { just --completions powershell | Out-String | Invoke-Expression }
-
-if (Test-Executable rustup) { rustup completions powershell | Out-String | Invoke-Expression }
-if (Test-Executable rclone) { rclone completion powershell | Out-String | Invoke-Expression }
-if (Test-Executable task) { task --completion powershell | Out-String | Invoke-Expression }
-if (Test-Executable hugo) { hugo completion powershell | Out-String | Invoke-Expression }
-if (Test-Executable op) { op completion powershell | Out-String | Invoke-Expression }
-
 # Custom Completions
 Import-Source $(Join-Path $PSScriptRoot completion.ps1)
-
-if (${pack} = Get-Command -Name "pack" -CommandType Application -ErrorAction SilentlyContinue) {
-  Import-Source $(& ${pack} completion --shell powershell)
-}
 
 <# Aliases #>
 if (!$IsWIndows -and (Get-Command -Name "eza" -CommandType Application -ErrorAction SilentlyContinue)) {
@@ -111,9 +98,6 @@ Set-Item -Path Env:PATH -Value $(${private:Paths} -join ${private:Separator})
 # Set permanent env:PATH on Linux with
 # Out-File -FilePath /etc/environment -Append "${name}=${value}"
 
-Set-Item -Path Env:AWS_SHARED_CREDENTIALS -Value $(Join-Path "${env:XDG_CONFIG_HOME}" aws credentials)
-Set-Item -Path Env:AWS_CONFIG_FILE -Value $(Join-Path "${env:XDG_CONFIG_HOME}" aws config)
-
 Set-Item -Path Env:NUGET_PLUGINS_CACHE_PATH -Value $(Join-Path ${env:XDG_CACHE_HOME} nuget plugins-cache)
 Set-Item -Path Env:NUGET_HTTP_CACHE_PATH -Value $(Join-Path ${env:XDG_CACHE_HOME} nuget v3-cache)
 Set-Item -Path Env:NUGET_PACKAGES -Value $(Join-Path ${env:XDG_DATA_HOME} nuget packages)
@@ -125,9 +109,7 @@ Set-Item -Path Env:GOBIN -Value $(Join-Path ${HOME} .local bin)
 Set-Item -Path Env:NPM_CONFIG_USERCONFIG -Value $(Join-Path ${env:XDG_CONFIG_HOME} npm config)
 Set-Item -Path Env:DOCKER_CONFIG -Value $(Join-Path ${env:XDG_CONFIG_HOME} docker)
 
-Set-Item -Path Env:PULUMI_HOME -Value $(Join-Path ${env:XDG_DATA_HOME} pulumi)
 Set-Item -Path Env:PACK_HOME -Value $(Join-Path ${env:XDG_CONFIG_HOME} pack)
-Set-Item -Path Env:GNUPGHOME -Value $(Join-Path ${env:XDG_DATA_HOME} gnupg)
 
 <# General Values #>
 Set-Item -Path Env:CMAKE_GENERATOR -Value "Ninja Multi-Config"
@@ -136,12 +118,6 @@ Set-Item -Path Env:DOCKER_BUILDKIT -Value 1
 Set-Item -Path Env:DOTNET_NOLOGO -Value "true"
 Set-Item -Path Env:FZF_DEFAULT_COMMAND -Value "fd --type f"
 Set-Item -Path Env:LESSCHARSET -Value "utf-8"
-Set-Item -Path Env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL -Value "sparse"
-
-<# Platform Specific Settings #>
-if ($IsWindows) {
-  Start-Service ssh-agent
-}
 
 <# Terminal Settings #>
 Set-PSReadlineOption @private:ReadlineConfig
@@ -176,4 +152,23 @@ function Clear-History {
     [Microsoft.PowerShell.PSReadline]::ClearHistory()
   }
   Clear-Host
+}
+
+Import-ProfileAsync {
+  <# Platform Specific Settings #>
+  if ($IsWindows) {
+    Start-Service ssh-agent
+  }
+
+  if (Test-Executable gh) { gh completion --shell powershell | Out-String | Invoke-Expression }
+  if (Test-Executable just) { just --completions powershell | Out-String | Invoke-Expression }
+
+  if (Test-Executable rustup) { rustup completions powershell | Out-String | Invoke-Expression }
+  if (Test-Executable rclone) { rclone completion powershell | Out-String | Invoke-Expression }
+  if (Test-Executable task) { task --completion powershell | Out-String | Invoke-Expression }
+  if (Test-Executable hugo) { hugo completion powershell | Out-String | Invoke-Expression }
+  if (Test-Executable op) { op completion powershell | Out-String | Invoke-Expression }
+
+  # pack does it very differently
+  if (Test-Executable pack) { . $(pack completion --shell powershell) }
 }
