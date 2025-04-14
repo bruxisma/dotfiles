@@ -7,11 +7,4 @@
 .netrwhist
 tags
 
-/pwsh/Modules/*
-!pwsh/Modules
-!pwsh/Modules/Bruxisma.*
-
-/pwsh/Scripts/
-/pwsh/Help
 /gh/hosts.yml
-
