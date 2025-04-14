@@ -27,11 +27,9 @@ local plugins = {
     name = "gruvbox",
     opts = { contrast = "hard", invert_selection = true },
   },
-  {
-    "stevearc/dressing.nvim",
-    opts = {},
-  },
+  { "stevearc/dressing.nvim", opts = {} },
   { "bruxisma/gitmoji.vim", ft = { "gitcommit" } },
+  { "shortcuts/no-neck-pain.nvim", cmd = "NoNeckPain" },
   {
     "rcarriga/nvim-notify",
     name = "notify",
