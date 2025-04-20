@@ -6,6 +6,7 @@ function filetype(filetype, pattern)
 end
 
 filetype("sshconfig", { "*/.local/share/ssh/*.conf", "*/.config/ssh/*.conf" })
+filetype("yaml", { "*.winget" })
 filetype("hcl", { "*.tf", "*.tofu" })
 filetype("xml", { "*.wxs" })
 filetype("help", {

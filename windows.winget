@@ -1,0 +1,311 @@
+# This is a winget dsc specific file, and does *not* work with dsc 3.0 by
+# itself. At some point, it should be moved over to a full DSC file to
+# configure all my machines.
+$schema: https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    - resource: PSDscResource/WindowsOptionalFeature
+      directives:
+        description: Enable Hyper-V
+      settings:
+        Name: Microsoft-Hyper-V-All
+        Ensure: Present
+    - resource: PSDscResource/WindowsOptionalFeature
+      directives:
+        description: Enable Containers
+      settings:
+        Name: Containers
+        Ensure: Present
+    - resource: PSDscResource/WindowsOptionalFeature
+      directives:
+        description: Enable Containers-DisposableClientVM
+      settings:
+        Name: Containers-DisposableClientVM
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Microsoft.PowerToys
+      settings:
+        id: Microsoft.PowerToys
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Microsoft.PowerShell
+      settings:
+        id: Microsoft.PowerShell
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: AgileBits.1Password.CLI
+      directives:
+        description: 1Password CLI
+      settings:
+        id: AgileBits.1Password.CLI
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Anchore.Syft
+      directives:
+        description: >-
+          Anchore Syft - CLI tool and library for generating a Software Bill of
+          Materials from container images and filesystems
+      settings:
+        id: Anchore.Syft
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: CCache.CCache
+      directives:
+        description: ccache - a fast C/C++ compiler cache
+      settings:
+        id: Ccache.Ccache
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Doist.Todoist
+      directives:
+        description: Todoist - A ToDo List to Organize Your Work & Life
+      settings:
+        id: Doist.Todoist
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Google.Protobuf
+      directives:
+        description: >-
+          Protocol Buffers - language-neutral, platform-neutral extensible
+          mechanisms for serializing structured data
+      settings:
+        id: Google.Protobuf
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Gyan.FFmpeg
+      directives:
+        description: >-
+          FFmpeg - a collection of libraries and tools to process multimedia
+          content such as audio, video, subtitles and related metadata.
+      settings:
+        id: Gyan.FFmpeg
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Helm.Helm
+      directives:
+        description: >-
+          Helm - The package manager for Kubernetes
+      settings:
+        id: Helm.Helm
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Hugo.Hugo
+      directives:
+        description: >-
+          Hugo - The world’s fastest framework for building websites
+      settings:
+        id: Hugo.Hugo.Extended
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Microsoft.Sysinternals.ProcessMonitor
+      directives:
+        description: >-
+          procmon - an advanced monitoring tool for Windows that shows
+          real-time file system, Registry and process/thread activity.
+      settings:
+        id: Microsoft.Sysinternals.ProcessMonitor
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: MikeFarah.yq
+      directives:
+        description: >-
+          yq - a portable command-line YAML, JSON, XML, CSV, TOML and
+          properties processor
+      settings:
+        id: MikeFarah.yq
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: MrKaran.Doggo
+      directives:
+        description: >-
+          doggo - Command-line DNS Client for Humans
+      settings:
+        id: MrKaran.Doggo
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Ninja-build.Ninja
+      directives:
+        description: >-
+           ninja - a small build system with a focus on speed
+      settings:
+        id: Ninja-build.Ninja
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: ORASProject.ORAS
+      directives:
+        description: >-
+          oras - distribute artifacts across OCI registries with ease
+      settings:
+        id: ORASProject.ORAS
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: OpenTofu.Tofu
+      directives:
+        description: >-
+          tofu - The open source infrastructure as code tool
+      settings:
+        id: OpenTofu.Tofu
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Rclone.Rclone
+      directives:
+        description: >
+          rclone - syncs your files to cloud storage
+      settings:
+        id: Rclone.Rclone
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: SQLite.SQLite
+      directives:
+        description: >-
+          sqlite - a small, fast, self-contained, high-reliability, full-featured, SQL database engine
+      settings:
+        id: SQLite.SQLite
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Sidero.talosctl
+      directives:
+        description: >-
+          talosctl - CLI for interacting with Talos, The Kubernetes Operating System
+      settings:
+        id: Sidero.talosctl
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Sigstore.Cosign
+      directives:
+        description: >-
+          cosign - Code signing and transparency for containers and binaries
+      settings:
+        id: Sigstore.Cosign
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Task.Task
+      directives:
+        description: >-
+          Task - a task runner / build tool that aims to be simpler and easier
+          to use
+      settings:
+        id: Task.Task
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Twitch.TwitchCLI
+      directives:
+        description: >-
+          twitch - a command-line interface for managing Twitch resources
+      settings:
+        id: Twitch.TwitchCLI
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: UPX.UPX
+      directives:
+        description: >-
+          upx - the Ultimate Packer for eXecutables
+      settings:
+        id: UPX.UPX
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: astral-sh.uv
+      directives:
+        description: >-
+          uv - An extremely fast Python package and project manager, written in
+          Rust.
+      settings:
+        id: astral-sh.uv
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: buildpacks.pack
+      directives:
+        description: >-
+          pack - CLI tool for building Cloud Native Buildpacks
+      settings:
+        id: buildpacks.pack
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: errata-ai.Vale
+      directives:
+        description: >
+          vale - A markup-aware linter for prose built with speed and
+          extensibility in mind.
+      settings:
+        id: errata-ai.Vale
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: goreleaser.goreleaser
+      directives:
+        description: >-
+          goreleaser - Release engineering, simplified
+      settings:
+        id: goreleaser.goreleaser
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: goreleaser.nfpm
+      directives:
+        description: >-
+          nfpm - a zero dependencies, simple deb, rpm, apk, ipk, and arch linux
+          packager written in Go.
+      settings:
+        id: goreleaser.nfpm
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: jftuga.less
+      directives:
+        description: >-
+          less - a terminal pager program
+      settings:
+        id: jftuga.less
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: jqlang.jq
+      directives:
+        description: jq - a lightweight and flexible command-line JSON processor.
+      settings:
+        id: jqlang.jq
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: wagoodman.dive
+      directives:
+        description: dive - A tool for exploring each layer in a docker image
+      settings:
+        id: wagoodman.dive
+        source: winget
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: yt-dlp.yt-dlp
+      directives:
+        description: yt-dlp - A feature-rich command-line audio/video downloader
+      settings:
+        id: yt-dlp.yt-dlp
+        source: winget
+        Ensure: Present
+    - resource: PowerToysConfigure
