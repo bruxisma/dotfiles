@@ -20,6 +20,9 @@ function Install-SerumPack {
   }
 
   process {
+    if (!(Split-Path -Path $Path -IsAbsolute)) {
+      $Path = Join-Path ${PWD} $Path
+    }
     if (!(Test-Path -LiteralPath $Path -PathType Container)) {
       Write-Error -Message "'${Path}' is not a directory or does not exist" -Category InvalidArgument
       return
@@ -30,7 +33,7 @@ function Install-SerumPack {
     }
 
     if ($StripRedundant) {
-      $Name = $Name.Replace("Presets", "").Replace("Preset", "").Replace("Serum", "")
+      $Name = $Name -replace "(?:Serum|Presets?)",""
     }
 
     $Destination = Join-Path $Presets $Name
