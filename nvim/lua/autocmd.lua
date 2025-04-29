@@ -7,7 +7,7 @@ end
 
 filetype("sshconfig", { "*/.local/share/ssh/*.conf", "*/.config/ssh/*.conf" })
 filetype("yaml", { "*.winget" })
-filetype("xml", { "*.wxs", "*.wsb", "*.props", "*.targets" })
+filetype("xml", { "*.xmp", "*.wxs", "*.wsb", "*.props", "*.targets" })
 filetype("hcl", { "*.tf", "*.tofu" })
 filetype("help", {
   vim.fs.normalize(vim.fs.joinpath(vim.env.VIMRUNTIME, "doc", "*.txt")),
