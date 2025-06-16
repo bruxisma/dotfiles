@@ -8,6 +8,7 @@ require("lazy").setup("plugins")
 vim.cmd.colorscheme("gruvbox")
 
 vim.diagnostic.config({virtual_lines = { current_line = true }})
+vim.lsp.enable({ "sourcekit" })
 
 -- Lets us create custom lowercase user commands to overwrite builtins like 'ls' for actual useful features.
 local function alias(name, ...)
