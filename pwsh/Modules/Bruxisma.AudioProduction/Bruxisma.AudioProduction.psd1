@@ -7,7 +7,9 @@
   PowerShellVersion = '7.5'
   CompatiblePSEditions = @('Core')
   RootModule = "Bruxisma.AudioProduction"
-  FunctionsToExport = @('Install-SerumPack')
+  FunctionsToExport = @(
+    'Install-SerumPack'
+  )
   CmdletsToExport = @()
   VariablesToExport = '*'
   AliasesToExport = @()

@@ -79,6 +79,18 @@
                 "source": "Windows.Terminal.PowershellCore"
             },
             {
+                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+                "hidden": false,
+                "name": "Git Bash",
+                "source": "Bruxisma"
+            },
+            {
+                "guid": "{41a953d6-85cf-5836-84c7-d765c73d91b8}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL"
+            },
+            {
                 "guid": "{0b308980-87f3-5b4b-b341-c1f271633418}",
                 "hidden": true,
                 "name": "Developer PowerShell for VS 2022",
@@ -89,12 +101,6 @@
                 "hidden": true,
                 "name": "Podman Machine",
                 "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "guid": "{d8e96812-b789-5068-a5ae-10b2fb53e95f}",
-                "hidden": false,
-                "name": "Ubuntu 24.04.1 LTS",
-                "source": "CanonicalGroupLimited.Ubuntu24.04LTS_79rhkp1fndgsc"
             }
         ]
     },

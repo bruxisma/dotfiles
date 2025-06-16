@@ -10,22 +10,12 @@ function script:Test-Executable {
   param(
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
-    [String]$Command)
+    [String]$Command
+  )
 
   $Application = Get-Command -Name ${Command} -Type Application -ErrorAction SilentlyContinue -TotalCount 1
   if (-not ${Application}) { return $false }
   Test-Path -LiteralPath ${Application}.Source -PathType Leaf
-}
-
-function script:Import-Source {
-  [CmdletBinding(SupportsShouldProcess)]
-  param(
-    [Parameter(Position=0, Mandatory=$true)]
-    [ValidateNotNullOrEmpty()]
-    [String]$Path)
-  if ($PSCmdlet.ShouldProcess(${Path})) {
-    . ${Path}
-  }
 }
 
 # Explicitly set XDG fallback values
@@ -44,10 +34,10 @@ Set-Variable -Scope Private -Name Separator -Value ([Path]::PathSeparator)
 Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH} -split ${private:Separator})))
 
 # Custom Completions
-Import-Source $(Join-Path $PSScriptRoot completion.ps1)
+Import-Module $(Join-Path $PSScriptRoot completion.ps1) -Force -Global
 
 <# Aliases #>
-if (!$IsWIndows -and (Get-Command -Name "eza" -CommandType Application -ErrorAction SilentlyContinue)) {
+if (!$IsWIndows && Get-Command -Name "eza" -CommandType Application -ErrorAction SilentlyContinue -TotalCount 1) {
   Set-Alias ls eza
 }
 
@@ -56,16 +46,10 @@ if ($IsWindows) {
   Set-Alias open Start-Process
 }
 
-Set-Alias reload Update-Profile
 Set-Alias which Get-Command
 Set-Alias edit Edit-File
-Set-Alias info Get-Help
 
 <# Environment Variables #>
-if (${nvim} = Get-Command -Name "nvim" -CommandType Application -ErrorAction SilentlyContinue -TotalCount 1) {
-  Set-Item -Path Env:EDITOR -Value ${nvim}.Source
-}
-
 ${private:Paths} += @(
   Join-Path ${HOME} .local bin
   Join-Path ${HOME} .cargo bin
@@ -75,9 +59,6 @@ if ($IsWindows) {
   ${private:Paths} += @(
     Join-Path C: MinGW bin
     Join-Path ${env:LOCALAPPDATA} Microsoft WindowsApps
-    Join-Path ${env:ProgramFiles(x86)} "GitHub CLI"
-    Join-Path ${env:ProgramFiles} Yubico "Yubikey Manager"
-    Split-Path -Parent ${env:EDITOR}
   )
 }
 
@@ -86,6 +67,10 @@ if ($IsMacOS) {
 }
 
 Set-Item -Path Env:PATH -Value $(${private:Paths} -join ${private:Separator})
+
+if (${nvim} = Get-Command -Name "nvim" -CommandType Application -ErrorAction SilentlyContinue -TotalCount 1) {
+  Set-Item -Path Env:EDITOR -Value ${nvim}.Source
+}
 
 <# XDG Tooling Fixes #>
 # Run once to set env var for user on Windows. Sets it globally, so we don't
@@ -111,6 +96,8 @@ Set-Item -Path Env:DOCKER_CONFIG -Value $(Join-Path ${env:XDG_CONFIG_HOME} docke
 
 Set-Item -Path Env:PACK_HOME -Value $(Join-Path ${env:XDG_CONFIG_HOME} pack)
 
+Set-Item -Path Env:CCACHE_DIR -Value $(Join-Path ${env:XDG_CACHE_HOME} "ccache")
+
 <# General Values #>
 Set-Item -Path Env:CMAKE_GENERATOR -Value "Ninja Multi-Config"
 Set-Item -PATH Env:NINJA_STATUS -Value "%e [%f/%t] "
@@ -128,15 +115,6 @@ Set-PSReadlineKeyHandler -Chord Ctrl+e -Function EndOfLine
 
 if ((Get-Command oh-my-posh) -and (Test-Path -LiteralPath "${script:OhMyPoshConfig}")) {
   oh-my-posh init pwsh --config "${script:OhMyPoshConfig}" | Invoke-Expression
-} else {
-  function Prompt {
-    $machine = [Environment]::MachineName.ToLower()
-    $user = [Environment]::UserName.ToLower()
-    $GREEN = "`e[1;32m"
-    $CYAN = "`e[1;36m"
-    $RESET = "`e[0m"
-    "${GREEN}[${user}@${machine}]${RESET}:${CYAN}$(Get-Location | Convert-Path)${RESET}$ "
-  }
 }
 
 <# Truly clears History from *everything* #>

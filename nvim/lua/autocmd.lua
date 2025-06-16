@@ -7,8 +7,9 @@ end
 
 filetype("sshconfig", { "*/.local/share/ssh/*.conf", "*/.config/ssh/*.conf" })
 filetype("yaml", { "*.winget" })
+filetype("json", { "*.vitaltheme", "*.vitalskin" })
 filetype("xml", { "*.xmp", "*.wxs", "*.wsb", "*.props", "*.targets" })
-filetype("hcl", { "*.tf", "*.tofu" })
+filetype("hcl", { "*.tf", "*.tofu", "*.tfbackend", "*.tfvars" })
 filetype("help", {
   vim.fs.normalize(vim.fs.joinpath(vim.env.VIMRUNTIME, "doc", "*.txt")),
   vim.fs.normalize(vim.fs.joinpath(vim.fn.stdpath("data"), "lazy", "*", "doc", "*.txt")),

@@ -22,7 +22,7 @@ function Update-LocalProfile {
   $scriptRoot = Split-Path $PROFILE.CurrentUserAllHosts -Parent
 
   if ($PSCmdlet.ShouldProcess("${scriptRoot}/machine.ps1")) {
-    . ${scriptRoot}/machine.ps1
+    Import-Module $(Join-Path ${scriptRoot} machine.ps1) -Force -Global
   }
 }
 
@@ -30,7 +30,7 @@ function Update-Profile {
   [CmdletBinding(SupportsShouldProcess)]
   param()
   if ($PSCmdlet.ShouldProcess($PROFILE.CurrentUserAllHosts)) {
-    . $PROFILE.CurrentUserAllHosts
+    Import-Module $PROFILE.CurrentUserAllHosts -Force -Global
   }
 }
 
