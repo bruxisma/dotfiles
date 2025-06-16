@@ -71,7 +71,7 @@ local plugins = {
     dependencies = { "nvim-web-devicons" },
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = "Mason",
     build = ":MasonUpdate",
     opts = {
