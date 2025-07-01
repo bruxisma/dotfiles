@@ -53,6 +53,8 @@
   syntax-theme = OneHalfDark
   line-numbers = true
   side-by-side = true
+[rerere]
+  enabled = true
 [include]
   path = machine
 [filter "lfs"]
@@ -60,5 +62,9 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
-[rerere]
-  enabled = true
+[filter "ableton"]
+  smudge = zstd - --stdout --decompress --force
+  clean = zstd - --stdout --format=gzip --force
+  required = true
+[diff "ableton"]
+  textconv = zstd --decompress --stdout

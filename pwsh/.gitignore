@@ -1,8 +1,7 @@
+/Microsoft.PowerShell_profile.ps1
 /Modules/*
 !Modules
 !Modules/Bruxisma.*
 
 /Scripts/
 /Help/
-
-/backup.env

@@ -15,6 +15,8 @@
     "Edit-LocalProfile"
     "Edit-Profile"
     "Edit-File"
+    "Test-Executable"
+    "Clear-History"
   )
   CmdletsToExport = @()
   VariablesToExport = @()

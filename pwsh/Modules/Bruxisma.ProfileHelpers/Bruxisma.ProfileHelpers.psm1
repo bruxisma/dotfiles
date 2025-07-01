@@ -12,25 +12,22 @@ function Update-File {
       New-Item -ItemType File -Path $_
     }
   }
-
 }
 
 function Update-LocalProfile {
   [CmdletBinding(SupportsShouldProcess)]
   param()
 
-  $scriptRoot = Split-Path $PROFILE.CurrentUserAllHosts -Parent
-
   if ($PSCmdlet.ShouldProcess("${scriptRoot}/machine.ps1")) {
-    Import-Module $(Join-Path ${scriptRoot} machine.ps1) -Force -Global
+    Import-Module ${PROFILE} -Force -Global
   }
 }
 
 function Update-Profile {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  if ($PSCmdlet.ShouldProcess($PROFILE.CurrentUserAllHosts)) {
-    Import-Module $PROFILE.CurrentUserAllHosts -Force -Global
+  if (${PSCmdlet}.ShouldProcess(${PROFILE}.CurrentUserAllHosts)) {
+    Import-Module ${PROFILE}.CurrentUserAllHosts -Force -Global
   }
 }
 
@@ -51,9 +48,37 @@ function Edit-File {
 }
 
 function Edit-LocalProfile {
-  Edit-File $(Join-Path $(Split-Path $PROFILE.CurrentUserAllHosts -Parent) machine.ps1)
+  Edit-File ${PROFILE}.CurrentUserCurrentHost
 }
 
 function Edit-Profile {
   Edit-File $PROFILE.CurrentUserAllHosts
+}
+
+function Test-Executable {
+  [CmdletBinding()]
+  param(
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [String]$Command
+  )
+
+  $Application = Get-Command -Name ${Command} -Type Application -ErrorAction SilentlyContinue -TotalCount 1
+  if (-not ${Application}) { return $null }
+  if (-not (Test-Path -LiteralPath ${Application}.Source -PathType Leaf)) { return $null }
+  return ${Application}
+}
+
+function Clear-History {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
+  $history = $(Get-PSReadlineOption).HistorySavePath
+
+  if ($PSCmdlet.ShouldProcess("${history}", "Remove-Item")) {
+    Remove-Item -Path "${history}"
+  }
+  if ($PSCmdlet.ShouldProcess("PSReadline::ClearHistory", "Clear-History")) {
+    [Microsoft.PowerShell.PSReadline]::ClearHistory()
+  }
+  Clear-Host
 }

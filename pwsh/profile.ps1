@@ -3,20 +3,13 @@ using namespace System.Text
 using namespace System.IO
 
 <# Bootstrap #>
+Set-Variable -Scope Private -Option ReadOnly -Force -Name Separator -Value ([Path]::PathSeparator)
+Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH} -split ${private:Separator})))
+
 [Console]::OutputEncoding = [Encoding]::UTF8
 
-function script:Test-Executable {
-  [CmdletBinding()]
-  param(
-    [Parameter(Mandatory=$true)]
-    [ValidateNotNullOrEmpty()]
-    [String]$Command
-  )
-
-  $Application = Get-Command -Name ${Command} -Type Application -ErrorAction SilentlyContinue -TotalCount 1
-  if (-not ${Application}) { return $false }
-  Test-Path -LiteralPath ${Application}.Source -PathType Leaf
-}
+Import-Module Bruxisma.ProfileHelpers
+Import-Module $(Join-Path $PSScriptRoot completion.ps1) -Force -Global # Custom Completions
 
 # Explicitly set XDG fallback values
 ${env:XDG_CONFIG_HOME} ??= $(Join-Path ${HOME} ".config")
@@ -24,20 +17,26 @@ ${env:XDG_CACHE_HOME} ??= $(Join-Path ${HOME} ".cache")
 ${env:XDG_STATE_HOME} ??= $(Join-Path ${HOME} ".local" "share" "state")
 ${env:XDG_DATA_HOME} ??= $(Join-Path ${HOME} ".local" "share")
 
-# Import local profile *first*
-Import-Module $(Join-Path $PSScriptRoot machine.ps1) -Force -Global
-
 <# Script Local Variables #>
 Set-Variable -Scope Script -Name OhMyPoshConfig -Value (Join-Path ${env:XDG_CONFIG_HOME} oh-my-posh config.yml)
-Set-Variable -Scope Private -Name ReadlineConfig -Value (Import-PowerShellDataFile "${PSScriptRoot}/readline.psd1")
-Set-Variable -Scope Private -Name Separator -Value ([Path]::PathSeparator)
-Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH} -split ${private:Separator})))
-
-# Custom Completions
-Import-Module $(Join-Path $PSScriptRoot completion.ps1) -Force -Global
+Set-Variable -Scope Script -Option ReadOnly -Force -Name ReadlineConfig -Value @{
+  HistoryNoDuplicates = $true
+  EditMode = "Windows"
+  BellStyle = "None"
+  PredictionSource = "HistoryAndPlugin"
+  PredictionViewStyle = "InlineView"
+  PromptText = "$ "
+  Colors = @{
+    ContinuationPrompt = "White"
+    Default = "White"
+    Parameter = "DarkMagenta"
+    Operator = "Magenta"
+    Type = "Blue"
+  }
+}
 
 <# Aliases #>
-if (!$IsWIndows && Get-Command -Name "eza" -CommandType Application -ErrorAction SilentlyContinue -TotalCount 1) {
+if (!$IsWindows -and (Test-Executable eza)) {
   Set-Alias ls eza
 }
 
@@ -48,6 +47,32 @@ if ($IsWindows) {
 
 Set-Alias which Get-Command
 Set-Alias edit Edit-File
+
+<# Common Environment Variables #>
+
+# TODO: Set these as global environment variables *forever*
+# For Windows this is done by writing to `HKCU:Environment`
+#  Maybe a job for DSC 3.0?
+# For macOS this is done via `launctl setenv` but it has to be run on login
+#  (different commands for system Path)
+#  This should be done via a LaunchAgent.plist file
+#  Could also be a DSC resource in the future?
+# For Linux: Kind of up in the air due to systemd, pam.d, and dogshit
+# documentation. There is a solution here I'm sure.
+# Some notes from the Arch Linux wiki:
+# https://wiki.archlinux.org/title/Environment_variables#Per_Xorg_session
+
+<# Windows Environment Variables #>
+if (${IsWindows}) {
+  Set-Item -Path Env:NUGET_PACKAGES -Value (Join-Path ${env:LOCALAPPDATA} NuGet packages)
+}
+
+<# Linux Environment Variables #>
+if (${IsLinux}) {
+  Set-Item -Path Env:NUGET_PLUGINS_CACHE_PATH -Value (Join-Path ${HOME} .cache NuGet plugin-cache)
+  Set-Item -Path Env:NUGET_HTTP_CACHE_PATH -Value (Join-Path ${HOME} .cache NuGet v3-cache)
+  Set-Item -Path Env:NUGET_PACKAGES -Value (Join-Path ${HOME} .local share NuGet packages)
+}
 
 <# Environment Variables #>
 ${private:Paths} += @(
@@ -67,25 +92,7 @@ if ($IsMacOS) {
 }
 
 Set-Item -Path Env:PATH -Value $(${private:Paths} -join ${private:Separator})
-
-if (${nvim} = Get-Command -Name "nvim" -CommandType Application -ErrorAction SilentlyContinue -TotalCount 1) {
-  Set-Item -Path Env:EDITOR -Value ${nvim}.Source
-}
-
-<# XDG Tooling Fixes #>
-# Run once to set env var for user on Windows. Sets it globally, so we don't
-# have to worry about jack shit.
-# Set-ItemProperty -Path HKCU:Environment -Name <name> -Value <value>
-#
-# Set permanent env:PATH on macOS with
-# Out-File -FilePath /etc/paths.d/<name> <value>
-#
-# Set permanent env:PATH on Linux with
-# Out-File -FilePath /etc/environment -Append "${name}=${value}"
-
-Set-Item -Path Env:NUGET_PLUGINS_CACHE_PATH -Value $(Join-Path ${env:XDG_CACHE_HOME} nuget plugins-cache)
-Set-Item -Path Env:NUGET_HTTP_CACHE_PATH -Value $(Join-Path ${env:XDG_CACHE_HOME} nuget v3-cache)
-Set-Item -Path Env:NUGET_PACKAGES -Value $(Join-Path ${env:XDG_DATA_HOME} nuget packages)
+Set-Item -Path Env:EDITOR -Value (Test-Executable "nvim").Source
 
 Set-Item -Path Env:GOAMD64 -Value "v3"
 Set-Item -Path Env:GOPATH -Value $(Join-Path ${HOME} .local share go)
@@ -98,6 +105,11 @@ Set-Item -Path Env:PACK_HOME -Value $(Join-Path ${env:XDG_CONFIG_HOME} pack)
 
 Set-Item -Path Env:CCACHE_DIR -Value $(Join-Path ${env:XDG_CACHE_HOME} "ccache")
 
+if (${IsWindows}) {
+  Set-Item -Path Env:CARGO_INSTALL_ROOT -Value (Join-Path ${env:LOCALAPPDATA} Programs cargo)
+  Set-Item -Path Env:GOBIN -Value (Join-Path ${env:LOCALAPPDATA} Programs go)
+}
+
 <# General Values #>
 Set-Item -Path Env:CMAKE_GENERATOR -Value "Ninja Multi-Config"
 Set-Item -PATH Env:NINJA_STATUS -Value "%e [%f/%t] "
@@ -107,29 +119,14 @@ Set-Item -Path Env:FZF_DEFAULT_COMMAND -Value "fd --type f"
 Set-Item -Path Env:LESSCHARSET -Value "utf-8"
 
 <# Terminal Settings #>
-Set-PSReadlineOption @private:ReadlineConfig
-
 Set-PSReadlineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
 Set-PSReadlineKeyHandler -Chord Ctrl+a -Function BeginningOfLine
 Set-PSReadlineKeyHandler -Chord Ctrl+e -Function EndOfLine
 
-if ((Get-Command oh-my-posh) -and (Test-Path -LiteralPath "${script:OhMyPoshConfig}")) {
+Set-PSReadlineOption @ReadlineConfig
+
+if ((Test-Executable oh-my-posh) -and (Test-Path -LiteralPath "${script:OhMyPoshConfig}")) {
   oh-my-posh init pwsh --config "${script:OhMyPoshConfig}" | Invoke-Expression
-}
-
-<# Truly clears History from *everything* #>
-function Clear-History {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
-  $history = $(Get-PSReadlineOption).HistorySavePath
-
-  if ($PSCmdlet.ShouldProcess("${history}", "Remove-Item")) {
-    Remove-Item -Path "${history}"
-  }
-  if ($PSCmdlet.ShouldProcess("PSReadline::ClearHistory", "Clear-History")) {
-    [Microsoft.PowerShell.PSReadline]::ClearHistory()
-  }
-  Clear-Host
 }
 
 Import-ProfileAsync {

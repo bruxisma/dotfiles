@@ -27,6 +27,7 @@ windows = sys.platform == 'win32'
 posix = not windows
 
 CONFIG_HOME = Path(os.environ.get('XDG_CONFIG_HOME', '~/.config')).expanduser()
+DATA_HOME = Path(os.environ.get('XDG_DATA_HOME', '~/.local/share')).expanduser()
 APPDATA = Path(os.environ.get('APPDATA', '~/.config')).expanduser()
 
 WT_LOCALSTATE = Path('Packages', 'Microsoft.WindowsTerminal_8wekyb3d8bbwe', 'LocalState')
@@ -49,7 +50,7 @@ def symlink_to(src: str | Path, dst: str | Path):
 #-----------------------------------------------------------------------------
 def gitsetup ():
     '''sets local files for git usage'''
-    try: call(['git', 'update-index', '--skip-worktree', '--', 'pwsh/machine.ps1', 'git/machine', 'nvim/lua/machine.lua'])
+    try: call(['git', 'update-index', '--skip-worktree', '--', 'git/machine', 'nvim/lua/machine.lua'])
     except CalledProcessError as e: exit(str(e))
 
 def symsetup ():
@@ -67,6 +68,9 @@ def symsetup ():
     if sys.platform == 'win32':
         symlink_to("wt/settings.json", f'{os.environ["LOCALAPPDATA"]}/{WT_LOCALSTATE}/settings.json')
         symlink_to("wt/Fragments", f'{os.environ["LOCALAPPDATA"]}/{WT_FRAGMENTS}')
+
+    if sys.platform != 'win32':
+        symlink_to('pwsh/Modules', DATA_HOME.joinpath('powershell', 'Modules'))
 
 #-----------------------------------------------------------------------------
 # Entry Point
