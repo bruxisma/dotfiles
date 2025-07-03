@@ -1,1 +1,2 @@
 *.ico binary
+*.winget linguist-language=yaml
