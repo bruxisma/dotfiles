@@ -63,7 +63,6 @@ def symsetup ():
 
     symlink_to('pwsh', shell_target)
     symlink_to('gh', CONFIG_HOME.joinpath('gh'))
-    symlink_to('erdtree', CONFIG_HOME.joinpath('erdtree'))
 
     if sys.platform == 'win32':
         symlink_to("wt/settings.json", f'{os.environ["LOCALAPPDATA"]}/{WT_LOCALSTATE}/settings.json')
