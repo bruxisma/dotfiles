@@ -105,11 +105,6 @@ Set-Item -Path Env:PACK_HOME -Value $(Join-Path ${env:XDG_CONFIG_HOME} pack)
 
 Set-Item -Path Env:CCACHE_DIR -Value $(Join-Path ${env:XDG_CACHE_HOME} "ccache")
 
-if (${IsWindows}) {
-  Set-Item -Path Env:CARGO_INSTALL_ROOT -Value (Join-Path ${env:LOCALAPPDATA} Programs cargo)
-  Set-Item -Path Env:GOBIN -Value (Join-Path ${env:LOCALAPPDATA} Programs go)
-}
-
 <# General Values #>
 Set-Item -Path Env:CMAKE_GENERATOR -Value "Ninja Multi-Config"
 Set-Item -PATH Env:NINJA_STATUS -Value "%e [%f/%t] "
