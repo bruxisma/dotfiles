@@ -124,6 +124,11 @@ if ((Test-Executable oh-my-posh) -and (Test-Path -LiteralPath "${script:OhMyPosh
   oh-my-posh init pwsh --config "${script:OhMyPoshConfig}" | Invoke-Expression
 }
 
+if (-not (Get-Command -Module ProfileAsync -Name Import-ProfileAsync)) {
+  Write-Warning "Import-ProfileAsync command is unavailable."
+  return
+}
+
 Import-ProfileAsync {
   <# Platform Specific Settings #>
   if ($IsWindows) {
