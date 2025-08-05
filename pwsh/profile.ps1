@@ -114,11 +114,13 @@ Set-Item -Path Env:FZF_DEFAULT_COMMAND -Value "fd --type f"
 Set-Item -Path Env:LESSCHARSET -Value "utf-8"
 
 <# Terminal Settings #>
+Set-PSReadlineOption @ReadlineConfig
+
+Set-PSReadlineKeyHandler -Chord Shift+Ctrl+a -Function SelectAll
 Set-PSReadlineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
 Set-PSReadlineKeyHandler -Chord Ctrl+a -Function BeginningOfLine
 Set-PSReadlineKeyHandler -Chord Ctrl+e -Function EndOfLine
 
-Set-PSReadlineOption @ReadlineConfig
 
 if ((Test-Executable oh-my-posh) -and (Test-Path -LiteralPath "${script:OhMyPoshConfig}")) {
   oh-my-posh init pwsh --config "${script:OhMyPoshConfig}" | Invoke-Expression
