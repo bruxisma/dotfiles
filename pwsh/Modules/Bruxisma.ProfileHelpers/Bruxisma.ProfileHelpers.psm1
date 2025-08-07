@@ -14,23 +14,6 @@ function Update-File {
   }
 }
 
-function Update-LocalProfile {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
-
-  if ($PSCmdlet.ShouldProcess("${scriptRoot}/machine.ps1")) {
-    Import-Module ${PROFILE} -Force -Global
-  }
-}
-
-function Update-Profile {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
-  if (${PSCmdlet}.ShouldProcess(${PROFILE}.CurrentUserAllHosts)) {
-    Import-Module ${PROFILE}.CurrentUserAllHosts -Force -Global
-  }
-}
-
 function Edit-File {
   [CmdletBinding()]
   param(
@@ -48,7 +31,7 @@ function Edit-File {
 }
 
 function Edit-LocalProfile {
-  Edit-File ${PROFILE}.CurrentUserCurrentHost
+  Edit-File ${PROFILE}
 }
 
 function Edit-Profile {
@@ -63,7 +46,19 @@ function Test-Executable {
     [String]$Command
   )
 
-  $Application = Get-Command -Name ${Command} -Type Application -ErrorAction SilentlyContinue -TotalCount 1
+  $Arguments = {
+    Name = ${Command}
+    Type = "Application"
+    ErrorAction = "SilentlyContinue"
+    TotalCount = 1
+  }
+
+  $Application = Get-Command      `
+    -ErrorAction SilentlyContinue `
+    -Name ${Command}              `
+    -Type Application             `
+    -TotalCount 1
+
   if (-not ${Application}) { return $null }
   if (-not (Test-Path -LiteralPath ${Application}.Source -PathType Leaf)) { return $null }
   return ${Application}

@@ -9,7 +9,6 @@ Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH}
 [Console]::OutputEncoding = [Encoding]::UTF8
 
 Import-Module Bruxisma.ProfileHelpers
-Import-Module $(Join-Path $PSScriptRoot completion.ps1) -Force -Global # Custom Completions
 
 # Explicitly set XDG fallback values
 ${env:XDG_CONFIG_HOME} ??= $(Join-Path ${HOME} ".config")

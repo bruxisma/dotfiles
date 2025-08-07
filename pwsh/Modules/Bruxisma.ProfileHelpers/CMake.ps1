@@ -4,23 +4,11 @@ using namespace System.Management.Automation;
 $script:display = @{ Name = "Display"; Expression = { $_.Groups[$_.Groups[2].Success + 1].Value } }
 $script:name = @{ Name = "Name"; Expression = { $_.Groups[1].Value } }
 
-function script:Read-SSHConfig {
-  [CmdletBinding()]
-  param(
-  [ValidateNotNullOrEmpty()]
-  [Parameter(Mandatory=$true)]
-  [String]$Path)
-  (Select-String -Path ${Path} -Pattern '^Host\s+(.+)$'
-  | ForEach-Object { $_.Matches.Groups[1].Value -split ' ' }
-  | Select-String -Pattern '[*!?]' -NotMatch) &&
-  (Select-String -Path ${Path} -Pattern '^Include (.+)$'
-  | ForEach-Object { Read-SSHConfig -Path $_.Matches.Groups[1].Value })
-}
 
-
-# TODO: Read from the files directly instead of letting CMake do it for us.
-#       This would make it closer to how Read-SSHConfig works
-function script:Read-CMakePresets {
+# NOTE: Reading directly from the files instead of letting CMake do it for us
+# would make this closer to what we do with SSH, but also reduce overhead since
+# we'd be reading JSON without launching an executable as overhead.
+function Read-CMakePresets {
   [CmdletBinding()]
   param(
     [ValidateNotNullOrEmpty()]
@@ -36,14 +24,14 @@ function script:Read-CMakePresets {
   | Select-Object -Property ${script:name},${script:display}
 }
 
-function script:Get-CMakePresetType {
+function Get-CMakePresetType {
   [CmdletBinding()]
   param([CommandAst]$commandAst)
   switch (${commandAst}.GetCommandName()) {
-    "cpack" { "package"}
+    "cpack" { "package" }
     "ctest" { "test" }
     default {
-      switch (${commandAst}.ToString()) {
+      switch (${command}.ToString()) {
         { $_.Contains("--workflow") } { "workflow" }
         { $_.Contains("--build") } { "build" }
         default { "configure" }
@@ -52,6 +40,7 @@ function script:Get-CMakePresetType {
   }
 }
 
+# TODO: Need to handle `--workflow <preset>` as an option
 Register-ArgumentCompleter -CommandName "cmake", "ctest", "cpack" -Native -ScriptBlock {
   param($wordToComplete, $commandAst)
 
@@ -61,11 +50,4 @@ Register-ArgumentCompleter -CommandName "cmake", "ctest", "cpack" -Native -Scrip
     Read-CMakePresets -Type ${type} -Path "${PWD}"
     | ForEach-Object { [CompletionResult]::new("--preset=$($_.Name)", $_.Display, "ParameterValue", $_.Name) }
   }
-}
-
-Register-ArgumentCompleter -CommandName "ssh", "scp" -Native -ScriptBlock {
-  param($wordToComplete)
-  Read-SSHConfig -Path "${HOME}/.ssh/config"
-  | Sort-Object -Unique
-  | Where-Object { $_ -like "${wordToComplete}*" }
 }
