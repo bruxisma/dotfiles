@@ -17,7 +17,7 @@ function Update-File {
 function Edit-File {
   [CmdletBinding()]
   param(
-    [Parameter(Position=0, Mandatory=$true)]
+    [Parameter(Position=0, Mandatory)]
     [ValidateNotNullOrEmpty()]
     [String]$Path,
     [Parameter(Position=1, ValueFromRemainingArguments)]

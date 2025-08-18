@@ -3,7 +3,12 @@ require("globals")
 require("options")
 require("keymaps")
 require("autocmd")
-require("lazy").setup("plugins")
+require("lazy").setup {
+  spec = {
+    { import = "plugins" }
+  },
+  rocks = { enabled = false }
+}
 
 vim.cmd.colorscheme("gruvbox")
 
