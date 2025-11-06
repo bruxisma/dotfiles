@@ -7,8 +7,18 @@
   PowerShellVersion = '7.5'
   CompatiblePSEditions = @('Core')
   RootModule = "Bruxisma.AudioProduction"
+  NestedModules = @(
+    "DecentSampler.ps1"
+    "WavPack.ps1"
+    "Ableton.ps1"
+    "Samples.ps1"
+  )
   FunctionsToExport = @(
-    'Install-SerumPack'
+    "Install-SerumPack"
+    "Find-AbletonUserLibrary"
+    "ConvertTo-WavPack"
+    "ConvertFrom-WavPack"
+    "ConvertTo-SamplePack"
   )
   CmdletsToExport = @()
   VariablesToExport = '*'

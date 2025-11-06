@@ -85,22 +85,10 @@
                 "source": "Bruxisma"
             },
             {
-                "guid": "{41a953d6-85cf-5836-84c7-d765c73d91b8}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Microsoft.WSL"
-            },
-            {
                 "guid": "{0b308980-87f3-5b4b-b341-c1f271633418}",
                 "hidden": true,
                 "name": "Developer PowerShell for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{8ab8e6f6-35c6-5b46-8419-3e1568105476}",
-                "hidden": true,
-                "name": "Podman Machine",
-                "source": "Windows.Terminal.Wsl"
             }
         ]
     },

@@ -2,6 +2,7 @@ require("manager")
 require("globals")
 require("options")
 require("keymaps")
+require("ableton")
 require("autocmd")
 require("lazy").setup {
   spec = {
@@ -49,3 +50,29 @@ alias("todo", "TodoTrouble")
 alias("json", "%!jq .")
 alias("lgrep", "silent", "lgrep")
 alias("grep", "silent", "grep")
+
+vim.filetype.add({
+  extension = {
+    winget = "yaml",
+
+    vitaltheme = "json",
+    vitalskin = "json",
+
+    tfbackend = "hcl",
+    tfvars = "hcl",
+    tofu = "hcl",
+    tf = "hcl",
+
+    targets = "xml",
+    props = "xml",
+    slnx = "xml",
+    wsb = "xml",
+    wxs = "xml",
+    xmp = "xml",
+  },
+  pattern = {
+    [".+/%.local/share/ssh/.+%.conf"] = "sshconfig",
+    [".+/%.config/ssh/.+%.conf"] = "sshconfig",
+    [".+/git/config"] = "gitconfig",
+  }
+})

@@ -1,10 +1,3 @@
-function filetype(filetype, pattern)
-  vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    pattern = pattern,
-    command = string.format("setfiletype %s", filetype)
-  })
-end
-
 vim.api.nvim_create_autocmd("VimResized", {
   desc = "Automatically resize the window splits when resizing the window",
   command = "wincmd =",
@@ -44,6 +37,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- read ableton files
+vim.api.nvim_create_augroup("ableton", { clear = true })
+vim.api.nvim_create_autocmd({"BufReadPre", "FileReadPre"}, {
+  group = "ableton",
+  pattern = { "*.adv", "*.adg" },
+  command = "setlocal bin",
+})
+
 -- Create a directory if the path doesn't exist
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function(event)
@@ -52,18 +53,3 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end
 })
-
--- Force some filetype settings
-filetype("sshconfig", { "*/.local/share/ssh/*.conf", "*/.config/ssh/*.conf" })
-filetype("gitconfig", { "*/git/config" })
-filetype("yaml", { "*.winget" })
-filetype("json", { "*.vitaltheme", "*.vitalskin" })
-filetype("xml", { "*.xmp", "*.wxs", "*.wsb", "*.props", "*.targets" })
-filetype("hcl", { "*.tf", "*.tofu", "*.tfbackend", "*.tfvars" })
--- This fixes some weird behavior I've run into on windows
-filetype("help", {
-  vim.fs.normalize(vim.fs.joinpath(vim.env.VIMRUNTIME, "doc", "*.txt")),
-  vim.fs.normalize(vim.fs.joinpath(vim.fn.stdpath("data"), "lazy", "*", "doc", "*.txt")),
-})
-
-
