@@ -1,5 +1,5 @@
 return {
-  ensure_installed = {
+  {
     "bash",
     "c",
     "cmake",
@@ -26,6 +26,7 @@ return {
     "markdown_inline",
     "ninja",
     "proto",
+    "powershell",
     "python",
     "query",
     "rust",
@@ -38,11 +39,12 @@ return {
     "yaml",
     "zig",
   },
-  highlight = {
-    additional_vim_regex_highlighting = { "dockerfile", "cmake", "make", },
-    enable = true,
-    disable = { "dockerfile" },
-  },
-  incremental_selection = { enable = true },
-  indent = { enable = true, disable = { "lua" } },
+  { max_jobs = 4 }
+--  highlight = {
+--    additional_vim_regex_highlighting = { "dockerfile", "cmake", "make", },
+--    enable = true,
+--    disable = { "dockerfile" },
+--  },
+--  incremental_selection = { enable = true },
+--  indent = { enable = true, disable = { "lua" } },
 }

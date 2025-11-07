@@ -12,6 +12,7 @@
     "WavPack.ps1"
     "Ableton.ps1"
     "Samples.ps1"
+    "Serum.ps1"
   )
   FunctionsToExport = @(
     "Install-SerumPack"

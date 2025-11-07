@@ -90,20 +90,21 @@ local plugins = {
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = require("treesitter"),
-    main = "nvim-treesitter.configs",
+    branch = "main",
+    lazy = false,
     init = function()
       local install = require("nvim-treesitter.install")
       install.compilers = { "clang" }
       install.prefer_git = false
     end,
     build = function()
-      require("nvim-treesitter.install").update { with_sync = true }
+      local languages, opts = require("treesitter")
+      require("nvim-treesitter").install(languages, opts)
     end,
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre" },
-      "nvim-treesitter/nvim-treesitter-refactor",
+      -- "nvim-treesitter/nvim-treesitter-refactor",
     },
   },
 
