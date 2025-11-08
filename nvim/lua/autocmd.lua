@@ -2,6 +2,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 augroup("ableton", { clear = true })
+augroup("max/msp", { clear = true })
 
 autocmd("VimResized", {
   desc = "Automatically resize the window splits when resizing the window",
@@ -52,9 +53,13 @@ autocmd("BufWritePre", {
 
 autocmd("FileType", {
   pattern = require("treesitter")[1],
-  callback = function()
-    vim.treesitter.start()
-  end,
+  callback = function() vim.treesitter.start() end,
+})
+
+autocmd("FileType", {
+  group = "max/msp",
+  pattern = { "jitter-xml-shader" },
+  callback = function() vim.treesitter.start() end,
 })
 
 --autocmd({"BufReadPre", "FileReadPre"}, {

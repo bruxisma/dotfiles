@@ -6,4 +6,4 @@ vim.filetype.add({
   }
 })
 
-vim.treesitter.language.register("xml", "jitter-xml-shader")
+vim.treesitter.language.register("xml", { "jitter-xml-shader" })
