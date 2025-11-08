@@ -23,13 +23,8 @@ The following tools are required to get the full use out of this project:
  - [neovim](https://github.com/neovim/neovim)
  - [ripgrep](https://crates.io/crates/ripgrep)
  - [delta](https://crates.io/crates/git-delta)
- - [lsd](https://crates.io/crates/lsd)
  - [fd](https://crates.io/crates/fd-find)
  - [gh](https://github.com/cli/cli)
-
-The following font is used:
-
- - [Delugia Code](https://github.com/adam7/delugia-code)
 
 # Development
 
@@ -38,7 +33,6 @@ dotfiles meet my personal requirements. To do this a few development tools are
 used:
 
  - [PSScriptAnalyzer](#)
- - [stylua](#)
  - [yamllint](#)
 
 # Toolbox
@@ -55,7 +49,7 @@ Additional utilities in my toolbox include the following:
  - [ambr](https://crates.io/crates/amber)
  - [bat](https://crates.io/crates/bat)
  - [btm](https://crates.io/crates/bottom)
- - [youtube-dl](#)
+ - [yt-dlp](#)
 
  - [golangci-lint](#)
  - [flarectl](#)

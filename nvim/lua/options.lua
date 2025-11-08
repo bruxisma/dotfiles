@@ -6,6 +6,7 @@ option.foldlevelstart = 10
 option.foldenable = false
 option.foldmethod = "expr"
 option.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
 
 option.colorcolumn = "80"
 option.virtualedit = "block"
