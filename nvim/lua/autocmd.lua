@@ -62,6 +62,22 @@ autocmd("FileType", {
   callback = function() vim.treesitter.start() end,
 })
 
+autocmd({"User"}, {
+  desc = "Build custom languages for nvim-treesitter",
+  pattern = "TSUpdate",
+  callback = function()
+    require("nvim-treesitter.parsers").hexpat = {
+      install_info = {
+        url = 'https://github.com/jtkot/tree-sitter-hexpat.git',
+        branch = 'main',
+        files = { 'src/parser.c' },
+        generate = true,
+        generate_from_json = true,
+      }
+    }
+  end,
+})
+
 --autocmd({"BufReadPre", "FileReadPre"}, {
 --  desc = "Attempt to read ableton files in-situ",
 --  group = "ableton",

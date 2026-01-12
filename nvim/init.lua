@@ -53,6 +53,8 @@ alias("grep", "silent", "grep")
 
 vim.filetype.add({
   extension = {
+    hexpat = "hexpat",
+
     winget = "yaml",
 
     vitaltheme = "json",

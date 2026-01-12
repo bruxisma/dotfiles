@@ -104,7 +104,6 @@ local plugins = {
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre" },
-      -- "nvim-treesitter/nvim-treesitter-refactor",
     },
   },
 

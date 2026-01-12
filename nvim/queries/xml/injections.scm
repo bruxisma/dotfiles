@@ -2,8 +2,11 @@
   (STag
     (Name) @name)
   (content
+   (CharData)
    (CDSect
-     (CData) @injection.content)))
+     (CDStart)
+     (CData) @injection.content)
+     (CharData)))
   (#eq? @name "program")
   (#set! injection.combined)
   (#set! injection.include-children)

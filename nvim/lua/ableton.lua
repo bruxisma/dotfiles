@@ -1,5 +1,7 @@
 vim.filetype.add({
   extension = {
+    genexpr = "genexpr",
+    gendsp = "genexpr",
     maxproj = "json",
     maxpat = "json",
     jxs = "jitter-xml-shader",

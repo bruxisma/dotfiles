@@ -13,13 +13,17 @@
     "Ableton.ps1"
     "Samples.ps1"
     "Serum.ps1"
+    "FLAC.ps1"
   )
   FunctionsToExport = @(
     "Install-SerumPack"
     "Find-AbletonUserLibrary"
+    "Expand-AbletonGroup"
+    "Compress-AbletonGroup"
     "ConvertTo-WavPack"
     "ConvertFrom-WavPack"
     "ConvertTo-SamplePack"
+    "ConvertTo-FLAC"
   )
   CmdletsToExport = @()
   VariablesToExport = '*'

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key><string>casa.izzys.environment</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>sh</string>
+      <string>-c</string>
+      <string>
+        launchctl setenv NUGET_PLUGINS_CACHE_PATH ${HOME}/Library/Caches/NuGet/plugin-cache;
+        launchctl setenv NUGET_HTTP_CACHE_PATH ${HOME}/Library/Caches/NuGet/v3-cache;
+        launchctl setenv NUGET_PACKAGES ${HOME}/Library/NuGet/packages;
+
+        launchctl setenv GOAMD64 v3;
+        launchctl setenv GOPATH ${HOME}/Library/Go;
+        launchctl setenv GOBIN ${HOME}/Library/Tools/bin;
+
+        launchctl setenv CARGO_INSTALL_ROOT ${HOME}/Library/Tools;
+        launchctl setenv RUSTUP_HOME ${HOME}/Library/RustUp;
+        launchctl setenv CARGO_HOME ${HOME}/Library/Cargo;
+
+        launchctl setenv CCACHE_DIR ${HOME}/Library/Caches/ccache;
+
+        launchctl setenv PACK_HOME "${HOME}/Library/Application Support/io.buildpacks.pack";
+
+        launchctl setenv NPM_CONFIG_USERCONFIG "${HOME}/Library/Application Support/com.nodejs.npm/config";
+        launchctl setenv DOCKER_CONFIG "${HOME}/Library/Application Support/Docker";
+
+        launchctl setenv CMAKE_GENERATOR "Ninja Multi-Config";
+        launchctl setenv DOCKER_BUILDKIT 1;
+        launchctl setenv DOTNET_NOLOGO true;
+        launchctl setenv FZF_DEFAULT_COMMAND "fd --type f";
+        launchctl setenv LESSCHARSET "utf-8";
+        launchctl setenv NINJA_STATUS "%e [%f/%t] ";
+      </string>
+    </array>
+    <key>RunAtLoad</key><true />
+  </dict>
+</plist>

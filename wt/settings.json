@@ -85,10 +85,10 @@
                 "source": "Bruxisma"
             },
             {
-                "guid": "{0b308980-87f3-5b4b-b341-c1f271633418}",
-                "hidden": true,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
+                "guid": "{cddd41cd-3fe2-559d-8843-5c980c62bca8}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL"
             }
         ]
     },

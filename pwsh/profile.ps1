@@ -11,6 +11,7 @@ Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH}
 Import-Module Bruxisma.ProfileHelpers
 
 # Explicitly set XDG fallback values
+
 ${env:XDG_CONFIG_HOME} ??= $(Join-Path ${HOME} ".config")
 ${env:XDG_CACHE_HOME} ??= $(Join-Path ${HOME} ".cache")
 ${env:XDG_STATE_HOME} ??= $(Join-Path ${HOME} ".local" "share" "state")
@@ -61,29 +62,13 @@ Set-Alias edit Edit-File
 # Some notes from the Arch Linux wiki:
 # https://wiki.archlinux.org/title/Environment_variables#Per_Xorg_session
 
-<# Windows Environment Variables #>
-if (${IsWindows}) {
-  Set-Item -Path Env:NUGET_PACKAGES -Value (Join-Path ${env:LOCALAPPDATA} NuGet packages)
-}
-
-<# Linux Environment Variables #>
-if (${IsLinux}) {
-  Set-Item -Path Env:NUGET_PLUGINS_CACHE_PATH -Value (Join-Path ${HOME} .cache NuGet plugin-cache)
-  Set-Item -Path Env:NUGET_HTTP_CACHE_PATH -Value (Join-Path ${HOME} .cache NuGet v3-cache)
-  Set-Item -Path Env:NUGET_PACKAGES -Value (Join-Path ${HOME} .local share NuGet packages)
-}
-
 <# Environment Variables #>
 ${private:Paths} += @(
-  Join-Path ${HOME} .local bin
   Join-Path ${HOME} .cargo bin
 )
 
 if ($IsWindows) {
-  ${private:Paths} += @(
-    Join-Path C: MinGW bin
-    Join-Path ${env:LOCALAPPDATA} Microsoft WindowsApps
-  )
+  ${private:Paths} += @()
 }
 
 if ($IsMacOS) {
@@ -93,16 +78,9 @@ if ($IsMacOS) {
 Set-Item -Path Env:PATH -Value $(${private:Paths} -join ${private:Separator})
 Set-Item -Path Env:EDITOR -Value (Test-Executable "nvim").Source
 
-Set-Item -Path Env:GOAMD64 -Value "v3"
-Set-Item -Path Env:GOPATH -Value $(Join-Path ${HOME} .local share go)
-Set-Item -Path Env:GOBIN -Value $(Join-Path ${HOME} .local bin)
-
-Set-Item -Path Env:NPM_CONFIG_USERCONFIG -Value $(Join-Path ${env:XDG_CONFIG_HOME} npm config)
-Set-Item -Path Env:DOCKER_CONFIG -Value $(Join-Path ${env:XDG_CONFIG_HOME} docker)
-
-Set-Item -Path Env:PACK_HOME -Value $(Join-Path ${env:XDG_CONFIG_HOME} pack)
-
-Set-Item -Path Env:CCACHE_DIR -Value $(Join-Path ${env:XDG_CACHE_HOME} "ccache")
+if (-not (Test-Path Env:CCACHE_DIR -PathType Leaf)) {
+  Set-Item -Path Env:CCACHE_DIR -Value $(Join-Path ${env:XDG_CACHE_HOME} "ccache")
+}
 
 <# General Values #>
 Set-Item -Path Env:CMAKE_GENERATOR -Value "Ninja Multi-Config"
@@ -137,7 +115,6 @@ Import-ProfileAsync {
   }
 
   if (Test-Executable gh) { gh completion --shell powershell | Out-String | Invoke-Expression }
-  if (Test-Executable just) { just --completions powershell | Out-String | Invoke-Expression }
 
   if (Test-Executable rustup) { rustup completions powershell | Out-String | Invoke-Expression }
   if (Test-Executable rclone) { rclone completion powershell | Out-String | Invoke-Expression }
