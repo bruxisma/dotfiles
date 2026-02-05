@@ -55,6 +55,7 @@ vim.filetype.add({
   extension = {
     hexpat = "hexpat",
 
+    apinotes = "yaml",
     winget = "yaml",
 
     vitaltheme = "json",
