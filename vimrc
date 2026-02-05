@@ -1,15 +1,5 @@
 source $VIMRUNTIME/defaults.vim
 
-set runtimepath-=$HOME/vimfiles/after
-set runtimepath-=$HOME/vimfiles
-set runtimepath+=$HOME/.vim/after
-set runtimepath^=$HOME/.vim
-
-set packpath-=$HOME/vimfiles/after
-set packpath-=$HOME/vimfiles
-set packpath+=$HOME/.vim/after
-set packpath^=$HOME/.vim
-
 set termencoding=utf-8
 set encoding=utf-8
 scriptencoding utf-8
@@ -61,14 +51,13 @@ set hidden
 
 set background=dark
 if has('gui')
-  set guioptions=afgm
+  set guioptions=!adefgimCT
   set guifont=
   set columns=120
   set lines=40
   if has('mac') | set macligatures | endif
   if has('win32')
     silent! set guifont=Cascadia_Code_NF:h12:cANSI:qDRAFT
-    silent! set guioptions+=!
     silent! set renderoptions=type:directx
     silent! set renderoptions+=gamma:1.0 ",contrast:0.5,level:0.5,
     silent! set renderoptions+=geom:1,renmode:5,taamode:2
@@ -81,7 +70,7 @@ function! s:command(name, ...)
   return getcmdtype() == ':' && getcmdline() =~# '^' .. a:name
         \ ? join(a:000, ' ')
         \ : a:name
-endfunction 
+endfunction
 
 cnoreabbrev <expr> rc <SID>command("rc", "edit<Space>$MYVIMRC")
 
@@ -127,6 +116,10 @@ nnoremap <Leader><Space> :silent! call setreg('/', '')<CR>
 " This is useful for those languages where I do things
 nnoremap <F5> :silent make<CR>
 nnoremap <F4> :cclose<CR>
+
+if has('gui')
+  noremap <expr> <F11> ':set guioptions' .. (&guioptions =~# 's' ? "-" : "+") .. "=s<CR>"
+endif
 
 " Open quickfix window automatically
 autocmd QuickFixCmdPost [^l]* nested cwindow
