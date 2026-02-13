@@ -14,11 +14,10 @@ function ConvertTo-WavPack {
     [Switch]$Recurse,
     [Switch]$Force,
     [Switch]$AutoRemove,
-    [Int]$Threads
+    [Int]$Threads = [Math]::Min([Environment]::ProcessorCount, 12)
   )
 
   begin {
-    $Threads = $Threads ?? 4
     $GCI = @{
       LiteralPath = $LiteralPath
       Include = $Include
@@ -38,7 +37,7 @@ function ConvertTo-WavPack {
         Remove-Item -LiteralPath "${Target}" -Force
       }
       if ($File.Length) {
-        wavpack --threads=${Threads} -x6 -hh -z -v -q "${File}" "${Target}"
+        wavpack "--threads=${Threads}" -x6 -hh -z -v -q "${File}" "${Target}"
         (Get-Item -LiteralPath ${Target}).LastWriteTime = $File.LastWriteTime
         if ($? -and $AutoRemove) { Remove-Item -LiteralPath $File }
       }
