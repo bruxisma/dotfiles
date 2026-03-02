@@ -13,6 +13,14 @@ set noswapfile
 set visualbell
 set number
 
+colorscheme retrobox
+
+packadd! editorconfig
+packadd! matchit
+packadd comment
+packadd helptoc
+packadd hlyank
+
 if executable('pwsh')
   set shell=pwsh
   set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned
@@ -39,7 +47,11 @@ set softtabstop=-1 tabstop=2 shiftwidth=2
 
 set virtualedit=block
 set nrformats=hex
-if has('+diff') | set diffopt+=vertical | endif
+
+if has('+diff')
+  set diffopt+=vertical
+  set diffopt+=linematch:60
+endif
 
 set ignorecase smartcase
 set incsearch hlsearch
@@ -144,4 +156,4 @@ let g:netrw_winsize = 30
 let g:netrw_banner = 0
 let g:netrw_menu = 0
 
-colorscheme retrobox
+
