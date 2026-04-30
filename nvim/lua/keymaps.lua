@@ -39,6 +39,11 @@ vim.keymap.set(normal, "<Leader>h", vim.cmd.split, {
   noremap = true,
 })
 
+vim.keymap.set(normal, "<Leader>u", require("undotree").open, {
+  desc = "Toggle the UndoTree",
+  noremap = true,
+})
+
 vim.keymap.set(normal, "<Leader><Space>", function() vim.fn.setreg("/", "") end, {
   desc = "Clear 'hlsearch'",
   silent = true,

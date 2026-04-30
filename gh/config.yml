@@ -3,3 +3,4 @@ editor: nvim
 prompt: enabled
 pager: delta
 version: "1"
+telemetry: disabled

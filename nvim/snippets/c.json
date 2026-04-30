@@ -10,5 +10,5 @@
   "struct": {
     "prefix": ["struct"],
     "body": ["struct ${1:name} {", "  ${0}", "};"]
-  },
+  }
 }

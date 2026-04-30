@@ -5,23 +5,23 @@
   },
   "macro": {
     "prefix": ["macro"],
-    "body": ["macro (${1:name})", "  ${0}", "endmacro"],
+    "body": ["macro (${1:name})", "  ${0}", "endmacro"]
   },
   "if": {
     "prefix": ["if"],
-    "body": ["if (${1:name})", "  ${0}", "endif"],
+    "body": ["if (${1:name})", "  ${0}", "endif"]
   },
   "foreach": {
     "prefix": ["foreach"],
-    "body": ["foreach (${1:item} IN LISTS ${1:list})", "  ${0}", "endforeach"],
+    "body": ["foreach (${1:item} IN LISTS ${1:list})", "  ${0}", "endforeach"]
   },
   "while": {
     "prefix": ["while"],
-    "body": ["while (${1:name})", "  ${0}", "endwhile"],
+    "body": ["while (${1:name})", "  ${0}", "endwhile"]
   },
   "block": {
     "prefix": ["block"],
-    "body": ["block (SCOPE_FOR ${1:VARIABLES})", "  ${0}", "endblock"],
+    "body": ["block (SCOPE_FOR ${1:VARIABLES})", "  ${0}", "endblock"]
   },
   "include_guard(GLOBAL)": {
     "prefix": ["once"],

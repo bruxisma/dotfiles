@@ -78,6 +78,21 @@ autocmd({"User"}, {
   end,
 })
 
+autocmd("InsertEnter", {
+  desc = "Lazy Load blink complete",
+  once = true,
+  pattern = "*", 
+  callback = function()
+    require("blink.cmp").setup({
+      keymap = { preset = "super-tab" },
+      completion = { documentation = { auto_show = true } },
+
+      sources = { default = { "lsp", "buffer", "snippets", "path" } },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+    })
+  end,
+})
+
 --autocmd({"BufReadPre", "FileReadPre"}, {
 --  desc = "Attempt to read ableton files in-situ",
 --  group = "ableton",
