@@ -49,6 +49,7 @@ local function alias(name, ...)
     return name
   end
   vim.keymap.set("ca", name, mapping, options)
+  package.loaded.prelude.aliases = vim.list.unique(vim.list_extend(package.loaded.prelude.aliases, { name }))
 end
 
 vim.pack.add({
