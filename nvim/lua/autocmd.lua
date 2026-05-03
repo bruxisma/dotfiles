@@ -52,7 +52,7 @@ autocmd("BufWritePre", {
 })
 
 autocmd("FileType", {
-  pattern = require("treesitter")[1],
+  pattern = package.loaded.filetypes,
   callback = function() vim.treesitter.start() end,
 })
 
