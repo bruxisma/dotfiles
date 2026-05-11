@@ -52,7 +52,7 @@ autocmd("BufWritePre", {
 })
 
 autocmd("FileType", {
-  pattern = package.loaded.filetypes,
+  pattern = package.loaded.filetype,
   callback = function() vim.treesitter.start() end,
 })
 
@@ -81,14 +81,10 @@ autocmd({"User"}, {
 autocmd("InsertEnter", {
   desc = "Lazy Load blink complete",
   once = true,
-  pattern = "*", 
+  pattern = "*",
   callback = function()
     require("blink.cmp").setup({
       keymap = { preset = "super-tab" },
-      completion = { documentation = { auto_show = true } },
-
-      sources = { default = { "lsp", "buffer", "snippets", "path" } },
-      fuzzy = { implementation = "prefer_rust_with_warning" },
     })
   end,
 })

@@ -38,7 +38,8 @@ local function normative(plugin)
   return not preloaded(plugin)
 end
 
--- Lets us create custom lowercase user commands to overwrite builtins like 'ls' for actual useful features.
+-- Lets us create custom lowercase user commands to overwrite builtins like
+-- 'ls' for actual useful features.
 local function alias(name, ...)
   local args = { ... }
   local options = { noremap = true, expr = true, replace_keycodes = true }
@@ -90,7 +91,9 @@ vim.pack.add({
 
 packages():filter(preloaded):map(setup):totable()
 
-vim.notify = package.loaded.notify
+--vim.notify = package.loaded.notify
+require('vim._core.ui2').enable()
+
 
 return {
   alias = alias,

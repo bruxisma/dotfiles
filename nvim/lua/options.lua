@@ -8,6 +8,9 @@ option.foldenable = false
 option.foldmethod = "expr"
 option.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 option.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+option.completeopt:append("popup")
+
+option.winborder = "rounded"
 
 option.colorcolumn = "80"
 option.virtualedit = "block"

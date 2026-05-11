@@ -27,6 +27,8 @@ local function modified()
   return ""
 end
 
+-- TODO: https://github.com/sindrets/diffview.nvim
+
 vim.pack.add({
   {
     name = "gitsigns",
@@ -57,6 +59,7 @@ vim.pack.add({
             "branch",
             "diff",
             "diagnostics",
+            { vim.ui.progress_status },
             { "filename", file_status = false },
             { modified },
           },
