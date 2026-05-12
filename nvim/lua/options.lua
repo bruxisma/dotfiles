@@ -7,6 +7,7 @@ option.completeopt:append({"fuzzy", "popup", "noselect"})
 option.complete:append({".","w" , "b", "o", "i" ,"d"})
 
 option.pumborder = "rounded"
+option.pumheight = 12
 
 option.foldlevelstart = 10
 option.foldenable = false

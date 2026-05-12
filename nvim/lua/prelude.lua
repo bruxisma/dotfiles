@@ -68,6 +68,7 @@ vim.pack.add({
   {
     src = "https://github.com/nvim-tree/nvim-web-devicons",
     name = "devicons",
+    version = "nerd-v3.2-compat",
     data = {
       module = "nvim-web-devicons",
       prelude = true,

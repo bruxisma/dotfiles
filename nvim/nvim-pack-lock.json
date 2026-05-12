@@ -6,8 +6,9 @@
       "version": "1.0.0 - 2.0.0"
     },
     "devicons": {
-      "rev": "4fc505ac7bd7692824a142e96e5f529c133862f8",
-      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+      "rev": "21417212f640a1dad28a1408f04468819848f5e7",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons",
+      "version": "'nerd-v3.2-compat'"
     },
     "dressing": {
       "rev": "2d7c2db2507fa3c4956142ee607431ddb2828639",
@@ -39,7 +40,7 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "mason": {
-      "rev": "cb8445f8ce85d957416c106b780efd51c6298f89",
+      "rev": "e54f5bf5f12c560da31c17eee5b3e1bd369f3ff9",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "no-neck-pain": {
@@ -60,7 +61,7 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "render-markdown": {
-      "rev": "3f3eea97b80839f629c951ca660ffd125bfa5b34",
+      "rev": "629eb9533ec989d9d5c6cab8f3ad5372422c24e0",
       "src": "https://github.com/MeanderingProgrammer/markdown.nvim"
     },
     "sfz": {
@@ -68,7 +69,7 @@
       "src": "https://github.com/sfztools/sfz.vim"
     },
     "telescope": {
-      "rev": "ec009610d5d259ec59a6edf0219ef3f7ee4732e5",
+      "rev": "f04ab730b8f9c6bf3f54a206d0dcddfd70c52d59",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "todo-comments": {
