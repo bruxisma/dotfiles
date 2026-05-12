@@ -85,20 +85,7 @@ autocmd("InsertEnter", {
   callback = function()
     require("blink.cmp").setup({
       keymap = { preset = "super-tab" },
+      sources = { "lsp", "snippets", "buffer" },
     })
   end,
 })
-
---autocmd({"BufReadPre", "FileReadPre"}, {
---  desc = "Attempt to read ableton files in-situ",
---  group = "ableton",
---  pattern = { "*.adv", "*.adg" },
---  command = "setlocal bin",
---})
-
---autocmd({"BufRead"}, {
---  desc = "Attempt to read ableton files in-situ",
---  group = "ableton",
---  pattern = { "*.adv", "*.adg", "*.als" },
---  command = "call gzip#read(\"gzip -dn\")"
---})

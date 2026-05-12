@@ -3,12 +3,16 @@ local window, option, fn = vim.w, vim.opt, vim.fn
 window.termencoding = "utf-8"
 
 option.autocomplete = true
+option.completeopt:append({"fuzzy", "popup", "noselect"})
+option.complete:append({".","w" , "b", "o", "i" ,"d"})
+
+option.pumborder = "rounded"
+
 option.foldlevelstart = 10
 option.foldenable = false
 option.foldmethod = "expr"
 option.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 option.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
-option.completeopt:append("popup")
 
 option.winborder = "rounded"
 
