@@ -1,21 +1,3 @@
--- Old completion confiruation so I can move to blink.cmp fully later on.
---local plugins = {
---  -- completions
---  {
---    "hrsh7th/nvim-cmp",
---    config = require("completions"),
---    opts = {},
---    dependencies = {
---      { "dcampos/cmp-snippy", dependencies = { "nvim-snippy" } },
---      "hrsh7th/cmp-nvim-lsp-signature-help",
---      "hrsh7th/cmp-nvim-lua",
---      "hrsh7th/cmp-omni",
---      "hrsh7th/cmp-nvim-lsp",
---      { "onsails/lspkind.nvim", lazy = true },
---    },
---  }
---}
-
 local prelude = package.loaded.prelude
 
 local function modified()

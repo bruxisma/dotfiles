@@ -3,7 +3,7 @@ local window, option, fn = vim.w, vim.opt, vim.fn
 window.termencoding = "utf-8"
 
 option.autocomplete = true
-option.completeopt:append({"fuzzy", "popup", "noselect"})
+option.completeopt:append({"fuzzy", "popup", "noselect", "noinsert"})
 option.complete:append({".","w" , "b", "o", "i" ,"d"})
 
 option.pumborder = "rounded"

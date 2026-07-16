@@ -19,7 +19,7 @@
       "src": "https://github.com/tpope/vim-eunuch"
     },
     "gitmoji": {
-      "rev": "c8a1311779e7c7cb7fca17938e68de56c3836c28",
+      "rev": "22f07dafc3304734068101b6ee13838a6c6c43af",
       "src": "https://github.com/bruxisma/gitmoji.vim"
     },
     "gitsigns": {
@@ -40,7 +40,7 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "mason": {
-      "rev": "e54f5bf5f12c560da31c17eee5b3e1bd369f3ff9",
+      "rev": "16ba83bfc8a25f52bb545134f5bee082b195c460",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "no-neck-pain": {
@@ -61,7 +61,7 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "render-markdown": {
-      "rev": "629eb9533ec989d9d5c6cab8f3ad5372422c24e0",
+      "rev": "5adf0895310c1904e5abfaad40a2baad7fe44a07",
       "src": "https://github.com/MeanderingProgrammer/markdown.nvim"
     },
     "sfz": {
@@ -69,7 +69,7 @@
       "src": "https://github.com/sfztools/sfz.vim"
     },
     "telescope": {
-      "rev": "f04ab730b8f9c6bf3f54a206d0dcddfd70c52d59",
+      "rev": "7d324792b7943e4aa16ad007212e6acc6f9fe335",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "todo-comments": {

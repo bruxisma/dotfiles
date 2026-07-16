@@ -4,7 +4,7 @@ local visual = "v"
 
 local function popup(popupKey, insertKey)
   return function()
-    return vim.fn.pumvisible() ~= 0 and popupKey or insertKey
+    return vim.fn.pumvisible() == 1 and popupKey or insertKey
   end
 end
 
@@ -50,6 +50,7 @@ vim.keymap.set(normal, "<Leader><Space>", function() vim.fn.setreg("/", "") end,
   noremap = true,
 })
 
+-- Completion Operations
 vim.keymap.set(insert, "<Down>", popup("<C-n>", "<Down>"), {
   desc = "Use down arrow to choose pop-up menu items",
   expr = true,
@@ -60,7 +61,7 @@ vim.keymap.set(insert, "<Up>", popup("<C-p>", "<Up>"), {
   expr = true,
 })
 
-vim.keymap.set(insert, "<CR>", popup("<C-y>", "<CR>"), {
-  desc = "Use Enter to select pop-up menu item",
+vim.keymap.set(insert, "<S-CR>", popup("<C-y>", "<S-CR>"), {
+  desc = "Use Shift + Enter to select pop-up menu item",
   expr = true
 })
