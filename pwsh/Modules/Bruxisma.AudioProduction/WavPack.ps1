@@ -48,7 +48,7 @@ function ConvertTo-WavPack {
 }
 
 function ConvertFrom-WavPack {
-  [CmdletBinding()]
+  [CmdletBinding(SupportsShouldProcess)]
   param(
     [Parameter(Mandatory, Position = 0)]
     [ValidateNotNullOrEmpty()]
@@ -62,7 +62,8 @@ function ConvertFrom-WavPack {
     [String[]]$Exclude,
     [Switch]$Recurse,
     [Switch]$Force,
-    [Switch]$AutoRemove
+    [Switch]$AutoRemove,
+    [Int]$Threads = [Math]::Min([Environment]::ProcessorCount, 12)
   )
   begin {
     $GCI = @{
@@ -78,16 +79,18 @@ function ConvertFrom-WavPack {
 
   process {
     foreach ($File in $Files) {
-      $Target = [String]::IsNullOrEmpty($Destination) ? ([IO.Path]::GetFileNameWithoutExtension($File.FullName)) : $Destination
+      $Target = [String]::IsNullOrEmpty($Destination) ? ($File.FullName -replace ".wv$","") : $Destination
       Write-Progress -Activity "Decompressing" -Status $File.name -PercentComplete ($Idx++ / $Files.Length * 100)
       if ($Force -and (Test-Path -LiteralPath "${Target}" -PathType Leaf)) {
         Remove-Item -LiteralPath "${Target}" -Force
       }
-      if ($File.Length) {
-        wvunpack --threads=4 -z -q "${File}" "${Target}"
-        (Get-Item -LiteralPath ${Target}).LastWriteTime = $File.LastWriteTime
+      if ($PSCmdlet.ShouldProcess(($File -replace "$PWD/", ''), "Converting to $(${Target} -replace "$PWD/", '')")) {
+        if ($File.Length) {
+          wvunpack "--threads=${Threads}" -z -q "${File}" -o "${Target}"
+          (Get-Item -LiteralPath ${Target}).LastWriteTime = $File.LastWriteTime
+        }
+        if ($? -and $AutoRemove) { Remove-Item -LiteralPath $File }
       }
-      if ($? -and $AutoRemove) { Remove-Item -LiteralPath $File }
     }
   }
 
