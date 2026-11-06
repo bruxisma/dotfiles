@@ -8,8 +8,9 @@
   PowerShellVersion = '7.5.0'
   CompatiblePSEditions = @("Core")
   RootModule = "Bruxisma.ProfileHelpers"
-  NestedModules = @("SSH.ps1";"CMake.ps1";"WinGet.ps1")
+  NestedModules = @("SSH.ps1";"CMake.ps1";"WinGet.ps1";"PowerShell.ps1")
   FunctionsToExport = @(
+    "Update-PowerShell"
     "Update-LocalProfile"
     "Update-Profile"
     "Update-File"
