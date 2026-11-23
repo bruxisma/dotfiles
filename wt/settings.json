@@ -1,10 +1,10 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
-            "command": 
+            "command":
             {
                 "action": "quakeMode"
             },
@@ -16,12 +16,12 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "disabledProfileSources": 
+    "disabledProfileSources":
     [
         "Windows.Terminal.Azure",
         "Windows.Powershell"
     ],
-    "keybindings": 
+    "keybindings":
     [
         {
             "id": "quake",
@@ -32,15 +32,15 @@
             "keys": "win+sc(41)"
         }
     ],
-    "newTabMenu": 
+    "newTabMenu":
     [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": 
+    "profiles":
     {
-        "defaults": 
+        "defaults":
         {
             "adjustIndistinguishableColors": "never",
             "antialiasingMode": "cleartype",
@@ -48,12 +48,12 @@
             "colorScheme": "Gruvbox Dark",
             "cursorShape": "filledBox",
             "experimental.retroTerminalEffect": false,
-            "font": 
+            "font":
             {
                 "axes": {},
                 "builtinGlyphs": false,
                 "face": "Cascadia Code NF",
-                "features": 
+                "features":
                 {
                     "calt": 1,
                     "ss01": 1,
@@ -65,11 +65,11 @@
             "opacity": 80,
             "useAcrylic": true
         },
-        "list": 
+        "list":
         [
             {
-                "commandline": "%ProgramFiles%/PowerShell/7/pwsh.exe -NoLogo",
-                "font": 
+                "commandline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\pwsh.exe -NoLogo",
+                "font":
                 {
                     "face": "Cascadia Code NF"
                 },
@@ -85,22 +85,16 @@
                 "source": "Bruxisma"
             },
             {
-                "guid": "{cddd41cd-3fe2-559d-8843-5c980c62bca8}",
+                "guid": "{17b8a25b-7a9f-55e9-a2d6-a196d06d91aa}",
                 "hidden": false,
-                "name": "Ubuntu",
+                "name": "Podman Machine",
                 "source": "Microsoft.WSL"
             },
             {
-                "guid": "{78c82c22-8fab-5b26-a19e-237fb9140131}",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
-                "name": "Ubuntu",
-                "source": "Microsoft.WSL"
-            },
-            {
-                "guid": "{87497441-fc23-5175-83cf-897adfb008c3}",
-                "hidden": false,
-                "name": "podman-machine-default",
-                "source": "Microsoft.WSL"
+                "name": "Command Prompt",
+                "source": "Bruxisma"
             }
         ]
     },

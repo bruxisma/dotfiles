@@ -9,6 +9,8 @@ if os.getenv("SSH_TTY") and os.getenv("SSH_CLIENT") then
   }
 end
 
+global.omni_sql_default_compl_type = "syntax"
+
 global.editorconfig = false
 global.mapleader = ","
 global.is_kornshell = 0

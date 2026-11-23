@@ -8,7 +8,7 @@ Set-Variable -Scope Private -Name Paths -Value ([List[String]]::new((${env:PATH}
 
 [Console]::OutputEncoding = [Encoding]::UTF8
 
-Import-Module Bruxisma.ProfileHelpers
+Import-Module Bruxisma.Toolkit
 
 # Explicitly set XDG fallback values
 
@@ -110,10 +110,6 @@ if (-not (Get-Command -Module ProfileAsync -Name Import-ProfileAsync)) {
 
 Import-ProfileAsync {
   <# Platform Specific Settings #>
-  if ($IsWindows) {
-    Start-Service ssh-agent
-  }
-
   if (Test-Executable gh) { gh completion --shell powershell | Out-String | Invoke-Expression }
 
   if (Test-Executable rustup) { rustup completions powershell | Out-String | Invoke-Expression }
