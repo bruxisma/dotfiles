@@ -61,7 +61,7 @@ function ConvertTo-HEVC {
   process {
     foreach ($File in $Files) {
 
-      $Output = Join-Path ([IO.Directory]::CreateTempSubdirectory("hevc.")) $File.Name
+      $Output = Join-Path (New-TemporaryDirectory -Prefix "hevc.") $File.Name
       $Threads = [Math]::Clamp([Environment]::ProcessorCount, 0, 16)
       $Arguments = @(
         "-i"
