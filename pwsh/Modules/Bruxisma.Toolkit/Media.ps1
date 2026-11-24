@@ -182,7 +182,7 @@ function Save-Video {
     [String[]]$ArgumentList
   )
 
-  $Downloader = Get-MediaDownloader
+  $Downloader = (Get-Command -Type Application -TotalCount 1 -Name yt-dlp).Source
 
   if ([String]::IsNullOrWhitespace($Name)) {
     $Name = switch ($URL.Host) {
