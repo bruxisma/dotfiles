@@ -41,7 +41,7 @@ function Edit-Profile {
 function Test-Executable {
   [CmdletBinding()]
   param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
     [String]$Command
   )
@@ -76,4 +76,33 @@ function Clear-History {
     [Microsoft.PowerShell.PSReadline]::ClearHistory()
   }
   Clear-Host
+}
+
+function Update-Timestamps {
+  [CmdletBinding(SupportsShouldProcess)]
+  param(
+    [Parameter(Mandatory, Position=0)]
+    [Alias("From")]
+    [ValidateNotNullOrEmpty()]
+    [String]$Path,
+    [Parameter(Mandatory, Position=1)]
+    [Alias("To")]
+    [ValidateNotNullOrEmpty()]
+    [String]$DestinationPath
+  )
+  $TargetPath = Get-Item -LiteralPath $DestinationPath -Force
+  $SourcePath = Get-Item -LiteralPath $Path -Force
+  Get-ChildItem -LiteralPath $Path -Recurse -Force
+  | ForEach-Object {
+    $Target = $PSItem.FullName.Replace($SourcePath.FullName, $TargetPath.FullName)
+    if ((Test-Path $Target) -and $PSCmdlet.ShouldProcess($Target, "Update Timestamps")) {
+      $Target = Get-Item -LiteralPath $Target -Force
+      $Target.LastWriteTime = $PSItem.LastWriteTime
+      $Target.CreationTime = $PSItem.CreationTime
+    }
+  }
+  if ($PSCmdlet.ShouldProcess($TargetPath, "Update Timestamps")) {
+    $TargetPath.LastWriteTime = $SourcePath.LastWriteTime
+    $TargetPath.CreationTime = $SourcePath.CreationTime
+  }
 }

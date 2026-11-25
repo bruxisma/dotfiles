@@ -37,6 +37,7 @@
 
     "Update-PowerShell"
 
+
     "Update-LocalProfile"
     "Update-Profile"
     "Update-File"
@@ -45,6 +46,7 @@
     "Edit-File"
     "Test-Executable"
     "Clear-History"
+    "Update-Timestamps"
   )
   CmdletsToExport = @()
   VariablesToExport = @()
