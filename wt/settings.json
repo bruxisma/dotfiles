@@ -81,7 +81,6 @@
             {
                 "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
                 "hidden": false,
-                "icon": "%ProgramFiles%\\Git\\ucrt64\\share\\git\\git-for-windows.ico",
                 "name": "Git Bash",
                 "source": "Bruxisma"
             },
@@ -95,6 +94,12 @@
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt",
+                "source": "Bruxisma"
+            },
+            {
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": true,
+                "name": "Windows PowerShell",
                 "source": "Bruxisma"
             }
         ]
